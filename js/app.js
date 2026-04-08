@@ -61,6 +61,42 @@
     });
   }
 
+  function formatMemoryDate(ts) {
+    if (!ts) return "";
+    return new Date(ts).toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
+  function totalPhotoCount(state) {
+    return state.jars.reduce(function (n, j) {
+      return n + (j.photos ? j.photos.length : 0);
+    }, 0);
+  }
+
+  function setFooter(html, show) {
+    if (!appFooter) return;
+    if (show) {
+      appFooter.hidden = false;
+      appFooter.innerHTML = html;
+    } else {
+      appFooter.hidden = true;
+      appFooter.textContent = "";
+    }
+  }
+
+  function closeMemoryModal() {
+    modalMemory.hidden = true;
+    modalMemoryImg.src = "";
+    if (modalMemoryDate) {
+      modalMemoryDate.textContent = "";
+      modalMemoryDate.hidden = true;
+    }
+  }
+
   var mainEl = document.getElementById("main");
   var drawer = document.getElementById("drawer");
   var drawerScrim = document.getElementById("drawer-scrim");
@@ -69,7 +105,9 @@
   var modalMemory = document.getElementById("modal-memory");
   var modalMemoryImg = document.getElementById("modal-memory-img");
   var modalMemoryCaption = document.getElementById("modal-memory-caption");
+  var modalMemoryDate = document.getElementById("modal-memory-date");
   var modalMemoryClose = document.getElementById("modal-memory-close");
+  var appFooter = document.getElementById("app-footer");
   var modalNewJar = document.getElementById("modal-new-jar");
   var newJarName = document.getElementById("new-jar-name");
   var newJarCancel = document.getElementById("new-jar-cancel");
@@ -146,30 +184,48 @@
     getOrCreateDefaultJar(state);
     saveState(state);
 
+    var memories = totalPhotoCount(state);
+    var jarCount = state.jars.length;
+
+    setFooter(
+      "Memory Jam · little photos, kept safe · shake the jar when you miss a day",
+      true
+    );
+
     var html = "";
-    html += '<h2 class="screen-title">Home</h2>';
-    html += '<div class="card">';
+    html += '<div class="home-hero">';
+    html += '<p class="cozy-pill">Today</p>';
+    html += '<h2 class="home-hero-kicker">Welcome home</h2>';
+    html += '<p class="home-hero-tagline">A cozy pixel journal — one small photo prompt each day, tucked into jars you can shake whenever you need a soft memory.</p>';
+    html += '<div class="home-stats">';
+    html += '<span class="home-stat"><strong>' + memories + "</strong> memor" + (memories === 1 ? "y" : "ies") + " saved</span>";
+    html += '<span class="home-stat"><strong>' + jarCount + "</strong> " + (jarCount === 1 ? "jar" : "jars") + "</span>";
+    html += "</div>";
+    html += "</div>";
+
+    html += '<div class="prompt-card">';
     html += '<p class="prompt-date">' + escapeHtml(formatToday()) + "</p>";
-    html += '<p class="prompt-box">Today\'s prompt: <strong>' + escapeHtml(todayPrompt()) + "</strong></p>";
+    html += '<p class="prompt-box" style="min-height:3.5rem;margin:0">Today\'s prompt<br/><strong>' + escapeHtml(todayPrompt()) + "</strong></p>";
     html += '<div class="btn-row">';
     html +=
-      '<button type="button" class="btn primary" id="btn-capture-prompt">Add photo to Daily jar</button>';
+      '<button type="button" class="btn primary" id="btn-capture-prompt">Capture for Daily jar</button>';
     html += "</div>";
-    html += '<p class="jar-hint">Your daily capture goes into the <em>Daily memories</em> jar unless you pick another jar inside <a href="#jars">My jars</a>.</p>';
+    html +=
+      '<p class="jar-hint">Saves to <em>Daily memories</em>. Open <a href="#jars">My jars</a> to use a different jar or start a new one.</p>';
     html += "</div>";
 
     html += '<div class="card">';
-    html += '<p class="prompt-box" style="margin:0 0 0.75rem">Quick open</p>';
-    html += '<div class="btn-row">';
-    html += '<a class="btn secondary" href="#jars">My jars</a>';
-    html += '<a class="btn ghost" href="#import">Import shared jar</a>';
+    html += '<p class="prompt-box" style="margin:0 0 0.65rem">Where to next</p>';
+    html += '<div class="quick-links">';
+    html += '<a class="btn secondary" href="#jars">My jars — create &amp; open</a>';
+    html += '<a class="btn ghost" href="#import">Import a shared jar</a>';
     html += "</div>";
     html += "</div>";
 
     html += '<div class="jar-preview-wrap" id="home-jar-tease">';
     html += jarSvg();
     html += "</div>";
-    html += '<p class="jar-hint">Tip: open any jar and shake to pull a random memory.</p>';
+    html += '<p class="jar-hint">Open any jar, tap <strong>Shake jar</strong>, and a random photo will float up — like reaching into a jar of jam for a sweet bit of the past.</p>';
 
     mainEl.innerHTML = html;
 
@@ -188,6 +244,7 @@
   }
 
   function renderJars() {
+    setFooter("", false);
     var state = loadState();
     getOrCreateDefaultJar(state);
     saveState(state);
@@ -224,6 +281,7 @@
   }
 
   function renderJar(jarId) {
+    setFooter("", false);
     var state = loadState();
     var jar = findJar(state, jarId);
     if (!jar) {
@@ -243,10 +301,10 @@
     html += '<div class="btn-row" style="justify-content:center">';
     html += '<button type="button" class="btn primary" id="btn-shake">Shake jar</button>';
     html += "</div>";
-    html += '<p class="jar-hint">Shake the jar to surface a random memory from this jar.</p>';
+    html += '<p class="jar-hint">Give it a shake — a random photo from this jar will drift up like fruit in jam.</p>';
 
     html += '<div class="card">';
-    html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
+    html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
     html += '<div class="btn-row">';
     html += '<button type="button" class="btn primary" id="btn-add-jar">Add today\'s photo here</button>';
     html += "</div>";
@@ -265,7 +323,7 @@
 
     html += '<div class="card">';
     html += '<p class="prompt-box" style="margin:0 0 0.5rem">Share this jar</p>';
-    html += '<p class="jar-hint" style="text-align:left;margin:0 0 0.5rem">Export a file and send it to a friend. They can import it from Home → Import.</p>';
+    html += '<p class="jar-hint" style="text-align:left;margin:0 0 0.5rem">Export the JSON file and send it to someone you trust. They import it from the menu under <strong>Import jar</strong> — your memories stay on your devices.</p>';
     html += '<div class="btn-row">';
     html += '<button type="button" class="btn secondary" id="btn-export">Export .json</button>';
     html += '<button type="button" class="btn ghost" id="btn-copy-share">Copy share text</button>';
@@ -290,7 +348,13 @@
         modalMemoryImg.src = pick.dataUrl;
         modalMemoryImg.alt = "Memory";
         var cap = pick.caption || pick.addedLabel || "";
-        modalMemoryCaption.textContent = cap || "";
+        modalMemoryCaption.textContent = cap || "A quiet moment, saved.";
+        if (modalMemoryDate && pick.createdAt) {
+          modalMemoryDate.textContent = formatMemoryDate(pick.createdAt);
+          modalMemoryDate.hidden = false;
+        } else if (modalMemoryDate) {
+          modalMemoryDate.hidden = true;
+        }
         modalMemory.hidden = false;
       }, 480);
     }
@@ -389,6 +453,7 @@
   }
 
   function renderImport() {
+    setFooter("", false);
     var html = "";
     html += '<h2 class="screen-title">Import jar</h2>';
     html += '<div class="card">';
@@ -464,15 +529,9 @@
     reader.readAsText(f);
   });
 
-  modalMemoryClose.addEventListener("click", function () {
-    modalMemory.hidden = true;
-    modalMemoryImg.src = "";
-  });
+  modalMemoryClose.addEventListener("click", closeMemoryModal);
   modalMemory.addEventListener("click", function (e) {
-    if (e.target === modalMemory) {
-      modalMemory.hidden = true;
-      modalMemoryImg.src = "";
-    }
+    if (e.target === modalMemory) closeMemoryModal();
   });
 
   newJarCancel.addEventListener("click", function () {

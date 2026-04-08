@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#2d1f14" />
+  <meta name="description" content="Memory Jam — a cozy pixel app for daily photo prompts, memory jars you can shake, and sharing jars with friends." />
+  <meta name="theme-color" content="#2a1e16" />
   <title>Memory Jam</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,10 +29,13 @@
 
     <main class="main" id="main"></main>
 
+    <p class="app-footer" id="app-footer" hidden></p>
+
     <div class="modal" id="modal-memory" hidden>
       <div class="modal-card pixel-border">
         <button type="button" class="modal-close" id="modal-memory-close" aria-label="Close">×</button>
         <p class="modal-label">A memory floats up…</p>
+        <p class="modal-memory-date" id="modal-memory-date" hidden></p>
         <img id="modal-memory-img" alt="" />
         <p class="modal-caption" id="modal-memory-caption"></p>
       </div>
