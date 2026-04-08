@@ -168,37 +168,38 @@
   });
 
   function jarSvg() {
-    /* Rounded-square “jam block” + lid; gradients + tiny pixel sparkle */
+    /* Rounded-square jar — neon nightlife jam + cool metal lid */
     return (
       '<svg class="jar-svg" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
       "<defs>" +
       '<linearGradient id="mj-jam" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#f08888"/>' +
-      '<stop offset="45%" stop-color="#c85858"/>' +
-      '<stop offset="100%" stop-color="#7c2834"/>' +
+      '<stop offset="0%" stop-color="#22d3ee"/>' +
+      '<stop offset="40%" stop-color="#a78bfa"/>' +
+      '<stop offset="100%" stop-color="#7c3aed"/>' +
       "</linearGradient>" +
-      '<linearGradient id="mj-lid" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#9a7050"/>' +
-      '<stop offset="100%" stop-color="#4a3428"/>' +
+      '<linearGradient id="mj-lid" x1="0%" y1="0%" x2="100%" y2="0%">' +
+      '<stop offset="0%" stop-color="#64748b"/>' +
+      '<stop offset="50%" stop-color="#94a3b8"/>' +
+      '<stop offset="100%" stop-color="#475569"/>' +
       "</linearGradient>" +
       '<linearGradient id="mj-shine" x1="0%" y1="0%" x2="100%" y2="20%">' +
-      '<stop offset="0%" stop-color="#fff8f0" stop-opacity="0"/>' +
-      '<stop offset="35%" stop-color="#ffd8b8" stop-opacity="0.22"/>' +
-      '<stop offset="100%" stop-color="#fff8f0" stop-opacity="0"/>' +
+      '<stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>' +
+      '<stop offset="40%" stop-color="#e0f2fe" stop-opacity="0.35"/>' +
+      '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>' +
       "</linearGradient>" +
       "</defs>" +
-      '<rect x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#2d1f14" stroke-width="2"/>' +
-      '<rect x="28" y="14" width="20" height="4" rx="2" fill="#ffffff" opacity="0.1"/>' +
-      '<rect x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#5c4034" stroke="#2d1f14" stroke-width="2"/>' +
-      '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)" stroke="#2d1f14" stroke-width="2"/>' +
-      '<rect x="22" y="42" width="56" height="7" rx="3" fill="#f0c070" opacity="0.28"/>' +
+      '<rect x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect x="28" y="13" width="22" height="4" rx="2" fill="#ffffff" opacity="0.15"/>' +
+      '<rect x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#334155" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect x="22" y="42" width="56" height="7" rx="3" fill="#f472b6" opacity="0.35"/>' +
       '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
-      '<g fill="#ffe8c8" opacity="0.65">' +
+      '<g fill="#fef3c7" opacity="0.85">' +
       '<rect x="68" y="54" width="2" height="2"/>' +
       '<rect x="70" y="52" width="2" height="6"/>' +
       '<rect x="66" y="56" width="10" height="2"/>' +
       "</g>" +
-      '<g fill="#ffe8c8" opacity="0.4">' +
+      '<g fill="#a5f3fc" opacity="0.55">' +
       '<rect x="26" y="88" width="2" height="2"/>' +
       '<rect x="28" y="86" width="2" height="6"/>' +
       '<rect x="24" y="90" width="10" height="2"/>' +
@@ -216,15 +217,15 @@
     var jarCount = state.jars.length;
 
     setFooter(
-      "Memory Jam · little photos, kept safe · shake the jar when you miss a day",
+      "Memory Jam · starlight & snapshots · shake the jar for a random glow-memory",
       true
     );
 
     var html = "";
     html += '<div class="home-hero">';
-    html += '<p class="cozy-pill">Today</p>';
+    html += '<p class="cozy-pill">Tonight</p>';
     html += '<h2 class="home-hero-kicker">Welcome home</h2>';
-    html += '<p class="home-hero-tagline">A cozy pixel journal — one small photo prompt each day, tucked into jars you can shake whenever you need a soft memory.</p>';
+    html += '<p class="home-hero-tagline">A cute pixel nightlife journal — one photo prompt each day, tucked into jars you can shake whenever you want a soft memory under the stars.</p>';
     html += '<div class="home-stats">';
     html += '<span class="home-stat"><strong>' + memories + "</strong> memor" + (memories === 1 ? "y" : "ies") + " saved</span>";
     html += '<span class="home-stat"><strong>' + jarCount + "</strong> " + (jarCount === 1 ? "jar" : "jars") + "</span>";
@@ -253,7 +254,7 @@
     html += '<div class="jar-preview-wrap" id="home-jar-tease">';
     html += jarSvg();
     html += "</div>";
-    html += '<p class="jar-hint">Open any jar, tap <strong>Shake jar</strong>, and a random photo will float up — like reaching into a jar of jam for a sweet bit of the past.</p>';
+    html += '<p class="jar-hint">Open any jar, tap <strong>Shake jar</strong>, and a random photo will float up — like catching a firefly memory from a neon jar.</p>';
 
     mainEl.innerHTML = html;
 

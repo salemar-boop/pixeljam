@@ -1,31 +1,28 @@
-/* Memory Jam — cozy pixel life aesthetic */
+/* Memory Jam — cute pixel nightlife */
 :root {
-  /* Warm cocoa, dusty rose, honey — readable & soft */
-  --bg-deep: #1c1412;
-  --bg: #2f221c;
-  --bg-panel: #3d2e26;
-  --bg-card-inner: #342820;
-  --border: #b8925a;
-  --border-soft: #7a6248;
-  --accent: #f4d090;
-  --accent-soft: #d9a066;
-  --accent-glow: rgba(244, 208, 144, 0.12);
-  --blush: #c98888;
-  --sage: #8a9a7a;
-  --text: #fff5e8;
-  --text-dim: #d4bfa8;
-  --cream: #fff8ee;
-  --jam-red: #c96a6a;
-  --jam-red-deep: #944040;
-  --jam-lid: #6b4a2e;
-  --shadow: rgba(0, 0, 0, 0.48);
-  --shadow-soft: rgba(0, 0, 0, 0.22);
-  --pixel: 4px;
-  /* Night-sky & warmth for star layer */
-  --star: rgba(255, 232, 200, 0.55);
-  --star-dim: rgba(255, 210, 160, 0.22);
-  --sky-glow: rgba(120, 90, 140, 0.12);
-  --honey-mist: rgba(255, 200, 120, 0.08);
+  --bg-deep: #0a0f24;
+  --bg: #121c3a;
+  --bg-panel: #1a2548;
+  --bg-card-inner: #162042;
+  --border: #4c6fa8;
+  --border-soft: #3d5a8a;
+  --accent: #7dd3fc;
+  --accent-soft: #a5b4fc;
+  --accent-pink: #f472b6;
+  --accent-glow: rgba(125, 211, 252, 0.14);
+  --text: #eef2ff;
+  --text-dim: #a5b8e8;
+  --cream: #e0f2fe;
+  --btn-primary-top: #38bdf8;
+  --btn-primary-mid: #818cf8;
+  --btn-primary-deep: #6d28d9;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-soft: rgba(0, 0, 0, 0.28);
+  --shadow-glow: rgba(56, 189, 248, 0.22);
+  --pixel: 3px;
+  --radius: 14px;
+  --radius-btn: 999px;
+  --radius-sm: 10px;
 }
 
 *,
@@ -45,21 +42,20 @@ body {
   position: relative;
   isolation: isolate;
   background: var(--bg-deep);
-  /* Cozy dusk → cocoa with soft rose & honey lifts */
   background-image:
-    linear-gradient(168deg, rgba(55, 38, 58, 0.42) 0%, transparent 42%),
-    linear-gradient(12deg, rgba(42, 58, 72, 0.28) 0%, transparent 38%),
-    radial-gradient(ellipse 130% 85% at 50% -5%, rgba(200, 140, 120, 0.18) 0%, transparent 52%),
-    radial-gradient(ellipse 90% 55% at 92% 88%, rgba(90, 58, 72, 0.22) 0%, transparent 48%),
-    radial-gradient(ellipse 70% 50% at 6% 72%, rgba(212, 160, 102, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 78% 18%, var(--honey-mist) 0%, transparent 28%),
-    radial-gradient(circle at 18% 28%, var(--sky-glow) 0%, transparent 32%),
-    linear-gradient(180deg, #241a22 0%, var(--bg-deep) 28%, #1a1418 72%, #161012 100%);
+    linear-gradient(155deg, rgba(88, 28, 135, 0.35) 0%, transparent 45%),
+    linear-gradient(25deg, rgba(14, 116, 144, 0.25) 0%, transparent 40%),
+    radial-gradient(ellipse 120% 70% at 50% -15%, rgba(167, 139, 250, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 85% 55% at 95% 85%, rgba(59, 130, 246, 0.18) 0%, transparent 48%),
+    radial-gradient(ellipse 60% 45% at 5% 65%, rgba(236, 72, 153, 0.1) 0%, transparent 42%),
+    radial-gradient(circle at 75% 12%, rgba(56, 189, 248, 0.12) 0%, transparent 26%),
+    radial-gradient(circle at 15% 25%, rgba(129, 140, 248, 0.1) 0%, transparent 30%),
+    linear-gradient(185deg, #0f172a 0%, var(--bg-deep) 35%, #060818 100%);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Soft vignette */
+/* Night vignette + scanlines */
 body::before {
   content: "";
   position: fixed;
@@ -67,26 +63,26 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 95% 80% at 50% 45%, transparent 35%, rgba(12, 8, 10, 0.55) 100%),
+    radial-gradient(ellipse 100% 75% at 50% 40%, transparent 32%, rgba(4, 8, 28, 0.72) 100%),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.06) 2px,
-      rgba(0, 0, 0, 0.06) 4px
+      rgba(100, 150, 255, 0.04) 2px,
+      rgba(100, 150, 255, 0.04) 4px
     );
 }
 
-/* Cute pixel stars — tiled SVG (tiny crosses + dots) */
+/* Pixel star field — see stars-bg.svg */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.55;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='%23ffe8c8'%3E%3Crect x='8' y='16' width='2' height='2' opacity='0.9'/%3E%3Crect x='10' y='14' width='2' height='6' opacity='0.9'/%3E%3Crect x='6' y='18' width='10' height='2' opacity='0.9'/%3E%3Crect x='52' y='8' width='2' height='2' opacity='0.45'/%3E%3Crect x='54' y='6' width='2' height='6' opacity='0.45'/%3E%3Crect x='50' y='10' width='10' height='2' opacity='0.45'/%3E%3Crect x='88' y='28' width='3' height='3' opacity='0.7'/%3E%3Crect x='91' y='25' width='3' height='9' opacity='0.7'/%3E%3Crect x='85' y='31' width='15' height='3' opacity='0.7'/%3E%3Crect x='24' y='44' width='2' height='2' opacity='0.35'/%3E%3Crect x='26' y='42' width='2' height='6' opacity='0.35'/%3E%3Crect x='22' y='46' width='10' height='2' opacity='0.35'/%3E%3Crect x='72' y='52' width='2' height='2' opacity='0.55'/%3E%3Crect x='74' y='50' width='2' height='6' opacity='0.55'/%3E%3Crect x='70' y='54' width='10' height='2' opacity='0.55'/%3E%3Crect x='12' y='72' width='2' height='2' opacity='0.4'/%3E%3Crect x='14' y='70' width='2' height='6' opacity='0.4'/%3E%3Crect x='10' y='74' width='10' height='2' opacity='0.4'/%3E%3Crect x='96' y='80' width='2' height='2' opacity='0.5'/%3E%3Crect x='98' y='78' width='2' height='6' opacity='0.5'/%3E%3Crect x='94' y='82' width='10' height='2' opacity='0.5'/%3E%3Crect x='40' y='92' width='2' height='2' opacity='0.3'/%3E%3Crect x='42' y='90' width='2' height='6' opacity='0.3'/%3E%3Crect x='38' y='94' width='10' height='2' opacity='0.3'/%3E%3Crect x='60' y='24' width='2' height='2' opacity='0.25'/%3E%3Crect x='32' y='60' width='2' height='2' opacity='0.28'/%3E%3Crect x='84' y='96' width='2' height='2' opacity='0.32'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 112px 112px;
+  opacity: 0.62;
+  background-image: url("stars-bg.svg");
+  background-size: 120px 120px;
 }
 
 .app {
@@ -110,12 +106,12 @@ body::after {
   padding: 0.75rem 1rem;
   border-bottom: var(--pixel) solid var(--border);
   background:
-    linear-gradient(180deg, rgba(255, 200, 160, 0.07) 0%, transparent 42%),
-    linear-gradient(180deg, #3d3028 0%, var(--bg) 55%, #2a1e18 100%);
+    linear-gradient(180deg, rgba(125, 211, 252, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #1e3a5f 0%, var(--bg-panel) 50%, #121c38 100%);
   box-shadow:
     0 var(--pixel) 0 var(--shadow-soft),
-    inset 0 1px 0 rgba(255, 248, 232, 0.08),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    inset 0 1px 0 rgba(186, 230, 253, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 .logo {
@@ -124,7 +120,9 @@ body::after {
   line-height: 1.4;
   margin: 0;
   color: var(--accent);
-  text-shadow: 2px 2px 0 var(--shadow);
+  text-shadow:
+    2px 2px 0 var(--shadow),
+    0 0 12px var(--shadow-glow);
   letter-spacing: -0.02em;
 }
 
@@ -141,10 +139,12 @@ body::after {
   height: 2.5rem;
   padding: 0;
   border: var(--pixel) solid var(--border);
-  background: var(--bg-panel);
-  color: var(--text);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(165deg, #243354 0%, var(--bg-card-inner) 100%);
+  color: var(--accent);
   cursor: pointer;
   image-rendering: pixelated;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
 }
 
 .btn-icon:active {
@@ -158,7 +158,7 @@ body::after {
 .drawer-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(22, 14, 10, 0.55);
+  background: rgba(6, 10, 30, 0.62);
   z-index: 40;
 }
 
@@ -173,8 +173,8 @@ body::after {
   width: 12rem;
   height: 100%;
   background:
-    radial-gradient(ellipse 100% 40% at 0% 0%, rgba(255, 200, 170, 0.08) 0%, transparent 55%),
-    linear-gradient(180deg, #2e2420 0%, var(--bg-card-inner) 35%, var(--bg-panel) 100%);
+    radial-gradient(ellipse 100% 45% at 0% 0%, rgba(167, 139, 250, 0.14) 0%, transparent 55%),
+    linear-gradient(180deg, #141e42 0%, var(--bg-card-inner) 40%, var(--bg-panel) 100%);
   border-right: var(--pixel) solid var(--border);
   z-index: 50;
   padding: 3rem 1rem 1rem;
@@ -205,14 +205,16 @@ body::after {
 
 .nav-link {
   font-size: 1.35rem;
-  color: var(--accent);
+  color: var(--accent-soft);
   text-decoration: none;
-  padding: 0.35rem 0;
-  border-bottom: 2px dashed var(--border);
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border-bottom: 2px dashed var(--border-soft);
 }
 
 .nav-link:hover {
-  color: var(--text);
+  color: var(--cream);
+  background: rgba(125, 211, 252, 0.08);
 }
 
 .main {
@@ -222,7 +224,7 @@ body::after {
   position: relative;
 }
 
-/* Subtle warm frame behind content */
+/* Soft cyan / violet wash behind content */
 .main::before {
   content: "";
   position: absolute;
@@ -230,8 +232,13 @@ body::after {
   right: 0.35rem;
   top: 0;
   bottom: 0;
-  border-radius: 12px;
-  background: linear-gradient(165deg, rgba(255, 210, 170, 0.04) 0%, transparent 55%);
+  border-radius: var(--radius);
+  background: linear-gradient(
+    165deg,
+    rgba(56, 189, 248, 0.06) 0%,
+    transparent 40%,
+    rgba(167, 139, 250, 0.05) 100%
+  );
   pointer-events: none;
   z-index: -1;
 }
@@ -248,7 +255,9 @@ body::after {
   line-height: 1.2;
   margin: 0 0 0.35rem;
   color: var(--cream);
-  text-shadow: 2px 2px 0 var(--shadow);
+  text-shadow:
+    2px 2px 0 var(--shadow),
+    0 0 18px rgba(125, 211, 252, 0.25);
   letter-spacing: 0.02em;
 }
 
@@ -266,12 +275,14 @@ body::after {
   display: inline-block;
   font-size: 0.95rem;
   color: var(--accent);
-  background: linear-gradient(145deg, rgba(255, 210, 160, 0.12) 0%, var(--accent-glow) 100%);
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.15) 0%, rgba(56, 189, 248, 0.1) 100%);
   border: 2px dashed var(--border-soft);
-  padding: 0.2rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   margin-bottom: 0.75rem;
-  border-radius: 4px;
-  box-shadow: inset 0 0 14px rgba(240, 192, 96, 0.1);
+  border-radius: var(--radius-btn);
+  box-shadow:
+    inset 0 0 16px rgba(125, 211, 252, 0.08),
+    0 0 20px rgba(129, 140, 248, 0.08);
 }
 
 .home-stats {
@@ -295,26 +306,27 @@ body::after {
 .prompt-card {
   position: relative;
   background:
-    radial-gradient(ellipse 120% 80% at 90% 0%, rgba(255, 190, 140, 0.09) 0%, transparent 45%),
-    linear-gradient(145deg, #3a2c24 0%, var(--bg-card-inner) 42%, var(--bg-panel) 100%);
+    radial-gradient(ellipse 120% 80% at 90% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+    linear-gradient(145deg, #1a2754 0%, var(--bg-card-inner) 42%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--border);
   padding: 1.1rem 1rem 1rem;
   margin-bottom: 1rem;
-  border-radius: 4px;
+  border-radius: var(--radius);
   box-shadow:
     var(--pixel) var(--pixel) 0 var(--shadow),
-    inset 0 1px 0 rgba(255, 248, 232, 0.08),
-    inset 0 -2px 12px rgba(0, 0, 0, 0.12);
+    inset 0 1px 0 rgba(186, 230, 253, 0.1),
+    inset 0 -2px 14px rgba(0, 0, 0, 0.2);
 }
 
 .prompt-card::before {
-  content: "✦";
+  content: "★";
   position: absolute;
   top: 0.5rem;
   right: 0.65rem;
   font-size: 0.85rem;
-  color: var(--accent-soft);
-  opacity: 0.65;
+  color: var(--accent-pink);
+  opacity: 0.75;
+  text-shadow: 0 0 8px rgba(244, 114, 182, 0.45);
 }
 
 .quick-links {
@@ -328,6 +340,7 @@ body::after {
   text-decoration: none;
   display: block;
   box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+  border-radius: var(--radius-btn);
 }
 
 .quick-links .btn.secondary {
@@ -353,15 +366,15 @@ body::after {
 
 .card {
   background:
-    radial-gradient(ellipse 100% 70% at 12% 8%, rgba(200, 160, 190, 0.06) 0%, transparent 42%),
+    radial-gradient(ellipse 100% 70% at 12% 8%, rgba(167, 139, 250, 0.1) 0%, transparent 42%),
     linear-gradient(160deg, var(--bg-card-inner) 0%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--border);
   padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 4px;
+  border-radius: var(--radius);
   box-shadow:
     var(--pixel) var(--pixel) 0 var(--shadow),
-    inset 0 1px 0 rgba(255, 248, 232, 0.05);
+    inset 0 1px 0 rgba(186, 230, 253, 0.06);
 }
 
 .prompt-box {
@@ -380,33 +393,45 @@ body::after {
 .btn {
   font-family: "VT323", monospace;
   font-size: 1.25rem;
-  padding: 0.6rem 1rem;
+  padding: 0.55rem 1.15rem;
   border: var(--pixel) solid var(--border);
+  border-radius: var(--radius-btn);
   cursor: pointer;
   image-rendering: pixelated;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
 }
 
 .btn.primary {
-  background: linear-gradient(180deg, #d86868 0%, var(--jam-red) 45%, var(--jam-red-deep) 100%);
-  color: #fff8f0;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
-  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+  background: linear-gradient(
+    175deg,
+    var(--btn-primary-top) 0%,
+    var(--btn-primary-mid) 48%,
+    var(--btn-primary-deep) 100%
+  );
+  color: #f8fafc;
+  border-color: #7dd3fc;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+  box-shadow:
+    var(--pixel) var(--pixel) 0 var(--shadow),
+    0 0 14px rgba(56, 189, 248, 0.25);
 }
 
 .btn.primary:active {
   transform: translate(2px, 2px);
-  box-shadow: none;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
 }
 
 .btn.secondary {
-  background: var(--bg-panel);
+  background: linear-gradient(165deg, #243054 0%, var(--bg-panel) 100%);
   color: var(--text);
+  border-radius: var(--radius-btn);
 }
 
 .btn.ghost {
-  background: transparent;
+  background: rgba(30, 58, 95, 0.35);
   color: var(--accent);
   border-style: dashed;
+  border-radius: var(--radius-btn);
 }
 
 .btn-row {
@@ -465,7 +490,9 @@ body::after {
 .jar-svg {
   width: 140px;
   height: 161px;
-  filter: drop-shadow(4px 6px 0 var(--shadow));
+  filter:
+    drop-shadow(4px 6px 0 var(--shadow))
+    drop-shadow(0 0 12px rgba(56, 189, 248, 0.2));
 }
 
 .jar-hint {
@@ -473,6 +500,17 @@ body::after {
   font-size: 1.1rem;
   color: var(--text-dim);
   margin-top: 0.5rem;
+}
+
+.main a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.15em;
+}
+
+.main a:hover {
+  color: var(--cream);
 }
 
 .jar-list {
@@ -488,8 +526,9 @@ body::after {
 .jar-list a {
   display: block;
   padding: 0.85rem 1rem;
-  background: var(--bg-panel);
+  background: linear-gradient(165deg, #243054 0%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--border);
+  border-radius: var(--radius);
   color: var(--text);
   text-decoration: none;
   font-size: 1.35rem;
@@ -521,8 +560,8 @@ body::after {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(20, 12, 10, 0.78);
-  backdrop-filter: blur(2px);
+  background: rgba(6, 10, 32, 0.82);
+  backdrop-filter: blur(4px);
 }
 
 /* Critical: .modal { display:flex } was overriding HTML hidden — modals stayed visible */
@@ -536,18 +575,28 @@ body::after {
 
 .pixel-border {
   border: var(--pixel) solid var(--border);
-  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+  border-radius: var(--radius);
+  box-shadow:
+    var(--pixel) var(--pixel) 0 var(--shadow),
+    0 0 24px rgba(56, 189, 248, 0.08);
 }
 
 .modal-card {
   position: relative;
-  background: linear-gradient(165deg, var(--bg-card-inner) 0%, var(--bg-panel) 100%);
+  background: linear-gradient(
+    165deg,
+    #1a2548 0%,
+    var(--bg-card-inner) 40%,
+    var(--bg-panel) 100%
+  );
   max-width: 100%;
   width: 22rem;
   padding: 1rem;
+  border-radius: var(--radius);
   box-shadow:
     var(--pixel) var(--pixel) 0 var(--shadow),
-    inset 0 1px 0 rgba(255, 248, 236, 0.06);
+    inset 0 1px 0 rgba(186, 230, 253, 0.08),
+    0 0 32px rgba(99, 102, 241, 0.12);
 }
 
 .modal-card.small {
@@ -583,7 +632,7 @@ body::after {
 
 .modal-memory-date {
   font-size: 1rem;
-  color: var(--accent-soft);
+  color: var(--accent);
   margin: 0 0 0.35rem;
 }
 
@@ -594,6 +643,7 @@ body::after {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
 .modal-caption {
@@ -616,9 +666,10 @@ body::after {
 .field input {
   font-family: inherit;
   font-size: 1.25rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.65rem;
   border: 2px solid var(--border);
-  background: var(--bg);
+  border-radius: var(--radius-sm);
+  background: var(--bg-deep);
   color: var(--text);
 }
 
@@ -640,14 +691,16 @@ body::after {
   aspect-ratio: 1;
   object-fit: cover;
   border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
   image-rendering: pixelated;
 }
 
 .share-box {
   margin-top: 1rem;
   padding: 0.75rem;
-  background: var(--bg);
+  background: var(--bg-deep);
   border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   word-break: break-all;
   max-height: 6rem;
@@ -660,11 +713,14 @@ body::after {
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
-  background: var(--bg-panel);
+  background: linear-gradient(165deg, #1e3a5f 0%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--accent);
-  padding: 0.6rem 1rem;
+  border-radius: var(--radius-btn);
+  padding: 0.6rem 1.1rem;
   font-size: 1.15rem;
-  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+  box-shadow:
+    var(--pixel) var(--pixel) 0 var(--shadow),
+    0 0 16px rgba(56, 189, 248, 0.2);
   animation: toast-in 0.25s ease;
 }
 
