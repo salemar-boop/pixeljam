@@ -98,10 +98,6 @@
   }
 
   var mainEl = document.getElementById("main");
-  var drawer = document.getElementById("drawer");
-  var drawerScrim = document.getElementById("drawer-scrim");
-  var btnMenu = document.getElementById("btn-menu");
-  var drawerClose = document.getElementById("drawer-close");
   var modalMemory = document.getElementById("modal-memory");
   var modalMemoryImg = document.getElementById("modal-memory-img");
   var modalMemoryCaption = document.getElementById("modal-memory-caption");
@@ -149,23 +145,9 @@
     });
   }
 
-  function openDrawer() {
-    drawer.hidden = false;
-    drawerScrim.hidden = false;
+  function jarPageUrl(id) {
+    return "jar.html?id=" + encodeURIComponent(id);
   }
-
-  function closeDrawer() {
-    drawer.hidden = true;
-    drawerScrim.hidden = true;
-  }
-
-  btnMenu.addEventListener("click", openDrawer);
-  drawerClose.addEventListener("click", closeDrawer);
-  drawerScrim.addEventListener("click", closeDrawer);
-
-  document.querySelectorAll(".nav-link").forEach(function (a) {
-    a.addEventListener("click", closeDrawer);
-  });
 
   function jarSvg() {
     /* Rounded-square jar — neon nightlife jam + cool metal lid */
@@ -222,6 +204,8 @@
     );
 
     var html = "";
+    html += '<div class="home-grid">';
+    html += '<div class="home-grid__col">';
     html += '<div class="home-hero">';
     html += '<p class="cozy-pill">Tonight</p>';
     html += '<h2 class="home-hero-kicker">Welcome home</h2>';
@@ -231,7 +215,9 @@
     html += '<span class="home-stat"><strong>' + jarCount + "</strong> " + (jarCount === 1 ? "jar" : "jars") + "</span>";
     html += "</div>";
     html += "</div>";
+    html += "</div>";
 
+    html += '<div class="home-grid__col">';
     html += '<div class="prompt-card">';
     html += '<p class="prompt-date">' + escapeHtml(formatToday()) + "</p>";
     html += '<p class="prompt-box" style="min-height:3.5rem;margin:0">Today\'s prompt<br/><strong>' + escapeHtml(todayPrompt()) + "</strong></p>";
@@ -240,21 +226,25 @@
       '<button type="button" class="btn primary" id="btn-capture-prompt">Capture for Daily jar</button>';
     html += "</div>";
     html +=
-      '<p class="jar-hint">Saves to <em>Daily memories</em>. Open <a href="#jars">My jars</a> to use a different jar or start a new one.</p>';
+      '<p class="jar-hint">Saves to <em>Daily memories</em>. Open <a href="jars.html">My jars</a> to use a different jar or start a new one.</p>';
     html += "</div>";
 
     html += '<div class="card">';
     html += '<p class="prompt-box" style="margin:0 0 0.65rem">Where to next</p>';
     html += '<div class="quick-links">';
-    html += '<a class="btn secondary" href="#jars">My jars — create &amp; open</a>';
-    html += '<a class="btn ghost" href="#import">Import a shared jar</a>';
+    html += '<a class="btn secondary" href="jars.html">My jars — create &amp; open</a>';
+    html += '<a class="btn ghost" href="import.html">Import a shared jar</a>';
+    html += "</div>";
     html += "</div>";
     html += "</div>";
 
+    html += '<div class="home-grid__full">';
     html += '<div class="jar-preview-wrap" id="home-jar-tease">';
     html += jarSvg();
     html += "</div>";
     html += '<p class="jar-hint">Open any jar, tap <strong>Shake jar</strong>, and a random photo will float up — like catching a firefly memory from a neon jar.</p>';
+    html += "</div>";
+    html += "</div>";
 
     mainEl.innerHTML = html;
 
@@ -290,7 +280,7 @@
       html += '<ul class="jar-list">';
       state.jars.forEach(function (j) {
         html += "<li>";
-        html += '<a href="#jar/' + encodeURIComponent(j.id) + '">';
+        html += '<a href="' + jarPageUrl(j.id) + '">';
         html += escapeHtml(j.name);
         html += '<div class="jar-meta">' + j.photos.length + " memor" + (j.photos.length === 1 ? "y" : "ies") + "</div>";
         html += "</a></li>";
@@ -315,12 +305,14 @@
     var jar = findJar(state, jarId);
     if (!jar) {
       mainEl.innerHTML =
-        '<h2 class="screen-title">Jar not found</h2><p class="empty-state"><a href="#jars">Back to jars</a></p>';
+        '<h2 class="screen-title">Jar not found</h2><p class="empty-state"><a href="jars.html">Back to jars</a></p>';
+      document.title = "Memory Jam — Jar";
       return;
     }
 
     state.activeJarId = jar.id;
     saveState(state);
+    document.title = jar.name + " — Memory Jam";
 
     var html = "";
     html += '<h2 class="screen-title">' + escapeHtml(jar.name) + "</h2>";
@@ -487,7 +479,7 @@
     html += '<h2 class="screen-title">Import jar</h2>';
     html += '<div class="card">';
     html +=
-      "<p>Someone shared a <strong>Memory Jam</strong> export with you? Choose the <code>.json</code> file below. It will appear in <a href=\"#jars\">My jars</a> as a new jar.</p>";
+      "<p>Someone shared a <strong>Memory Jam</strong> export with you? Choose the <code>.json</code> file below. It will appear in <a href=\"jars.html\">My jars</a> as a new jar.</p>";
     html += '<div class="btn-row">';
     html += '<button type="button" class="btn primary" id="btn-pick-import">Choose file</button>';
     html += "</div>";
@@ -531,10 +523,11 @@
       saveState(state);
       pendingCapture = null;
       toast("Saved to " + jar.name + "!");
-      if (location.hash.indexOf("#jar/") === 0) {
+      var page = document.body.getAttribute("data-page");
+      if (page === "jar") {
         renderJar(jar.id);
       } else {
-        location.hash = "#jar/" + encodeURIComponent(jar.id);
+        window.location.href = jarPageUrl(jar.id);
       }
     };
     reader.readAsDataURL(f);
@@ -549,7 +542,7 @@
         var data = JSON.parse(reader.result);
         var id = importJarFromObject(data);
         toast("Jar imported!");
-        location.hash = "#jar/" + encodeURIComponent(id);
+        window.location.href = jarPageUrl(id);
       } catch (e) {
         toast("Could not read that file.");
       }
@@ -581,7 +574,7 @@
     saveState(state);
     closeNewJarModal();
     toast("Jar created!");
-    location.hash = "#jar/" + encodeURIComponent(j.id);
+    window.location.href = jarPageUrl(j.id);
   });
 
   if (modalNewJar) {
@@ -596,29 +589,38 @@
     closeMemoryModal();
   });
 
-  function route() {
+  function initPage() {
     closeNewJarModal();
-    var h = location.hash.slice(1) || "home";
-    if (h === "home" || h === "") {
+    var page = document.body.getAttribute("data-page") || "home";
+    if (page === "home") {
       renderHome();
+      document.title = "Memory Jam — Home";
       return;
     }
-    if (h === "jars") {
+    if (page === "jars") {
       renderJars();
+      document.title = "Memory Jam — My jars";
       return;
     }
-    if (h === "import") {
+    if (page === "import") {
       renderImport();
+      document.title = "Memory Jam — Import";
       return;
     }
-    if (h.indexOf("jar/") === 0) {
-      var id = decodeURIComponent(h.slice(4));
-      renderJar(id);
+    if (page === "jar") {
+      var params = new URLSearchParams(window.location.search);
+      var jarId = params.get("id");
+      if (!jarId) {
+        mainEl.innerHTML =
+          '<h2 class="screen-title">No jar selected</h2><p class="empty-state"><a href="jars.html">Open My jars</a></p>';
+        document.title = "Memory Jam — Jar";
+        return;
+      }
+      renderJar(jarId);
       return;
     }
     renderHome();
   }
 
-  window.addEventListener("hashchange", route);
-  route();
+  initPage();
 })();

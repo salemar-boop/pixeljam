@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200">
+  <!-- Soft pixel clouds  light, low contrast -->
+  <g fill="#c7d2fe" opacity="0.14">
+    <rect x="40" y="48" width="28" height="12" rx="2"/>
+    <rect x="56" y="40" width="36" height="14" rx="2"/>
+    <rect x="84" y="46" width="24" height="10" rx="2"/>
+  </g>
+  <g fill="#e0e7ff" opacity="0.1">
+    <rect x="200" y="28" width="32" height="14" rx="2"/>
+    <rect x="220" y="18" width="44" height="16" rx="2"/>
+    <rect x="256" y="26" width="28" height="12" rx="2"/>
+  </g>
+  <g fill="#a5b4fc" opacity="0.09">
+    <rect x="120" y="120" width="26" height="10" rx="2"/>
+    <rect x="132" y="112" width="40" height="14" rx="2"/>
+    <rect x="164" y="118" width="22" height="10" rx="2"/>
+  </g>
+  <g fill="#ddd6fe" opacity="0.11">
+    <rect x="280" y="140" width="30" height="12" rx="2"/>
+    <rect x="296" y="128" width="48" height="16" rx="2"/>
+    <rect x="332" y="136" width="24" height="12" rx="2"/>
+  </g>
+</svg>

@@ -55,7 +55,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Night vignette + scanlines */
+/* Light pixel clouds + vignette + scanlines */
 body::before {
   content: "";
   position: fixed;
@@ -64,6 +64,7 @@ body::before {
   pointer-events: none;
   background:
     radial-gradient(ellipse 100% 75% at 50% 40%, transparent 32%, rgba(4, 8, 28, 0.72) 100%),
+    url("clouds-bg.svg") repeat 0 0 / 360px 200px,
     repeating-linear-gradient(
       0deg,
       transparent,
@@ -73,20 +74,21 @@ body::before {
     );
 }
 
-/* Pixel star field — see stars-bg.svg */
+/* Pixel + star field — see stars-bg.svg */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.62;
+  opacity: 0.68;
   background-image: url("stars-bg.svg");
-  background-size: 120px 120px;
+  background-size: 128px 128px;
 }
 
 .app {
-  max-width: 28rem;
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
   min-height: 100dvh;
   display: flex;
@@ -219,9 +221,85 @@ body::after {
 
 .main {
   flex: 1;
-  padding: 1rem;
-  padding-bottom: 2rem;
+  width: 100%;
+  max-width: min(72rem, 100%);
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem);
+  padding-bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
   position: relative;
+}
+
+/* Bottom icon navigation */
+.icon-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  gap: 0.25rem;
+  padding: 0.4rem 0.5rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 15, 36, 0.88) 22%, #080c1c 100%);
+  border-top: var(--pixel) solid var(--border);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.icon-nav__link {
+  flex: 1;
+  max-width: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.35rem 0.5rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.icon-nav__link:hover {
+  color: var(--cream);
+  background: rgba(125, 211, 252, 0.08);
+}
+
+.icon-nav__link.is-active {
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(125, 211, 252, 0.2);
+}
+
+.icon-nav__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.95;
+}
+
+.icon-nav__label {
+  font-family: "VT323", monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Home: two columns on wide viewports */
+.home-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .home-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .home-grid__full {
+    grid-column: 1 / -1;
+  }
 }
 
 /* Soft cyan / violet wash behind content */
@@ -364,6 +442,14 @@ body::after {
   line-height: 1.6;
 }
 
+.card code {
+  font-size: 1.05rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-soft);
+}
+
 .card {
   background:
     radial-gradient(ellipse 100% 70% at 12% 8%, rgba(167, 139, 250, 0.1) 0%, transparent 42%),
@@ -488,11 +574,11 @@ body::after {
 }
 
 .jar-svg {
-  width: 140px;
-  height: 161px;
+  width: 200px;
+  height: 230px;
   filter:
     drop-shadow(4px 6px 0 var(--shadow))
-    drop-shadow(0 0 12px rgba(56, 189, 248, 0.2));
+    drop-shadow(0 0 14px rgba(56, 189, 248, 0.22));
 }
 
 .jar-hint {
@@ -521,6 +607,24 @@ body::after {
 
 .jar-list li {
   margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .jar-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .jar-list li {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 960px) {
+  .jar-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .jar-list a {
@@ -709,7 +813,7 @@ body::after {
 
 .toast {
   position: fixed;
-  bottom: 1rem;
+  bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
