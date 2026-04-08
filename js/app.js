@@ -280,9 +280,7 @@
     html += '<div class="home-grid">';
     html += '<div class="home-grid__col">';
     html += '<div class="home-hero">';
-    html += '<p class="cozy-pill">Tonight</p>';
     html += '<h2 class="home-hero-kicker">Welcome home</h2>';
-    html += '<p class="home-hero-tagline">A cute pixel nightlife journal — one photo prompt each day, tucked into jars you can shake whenever you want a soft memory under the stars.</p>';
     html += '<div class="home-stats">';
     html += '<span class="home-stat"><strong>' + memories + "</strong> memor" + (memories === 1 ? "y" : "ies") + " saved</span>";
     html += '<span class="home-stat"><strong>' + jarCount + "</strong> " + (jarCount === 1 ? "jar" : "jars") + "</span>";
@@ -411,14 +409,13 @@
     html += "</div>";
     html += '<p class="jar-hint">Give it a shake — a random photo from this jar will drift up like fruit in jam.</p>';
 
-    if (!jar.isShared) {
-      html += '<div class="card">';
-      html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
-      html += '<div class="btn-row">';
-      html += '<button type="button" class="btn primary" id="btn-add-jar">Add today\'s photo here</button>';
-      html += "</div>";
-      html += "</div>";
-    }
+    html += '<div class="card">';
+    html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
+    html += '<div class="btn-row">';
+    html += '<button type="button" class="btn primary" id="btn-add-jar">Add today\'s photo here</button>';
+    html += '<button type="button" class="btn ghost" id="btn-clear-jar">Clear jar</button>';
+    html += "</div>";
+    html += "</div>";
 
     if (jar.photos.length > 0) {
       html += '<div class="card"><p class="prompt-box" style="margin:0 0 0.5rem">Inside the jar</p>';
@@ -472,11 +469,21 @@
 
     document.getElementById("btn-shake").addEventListener("click", doShake);
 
-    if (!jar.isShared) {
-      document.getElementById("btn-add-jar").addEventListener("click", function () {
-        openCamera(jar.id);
-      });
-    }
+    document.getElementById("btn-add-jar").addEventListener("click", function () {
+      openCamera(jar.id);
+    });
+
+    document.getElementById("btn-clear-jar").addEventListener("click", function () {
+      var ok = window.confirm("Clear all photos from this jar?");
+      if (!ok) return;
+      var s = loadState();
+      var target = findJar(s, jar.id);
+      if (!target) return;
+      target.photos = [];
+      saveState(s);
+      toast("Jar cleared.");
+      renderJar(jar.id);
+    });
 
     if (!jar.isShared) {
       document.getElementById("btn-copy-share").addEventListener("click", function () {
@@ -488,18 +495,18 @@
           "\n\nPreview: " +
           jar.photos.length +
           " photos.\n";
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(
-          function () {
-            toast("Share blurb copied.");
-          },
-          function () {
-            toast("Could not copy — copy the page URL manually.");
-          }
-        );
-      } else {
-        toast("Clipboard not available — copy the page URL manually.");
-      }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(
+            function () {
+              toast("Share blurb copied.");
+            },
+            function () {
+              toast("Could not copy — copy the page URL manually.");
+            }
+          );
+        } else {
+          toast("Clipboard not available — copy the page URL manually.");
+        }
       });
     }
   }

@@ -32,7 +32,7 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 body {
@@ -63,14 +63,14 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 100% 75% at 50% 40%, transparent 32%, rgba(4, 8, 28, 0.72) 100%),
-    url("clouds-bg.svg") repeat 0 0 / 360px 200px,
+    radial-gradient(ellipse 100% 75% at 50% 40%, transparent 38%, rgba(4, 8, 28, 0.56) 100%),
+    url("clouds-bg.svg") repeat 0 0 / 420px 240px,
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(100, 150, 255, 0.04) 2px,
-      rgba(100, 150, 255, 0.04) 4px
+      rgba(100, 150, 255, 0.02) 2px,
+      rgba(100, 150, 255, 0.02) 4px
     );
 }
 
@@ -81,9 +81,9 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.68;
+  opacity: 0.34;
   background-image: url("stars-bg.svg");
-  background-size: 128px 128px;
+  background-size: 156px 156px;
 }
 
 .app {
@@ -360,7 +360,7 @@ body::after {
 /* Home & cozy blocks */
 .home-hero {
   text-align: center;
-  padding: 0.5rem 0.25rem 1.25rem;
+  padding: 0.25rem 0.25rem 1rem;
   margin-bottom: 0.25rem;
 }
 
@@ -375,28 +375,9 @@ body::after {
   letter-spacing: 0.02em;
 }
 
-.home-hero-tagline {
-  font-size: 1.15rem;
-  color: var(--text-dim);
-  margin: 0;
-  line-height: 1.35;
-  max-width: 22ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
+.home-hero-tagline,
 .cozy-pill {
-  display: inline-block;
-  font-size: 0.95rem;
-  color: var(--accent);
-  background: linear-gradient(135deg, rgba(167, 139, 250, 0.15) 0%, rgba(56, 189, 248, 0.1) 100%);
-  border: 2px dashed var(--border-soft);
-  padding: 0.25rem 0.75rem;
-  margin-bottom: 0.75rem;
-  border-radius: var(--radius-btn);
-  box-shadow:
-    inset 0 0 16px rgba(125, 211, 252, 0.08),
-    0 0 20px rgba(129, 140, 248, 0.08);
+  display: none;
 }
 
 .home-stats {
@@ -500,7 +481,7 @@ body::after {
 }
 
 .prompt-box {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   line-height: 1.35;
   color: var(--text);
   min-height: 4rem;
@@ -619,9 +600,47 @@ body::after {
 
 .jar-hint {
   text-align: center;
-  font-size: 1.1rem;
-  color: var(--text-dim);
+  font-size: 1.18rem;
+  color: #c4d5ff;
   margin-top: 0.5rem;
+}
+
+/* Desktop: present as iPhone-style app shell */
+@media (min-width: 900px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem 0;
+  }
+
+  .app {
+    width: 430px;
+    min-height: 932px;
+    border-radius: 36px;
+    overflow: hidden;
+    border: 2px solid rgba(125, 211, 252, 0.4);
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, 0.55),
+      0 0 0 10px rgba(10, 15, 36, 0.6);
+    background: rgba(10, 15, 36, 0.92);
+  }
+
+  .top-bar {
+    border-radius: 0;
+  }
+
+  .main {
+    max-width: 430px;
+  }
+
+  .icon-nav {
+    left: 50%;
+    right: auto;
+    width: 430px;
+    transform: translateX(-50%);
+    border-radius: 0 0 34px 34px;
+  }
 }
 
 .main a {
@@ -670,7 +689,7 @@ body::after {
 /* iPhone 14 Pro Max friendly sizing (430 x 932 CSS px) */
 @media (max-width: 460px) {
   html {
-    font-size: 19px;
+    font-size: 20px;
   }
 
   .main {
@@ -685,8 +704,8 @@ body::after {
   }
 
   .jar-svg {
-    width: 190px;
-    height: 220px;
+    width: 178px;
+    height: 205px;
   }
 }
 
