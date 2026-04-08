@@ -1,23 +1,25 @@
 /* Memory Jam — cozy pixel life aesthetic */
 :root {
-  --bg-deep: #16100c;
-  --bg: #2a1e16;
-  --bg-panel: #3f2e22;
-  --bg-card-inner: #35261c;
-  --border: #a67c32;
-  --border-soft: #6b5030;
-  --accent: #f0c060;
-  --accent-soft: #d4954a;
-  --accent-glow: rgba(240, 192, 96, 0.15);
-  --blush: #c87878;
-  --text: #faf0dc;
-  --text-dim: #c4a88c;
-  --cream: #fff8e8;
-  --jam-red: #c45858;
-  --jam-red-deep: #8f3a3a;
+  /* Warm cocoa, dusty rose, honey — readable & soft */
+  --bg-deep: #1c1412;
+  --bg: #2f221c;
+  --bg-panel: #3d2e26;
+  --bg-card-inner: #342820;
+  --border: #b8925a;
+  --border-soft: #7a6248;
+  --accent: #f4d090;
+  --accent-soft: #d9a066;
+  --accent-glow: rgba(244, 208, 144, 0.12);
+  --blush: #c98888;
+  --sage: #8a9a7a;
+  --text: #fff5e8;
+  --text-dim: #d4bfa8;
+  --cream: #fff8ee;
+  --jam-red: #c96a6a;
+  --jam-red-deep: #944040;
   --jam-lid: #6b4a2e;
-  --shadow: rgba(0, 0, 0, 0.5);
-  --shadow-soft: rgba(0, 0, 0, 0.25);
+  --shadow: rgba(0, 0, 0, 0.48);
+  --shadow-soft: rgba(0, 0, 0, 0.22);
   --pixel: 4px;
 }
 
@@ -37,9 +39,9 @@ body {
   font-family: "VT323", monospace;
   background: var(--bg-deep);
   background-image:
-    radial-gradient(ellipse 140% 90% at 50% -10%, rgba(200, 120, 90, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 60% at 80% 100%, rgba(90, 60, 40, 0.35) 0%, transparent 45%),
-    radial-gradient(ellipse 80% 50% at 10% 80%, rgba(232, 168, 56, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse 140% 90% at 50% -10%, rgba(180, 130, 110, 0.14) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 60% at 85% 100%, rgba(100, 72, 58, 0.32) 0%, transparent 45%),
+    radial-gradient(ellipse 70% 45% at 8% 75%, rgba(212, 160, 102, 0.07) 0%, transparent 42%),
     repeating-linear-gradient(
       0deg,
       transparent,
@@ -114,8 +116,12 @@ body {
 .drawer-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(22, 14, 10, 0.55);
   z-index: 40;
+}
+
+.drawer-scrim[hidden] {
+  display: none;
 }
 
 .drawer {
@@ -124,14 +130,22 @@ body {
   left: 0;
   width: 12rem;
   height: 100%;
-  background: var(--bg-panel);
+  background: linear-gradient(180deg, var(--bg-card-inner) 0%, var(--bg-panel) 40%);
   border-right: var(--pixel) solid var(--border);
   z-index: 50;
   padding: 3rem 1rem 1rem;
-  display: flex;
   flex-direction: column;
   gap: 0.75rem;
   box-shadow: var(--pixel) 0 0 var(--shadow);
+}
+
+/* [hidden] must win: display:flex on .drawer overrides the hidden attribute otherwise */
+.drawer[hidden] {
+  display: none;
+}
+
+.drawer:not([hidden]) {
+  display: flex;
 }
 
 .drawer-close {
@@ -431,11 +445,20 @@ body {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(10, 6, 4, 0.82);
+  background: rgba(20, 12, 10, 0.78);
+  backdrop-filter: blur(2px);
+}
+
+/* Critical: .modal { display:flex } was overriding HTML hidden — modals stayed visible */
+.modal[hidden] {
+  display: none;
+}
+
+.modal:not([hidden]) {
+  display: flex;
 }
 
 .pixel-border {
@@ -445,10 +468,13 @@ body {
 
 .modal-card {
   position: relative;
-  background: var(--bg-panel);
+  background: linear-gradient(165deg, var(--bg-card-inner) 0%, var(--bg-panel) 100%);
   max-width: 100%;
   width: 22rem;
   padding: 1rem;
+  box-shadow:
+    var(--pixel) var(--pixel) 0 var(--shadow),
+    inset 0 1px 0 rgba(255, 248, 236, 0.06);
 }
 
 .modal-card.small {

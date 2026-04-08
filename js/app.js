@@ -534,9 +534,11 @@
     if (e.target === modalMemory) closeMemoryModal();
   });
 
-  newJarCancel.addEventListener("click", function () {
-    modalNewJar.hidden = true;
-  });
+  function closeNewJarModal() {
+    if (modalNewJar) modalNewJar.hidden = true;
+  }
+
+  newJarCancel.addEventListener("click", closeNewJarModal);
   newJarSave.addEventListener("click", function () {
     var name = (newJarName.value || "").trim() || "Untitled jar";
     var state = loadState();
@@ -548,12 +550,25 @@
     };
     state.jars.unshift(j);
     saveState(state);
-    modalNewJar.hidden = true;
+    closeNewJarModal();
     toast("Jar created!");
     location.hash = "#jar/" + encodeURIComponent(j.id);
   });
 
+  if (modalNewJar) {
+    modalNewJar.addEventListener("click", function (e) {
+      if (e.target === modalNewJar) closeNewJarModal();
+    });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    closeNewJarModal();
+    closeMemoryModal();
+  });
+
   function route() {
+    closeNewJarModal();
     var h = location.hash.slice(1) || "home";
     if (h === "home" || h === "") {
       renderHome();
