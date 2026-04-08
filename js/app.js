@@ -278,7 +278,6 @@
 
     var html = "";
     html += '<div class="home-grid">';
-    html += '<div class="home-grid__col">';
     html += '<div class="home-hero">';
     html += '<h2 class="home-hero-kicker">Welcome home</h2>';
     html += '<div class="home-stats">';
@@ -286,9 +285,6 @@
     html += '<span class="home-stat"><strong>' + jarCount + "</strong> " + (jarCount === 1 ? "jar" : "jars") + "</span>";
     html += "</div>";
     html += "</div>";
-    html += "</div>";
-
-    html += '<div class="home-grid__col">';
     html += '<div class="prompt-card">';
     html += '<p class="prompt-date">' + escapeHtml(formatToday()) + "</p>";
     html += '<p class="prompt-box" style="min-height:3.5rem;margin:0">Today\'s prompt<br/><strong>' + escapeHtml(todayPrompt()) + "</strong></p>";
@@ -307,14 +303,10 @@
     html += '<a class="btn ghost" href="shared.html">Shared jars</a>';
     html += "</div>";
     html += "</div>";
-    html += "</div>";
-
-    html += '<div class="home-grid__full">';
     html += '<div class="jar-preview-wrap" id="home-jar-tease">';
     html += jarSvg();
     html += "</div>";
     html += '<p class="jar-hint">Open any jar, tap <strong>Shake jar</strong>, and a random photo will float up — like catching a firefly memory from a neon jar.</p>';
-    html += "</div>";
     html += "</div>";
 
     mainEl.innerHTML = html;
