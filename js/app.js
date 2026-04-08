@@ -168,13 +168,41 @@
   });
 
   function jarSvg() {
+    /* Rounded-square “jam block” + lid; gradients + tiny pixel sparkle */
     return (
-      '<svg class="jar-svg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      '<path fill="#4a3426" d="M28 18h44l6 14v8H22v-8l6-14z"/>' +
-      '<path fill="#6b4a2e" d="M26 40h48v6H26z"/>' +
-      '<path fill="#c44b4b" stroke="#2d1f14" stroke-width="2" d="M22 46c2 52 8 72 28 78 20-6 26-26 28-78H22z"/>' +
-      '<ellipse cx="50" cy="46" rx="26" ry="5" fill="#e8a838" opacity="0.35"/>' +
-      '<path fill="none" stroke="#2d1f14" stroke-width="2" d="M22 46c2 52 8 72 28 78 20-6 26-26 28-78"/>' +
+      '<svg class="jar-svg" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      "<defs>" +
+      '<linearGradient id="mj-jam" x1="0%" y1="0%" x2="0%" y2="100%">' +
+      '<stop offset="0%" stop-color="#f08888"/>' +
+      '<stop offset="45%" stop-color="#c85858"/>' +
+      '<stop offset="100%" stop-color="#7c2834"/>' +
+      "</linearGradient>" +
+      '<linearGradient id="mj-lid" x1="0%" y1="0%" x2="0%" y2="100%">' +
+      '<stop offset="0%" stop-color="#9a7050"/>' +
+      '<stop offset="100%" stop-color="#4a3428"/>' +
+      "</linearGradient>" +
+      '<linearGradient id="mj-shine" x1="0%" y1="0%" x2="100%" y2="20%">' +
+      '<stop offset="0%" stop-color="#fff8f0" stop-opacity="0"/>' +
+      '<stop offset="35%" stop-color="#ffd8b8" stop-opacity="0.22"/>' +
+      '<stop offset="100%" stop-color="#fff8f0" stop-opacity="0"/>' +
+      "</linearGradient>" +
+      "</defs>" +
+      '<rect x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#2d1f14" stroke-width="2"/>' +
+      '<rect x="28" y="14" width="20" height="4" rx="2" fill="#ffffff" opacity="0.1"/>' +
+      '<rect x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#5c4034" stroke="#2d1f14" stroke-width="2"/>' +
+      '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)" stroke="#2d1f14" stroke-width="2"/>' +
+      '<rect x="22" y="42" width="56" height="7" rx="3" fill="#f0c070" opacity="0.28"/>' +
+      '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
+      '<g fill="#ffe8c8" opacity="0.65">' +
+      '<rect x="68" y="54" width="2" height="2"/>' +
+      '<rect x="70" y="52" width="2" height="6"/>' +
+      '<rect x="66" y="56" width="10" height="2"/>' +
+      "</g>" +
+      '<g fill="#ffe8c8" opacity="0.4">' +
+      '<rect x="26" y="88" width="2" height="2"/>' +
+      '<rect x="28" y="86" width="2" height="6"/>' +
+      '<rect x="24" y="90" width="10" height="2"/>' +
+      "</g>" +
       "</svg>"
     );
   }

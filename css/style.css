@@ -21,6 +21,11 @@
   --shadow: rgba(0, 0, 0, 0.48);
   --shadow-soft: rgba(0, 0, 0, 0.22);
   --pixel: 4px;
+  /* Night-sky & warmth for star layer */
+  --star: rgba(255, 232, 200, 0.55);
+  --star-dim: rgba(255, 210, 160, 0.22);
+  --sky-glow: rgba(120, 90, 140, 0.12);
+  --honey-mist: rgba(255, 200, 120, 0.08);
 }
 
 *,
@@ -37,20 +42,51 @@ body {
   margin: 0;
   min-height: 100dvh;
   font-family: "VT323", monospace;
+  position: relative;
+  isolation: isolate;
   background: var(--bg-deep);
+  /* Cozy dusk → cocoa with soft rose & honey lifts */
   background-image:
-    radial-gradient(ellipse 140% 90% at 50% -10%, rgba(180, 130, 110, 0.14) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 60% at 85% 100%, rgba(100, 72, 58, 0.32) 0%, transparent 45%),
-    radial-gradient(ellipse 70% 45% at 8% 75%, rgba(212, 160, 102, 0.07) 0%, transparent 42%),
+    linear-gradient(168deg, rgba(55, 38, 58, 0.42) 0%, transparent 42%),
+    linear-gradient(12deg, rgba(42, 58, 72, 0.28) 0%, transparent 38%),
+    radial-gradient(ellipse 130% 85% at 50% -5%, rgba(200, 140, 120, 0.18) 0%, transparent 52%),
+    radial-gradient(ellipse 90% 55% at 92% 88%, rgba(90, 58, 72, 0.22) 0%, transparent 48%),
+    radial-gradient(ellipse 70% 50% at 6% 72%, rgba(212, 160, 102, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 78% 18%, var(--honey-mist) 0%, transparent 28%),
+    radial-gradient(circle at 18% 28%, var(--sky-glow) 0%, transparent 32%),
+    linear-gradient(180deg, #241a22 0%, var(--bg-deep) 28%, #1a1418 72%, #161012 100%);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soft vignette */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 95% 80% at 50% 45%, transparent 35%, rgba(12, 8, 10, 0.55) 100%),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.1) 2px,
-      rgba(0, 0, 0, 0.1) 4px
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 4px
     );
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
+}
+
+/* Cute pixel stars — tiled SVG (tiny crosses + dots) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='%23ffe8c8'%3E%3Crect x='8' y='16' width='2' height='2' opacity='0.9'/%3E%3Crect x='10' y='14' width='2' height='6' opacity='0.9'/%3E%3Crect x='6' y='18' width='10' height='2' opacity='0.9'/%3E%3Crect x='52' y='8' width='2' height='2' opacity='0.45'/%3E%3Crect x='54' y='6' width='2' height='6' opacity='0.45'/%3E%3Crect x='50' y='10' width='10' height='2' opacity='0.45'/%3E%3Crect x='88' y='28' width='3' height='3' opacity='0.7'/%3E%3Crect x='91' y='25' width='3' height='9' opacity='0.7'/%3E%3Crect x='85' y='31' width='15' height='3' opacity='0.7'/%3E%3Crect x='24' y='44' width='2' height='2' opacity='0.35'/%3E%3Crect x='26' y='42' width='2' height='6' opacity='0.35'/%3E%3Crect x='22' y='46' width='10' height='2' opacity='0.35'/%3E%3Crect x='72' y='52' width='2' height='2' opacity='0.55'/%3E%3Crect x='74' y='50' width='2' height='6' opacity='0.55'/%3E%3Crect x='70' y='54' width='10' height='2' opacity='0.55'/%3E%3Crect x='12' y='72' width='2' height='2' opacity='0.4'/%3E%3Crect x='14' y='70' width='2' height='6' opacity='0.4'/%3E%3Crect x='10' y='74' width='10' height='2' opacity='0.4'/%3E%3Crect x='96' y='80' width='2' height='2' opacity='0.5'/%3E%3Crect x='98' y='78' width='2' height='6' opacity='0.5'/%3E%3Crect x='94' y='82' width='10' height='2' opacity='0.5'/%3E%3Crect x='40' y='92' width='2' height='2' opacity='0.3'/%3E%3Crect x='42' y='90' width='2' height='6' opacity='0.3'/%3E%3Crect x='38' y='94' width='10' height='2' opacity='0.3'/%3E%3Crect x='60' y='24' width='2' height='2' opacity='0.25'/%3E%3Crect x='32' y='60' width='2' height='2' opacity='0.28'/%3E%3Crect x='84' y='96' width='2' height='2' opacity='0.32'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 112px 112px;
 }
 
 .app {
@@ -60,6 +96,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 1;
 }
 
 .app > .app-footer {
@@ -72,8 +109,13 @@ body {
   justify-content: space-between;
   padding: 0.75rem 1rem;
   border-bottom: var(--pixel) solid var(--border);
-  background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg) 100%);
-  box-shadow: 0 var(--pixel) 0 var(--shadow-soft), inset 0 1px 0 rgba(255, 248, 232, 0.06);
+  background:
+    linear-gradient(180deg, rgba(255, 200, 160, 0.07) 0%, transparent 42%),
+    linear-gradient(180deg, #3d3028 0%, var(--bg) 55%, #2a1e18 100%);
+  box-shadow:
+    0 var(--pixel) 0 var(--shadow-soft),
+    inset 0 1px 0 rgba(255, 248, 232, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
 
 .logo {
@@ -130,7 +172,9 @@ body {
   left: 0;
   width: 12rem;
   height: 100%;
-  background: linear-gradient(180deg, var(--bg-card-inner) 0%, var(--bg-panel) 40%);
+  background:
+    radial-gradient(ellipse 100% 40% at 0% 0%, rgba(255, 200, 170, 0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #2e2420 0%, var(--bg-card-inner) 35%, var(--bg-panel) 100%);
   border-right: var(--pixel) solid var(--border);
   z-index: 50;
   padding: 3rem 1rem 1rem;
@@ -175,6 +219,21 @@ body {
   flex: 1;
   padding: 1rem;
   padding-bottom: 2rem;
+  position: relative;
+}
+
+/* Subtle warm frame behind content */
+.main::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  right: 0.35rem;
+  top: 0;
+  bottom: 0;
+  border-radius: 12px;
+  background: linear-gradient(165deg, rgba(255, 210, 170, 0.04) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Home & cozy blocks */
@@ -207,11 +266,12 @@ body {
   display: inline-block;
   font-size: 0.95rem;
   color: var(--accent);
-  background: var(--accent-glow);
+  background: linear-gradient(145deg, rgba(255, 210, 160, 0.12) 0%, var(--accent-glow) 100%);
   border: 2px dashed var(--border-soft);
   padding: 0.2rem 0.65rem;
   margin-bottom: 0.75rem;
-  box-shadow: inset 0 0 12px rgba(240, 192, 96, 0.08);
+  border-radius: 4px;
+  box-shadow: inset 0 0 14px rgba(240, 192, 96, 0.1);
 }
 
 .home-stats {
@@ -234,13 +294,17 @@ body {
 
 .prompt-card {
   position: relative;
-  background: linear-gradient(145deg, var(--bg-card-inner) 0%, var(--bg-panel) 100%);
+  background:
+    radial-gradient(ellipse 120% 80% at 90% 0%, rgba(255, 190, 140, 0.09) 0%, transparent 45%),
+    linear-gradient(145deg, #3a2c24 0%, var(--bg-card-inner) 42%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--border);
   padding: 1.1rem 1rem 1rem;
   margin-bottom: 1rem;
+  border-radius: 4px;
   box-shadow:
     var(--pixel) var(--pixel) 0 var(--shadow),
-    inset 0 1px 0 rgba(255, 248, 232, 0.07);
+    inset 0 1px 0 rgba(255, 248, 232, 0.08),
+    inset 0 -2px 12px rgba(0, 0, 0, 0.12);
 }
 
 .prompt-card::before {
@@ -288,11 +352,16 @@ body {
 }
 
 .card {
-  background: linear-gradient(160deg, var(--bg-card-inner) 0%, var(--bg-panel) 100%);
+  background:
+    radial-gradient(ellipse 100% 70% at 12% 8%, rgba(200, 160, 190, 0.06) 0%, transparent 42%),
+    linear-gradient(160deg, var(--bg-card-inner) 0%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--border);
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+  border-radius: 4px;
+  box-shadow:
+    var(--pixel) var(--pixel) 0 var(--shadow),
+    inset 0 1px 0 rgba(255, 248, 232, 0.05);
 }
 
 .prompt-box {
@@ -358,6 +427,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body::after {
+    opacity: 0.28;
+  }
+
   .jar-preview-wrap.shaking .jar-svg {
     animation: none;
   }
@@ -391,7 +464,7 @@ body {
 
 .jar-svg {
   width: 140px;
-  height: 180px;
+  height: 161px;
   filter: drop-shadow(4px 6px 0 var(--shadow));
 }
 
