@@ -1,0 +1,455 @@
+/* Memory Jam — cozy pixel life aesthetic */
+:root {
+  --bg-deep: #1a120c;
+  --bg: #2d1f14;
+  --bg-panel: #3d2a1c;
+  --border: #8b6914;
+  --accent: #e8a838;
+  --accent-soft: #c97b2e;
+  --text: #f5e6c8;
+  --text-dim: #b89a7a;
+  --jam-red: #c44b4b;
+  --jam-lid: #6b4a2e;
+  --shadow: rgba(0, 0, 0, 0.45);
+  --pixel: 4px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: "VT323", monospace;
+  background: var(--bg-deep);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 0%, #3a2818 0%, transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px
+    );
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 28rem;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: var(--pixel) solid var(--border);
+  background: var(--bg);
+  box-shadow: 0 var(--pixel) 0 var(--shadow);
+}
+
+.logo {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--accent);
+  text-shadow: 2px 2px 0 var(--shadow);
+  letter-spacing: -0.02em;
+}
+
+.logo-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-icon {
+  font-family: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: var(--pixel) solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.btn-icon:active {
+  transform: translate(1px, 1px);
+}
+
+.top-spacer {
+  width: 2.5rem;
+}
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 40;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12rem;
+  height: 100%;
+  background: var(--bg-panel);
+  border-right: var(--pixel) solid var(--border);
+  z-index: 50;
+  padding: 3rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--pixel) 0 0 var(--shadow);
+}
+
+.drawer-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.nav-link {
+  font-size: 1.35rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.35rem 0;
+  border-bottom: 2px dashed var(--border);
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+.main {
+  flex: 1;
+  padding: 1rem;
+  padding-bottom: 2rem;
+}
+
+.screen-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.55rem;
+  color: var(--accent-soft);
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.card {
+  background: var(--bg-panel);
+  border: var(--pixel) solid var(--border);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+}
+
+.prompt-box {
+  font-size: 1.35rem;
+  line-height: 1.35;
+  color: var(--text);
+  min-height: 4rem;
+}
+
+.prompt-date {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  font-family: "VT323", monospace;
+  font-size: 1.25rem;
+  padding: 0.6rem 1rem;
+  border: var(--pixel) solid var(--border);
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.btn.primary {
+  background: var(--jam-red);
+  color: #fff;
+  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+}
+
+.btn.primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.btn.secondary {
+  background: var(--bg-panel);
+  color: var(--text);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--accent);
+  border-style: dashed;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.jar-preview-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.jar-preview-wrap.shaking .jar-svg {
+  animation: jar-shake 0.55s ease-in-out;
+}
+
+@keyframes jar-shake {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  15% {
+    transform: translate(-6px, 2px) rotate(-4deg);
+  }
+  30% {
+    transform: translate(8px, -3px) rotate(5deg);
+  }
+  45% {
+    transform: translate(-5px, 4px) rotate(-3deg);
+  }
+  60% {
+    transform: translate(6px, -2px) rotate(4deg);
+  }
+  75% {
+    transform: translate(-4px, 1px) rotate(-2deg);
+  }
+}
+
+.jar-svg {
+  width: 140px;
+  height: 180px;
+  filter: drop-shadow(4px 6px 0 var(--shadow));
+}
+
+.jar-hint {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  margin-top: 0.5rem;
+}
+
+.jar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.jar-list li {
+  margin-bottom: 0.75rem;
+}
+
+.jar-list a {
+  display: block;
+  padding: 0.85rem 1rem;
+  background: var(--bg-panel);
+  border: var(--pixel) solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.35rem;
+  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+}
+
+.jar-list a:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.jar-meta {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  margin-top: 0.25rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  padding: 2rem 1rem;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(10, 6, 4, 0.82);
+}
+
+.pixel-border {
+  border: var(--pixel) solid var(--border);
+  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+}
+
+.modal-card {
+  position: relative;
+  background: var(--bg-panel);
+  max-width: 100%;
+  width: 22rem;
+  padding: 1rem;
+}
+
+.modal-card.small {
+  width: 18rem;
+}
+
+.modal-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.55rem;
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.modal-label {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin: 0 0 0.5rem;
+}
+
+#modal-memory-img {
+  width: 100%;
+  max-height: 50dvh;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 2px solid var(--border);
+}
+
+.modal-caption {
+  margin: 0.5rem 0 0;
+  font-size: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.field span {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}
+
+.field input {
+  font-family: inherit;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.thumb-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  image-rendering: pixelated;
+}
+
+.share-box {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--bg);
+  border: 2px dashed var(--border);
+  font-size: 1rem;
+  word-break: break-all;
+  max-height: 6rem;
+  overflow: auto;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: var(--bg-panel);
+  border: var(--pixel) solid var(--accent);
+  padding: 0.6rem 1rem;
+  font-size: 1.15rem;
+  box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
+  animation: toast-in 0.25s ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (min-width: 400px) {
+  html {
+    font-size: 20px;
+  }
+}
