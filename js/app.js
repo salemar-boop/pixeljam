@@ -109,7 +109,6 @@
   var newJarCancel = document.getElementById("new-jar-cancel");
   var newJarSave = document.getElementById("new-jar-save");
   var cameraInput = document.getElementById("camera-input");
-  var importFile = document.getElementById("import-file");
 
   var pendingCapture = null; // { jarId } or null for daily default jar
 
@@ -137,6 +136,79 @@
     state.jars.unshift(def);
     if (!state.activeJarId) state.activeJarId = def.id;
     return def;
+  }
+
+  function placeholderPhotoData(label, c1, c2) {
+    var safe = (label || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var svg =
+      "<svg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'>" +
+      "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
+      "<stop offset='0%' stop-color='" + c1 + "'/><stop offset='100%' stop-color='" + c2 + "'/></linearGradient></defs>" +
+      "<rect width='480' height='480' fill='url(%23g)'/>" +
+      "<rect x='46' y='46' width='388' height='388' rx='26' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='8'/>" +
+      "<text x='240' y='250' font-size='34' fill='white' text-anchor='middle' font-family='monospace'>" + safe + "</text>" +
+      "</svg>";
+    return "data:image/svg+xml;utf8," + svg;
+  }
+
+  function ensureDemoSharedJars(state) {
+    var demos = [
+      {
+        id: "shared_nova",
+        name: "Midnight Walks",
+        ownerName: "Nova",
+        ownerHandle: "@nova.pix",
+        ownerAvatar: "🌙",
+        photos: [
+          { caption: "Neon corner", dataUrl: placeholderPhotoData("Neon Corner", "#1d4ed8", "#7c3aed") },
+          { caption: "Rain on glass", dataUrl: placeholderPhotoData("Rain Glass", "#0369a1", "#0f172a") },
+        ],
+      },
+      {
+        id: "shared_milo",
+        name: "Late Snacks Club",
+        ownerName: "Milo",
+        ownerHandle: "@milo.night",
+        ownerAvatar: "🍜",
+        photos: [
+          { caption: "Corner ramen", dataUrl: placeholderPhotoData("Ramen", "#7c2d12", "#ea580c") },
+          { caption: "Window booth", dataUrl: placeholderPhotoData("Booth", "#1f2937", "#0ea5e9") },
+        ],
+      },
+      {
+        id: "shared_lumi",
+        name: "City Glow",
+        ownerName: "Lumi",
+        ownerHandle: "@lumi.stars",
+        ownerAvatar: "✨",
+        photos: [
+          { caption: "Bridge lights", dataUrl: placeholderPhotoData("Bridge", "#0f172a", "#22d3ee") },
+          { caption: "Purple skyline", dataUrl: placeholderPhotoData("Skyline", "#312e81", "#a78bfa") },
+        ],
+      },
+    ];
+
+    demos.forEach(function (d) {
+      var existing = findJar(state, d.id);
+      if (existing) return;
+      state.jars.push({
+        id: d.id,
+        name: d.name,
+        createdAt: Date.now(),
+        isShared: true,
+        ownerName: d.ownerName,
+        ownerHandle: d.ownerHandle,
+        ownerAvatar: d.ownerAvatar,
+        photos: d.photos.map(function (p) {
+          return {
+            id: photoId(),
+            dataUrl: p.dataUrl,
+            caption: p.caption,
+            createdAt: Date.now(),
+          };
+        }),
+      });
+    });
   }
 
   function findJar(state, id) {
@@ -193,6 +265,7 @@
   function renderHome() {
     var state = loadState();
     getOrCreateDefaultJar(state);
+    ensureDemoSharedJars(state);
     saveState(state);
 
     var memories = totalPhotoCount(state);
@@ -233,7 +306,7 @@
     html += '<p class="prompt-box" style="margin:0 0 0.65rem">Where to next</p>';
     html += '<div class="quick-links">';
     html += '<a class="btn secondary" href="jars.html">My jars — create &amp; open</a>';
-    html += '<a class="btn ghost" href="import.html">Import a shared jar</a>';
+    html += '<a class="btn ghost" href="shared.html">Shared jars</a>';
     html += "</div>";
     html += "</div>";
     html += "</div>";
@@ -266,6 +339,7 @@
     setFooter("", false);
     var state = loadState();
     getOrCreateDefaultJar(state);
+    ensureDemoSharedJars(state);
     saveState(state);
 
     var html = "";
@@ -274,11 +348,15 @@
     html += '<button type="button" class="btn primary" id="btn-new-jar">New jar</button>';
     html += "</div>";
 
-    if (state.jars.length === 0) {
+    var personalJars = state.jars.filter(function (j) {
+      return !j.isShared;
+    });
+
+    if (personalJars.length === 0) {
       html += '<p class="empty-state">No jars yet. Create one!</p>';
     } else {
       html += '<ul class="jar-list">';
-      state.jars.forEach(function (j) {
+      personalJars.forEach(function (j) {
         html += "<li>";
         html += '<a href="' + jarPageUrl(j.id) + '">';
         html += escapeHtml(j.name);
@@ -302,6 +380,7 @@
   function renderJar(jarId) {
     setFooter("", false);
     var state = loadState();
+    ensureDemoSharedJars(state);
     var jar = findJar(state, jarId);
     if (!jar) {
       mainEl.innerHTML =
@@ -316,6 +395,14 @@
 
     var html = "";
     html += '<h2 class="screen-title">' + escapeHtml(jar.name) + "</h2>";
+    if (jar.isShared) {
+      html +=
+        '<p class="jar-hint" style="margin:0 0 0.5rem">Shared by <strong>' +
+        escapeHtml(jar.ownerName || "Friend") +
+        "</strong> " +
+        escapeHtml(jar.ownerHandle || "") +
+        "</p>";
+    }
     html += '<div class="jar-preview-wrap" id="jar-shake-zone">';
     html += jarSvg();
     html += "</div>";
@@ -324,12 +411,14 @@
     html += "</div>";
     html += '<p class="jar-hint">Give it a shake — a random photo from this jar will drift up like fruit in jam.</p>';
 
-    html += '<div class="card">';
-    html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
-    html += '<div class="btn-row">';
-    html += '<button type="button" class="btn primary" id="btn-add-jar">Add today\'s photo here</button>';
-    html += "</div>";
-    html += "</div>";
+    if (!jar.isShared) {
+      html += '<div class="card">';
+      html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
+      html += '<div class="btn-row">';
+      html += '<button type="button" class="btn primary" id="btn-add-jar">Add today\'s photo here</button>';
+      html += "</div>";
+      html += "</div>";
+    }
 
     if (jar.photos.length > 0) {
       html += '<div class="card"><p class="prompt-box" style="margin:0 0 0.5rem">Inside the jar</p>';
@@ -342,14 +431,15 @@
       html += '<p class="empty-state">No photos yet — add one from today\'s prompt.</p>';
     }
 
-    html += '<div class="card">';
-    html += '<p class="prompt-box" style="margin:0 0 0.5rem">Share this jar</p>';
-    html += '<p class="jar-hint" style="text-align:left;margin:0 0 0.5rem">Export the JSON file and send it to someone you trust. They import it from the menu under <strong>Import jar</strong> — your memories stay on your devices.</p>';
-    html += '<div class="btn-row">';
-    html += '<button type="button" class="btn secondary" id="btn-export">Export .json</button>';
-    html += '<button type="button" class="btn ghost" id="btn-copy-share">Copy share text</button>';
-    html += "</div>";
-    html += "</div>";
+    if (!jar.isShared) {
+      html += '<div class="card">';
+      html += '<p class="prompt-box" style="margin:0 0 0.5rem">Share this jar</p>';
+      html += '<p class="jar-hint" style="text-align:left;margin:0 0 0.5rem">Share this memory jar with friends by sending them a link to this page.</p>';
+      html += '<div class="btn-row">';
+      html += '<button type="button" class="btn ghost" id="btn-copy-share">Copy share text</button>';
+      html += "</div>";
+      html += "</div>";
+    }
 
     mainEl.innerHTML = html;
 
@@ -382,112 +472,63 @@
 
     document.getElementById("btn-shake").addEventListener("click", doShake);
 
-    document.getElementById("btn-add-jar").addEventListener("click", function () {
-      openCamera(jar.id);
-    });
+    if (!jar.isShared) {
+      document.getElementById("btn-add-jar").addEventListener("click", function () {
+        openCamera(jar.id);
+      });
+    }
 
-    document.getElementById("btn-export").addEventListener("click", function () {
-      var blob = new Blob([JSON.stringify(exportJarPayload(jar), null, 2)], { type: "application/json" });
-      var a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = slugName(jar.name) + "-memory-jam.json";
-      a.click();
-      URL.revokeObjectURL(a.href);
-      toast("Jar exported.");
-    });
-
-    document.getElementById("btn-copy-share").addEventListener("click", function () {
-      var payload = exportJarPayload(jar);
-      var text =
-        "Memory Jam — shared jar \"" +
-        jar.name +
-        "\"\n\nImport this JSON in Memory Jam (Import jar), or use the file from Export.\n\n" +
-        "Preview: " +
-        jar.photos.length +
-        " photos.\n";
+    if (!jar.isShared) {
+      document.getElementById("btn-copy-share").addEventListener("click", function () {
+        var text =
+          "Memory Jam — shared jar \"" +
+          jar.name +
+          "\"\n\nOpen this link:\n" +
+          window.location.href +
+          "\n\nPreview: " +
+          jar.photos.length +
+          " photos.\n";
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           function () {
             toast("Share blurb copied.");
           },
           function () {
-            toast("Could not copy — try Export instead.");
+            toast("Could not copy — copy the page URL manually.");
           }
         );
       } else {
-        toast("Clipboard not available — use Export.");
+        toast("Clipboard not available — copy the page URL manually.");
       }
-    });
-  }
-
-  function slugName(name) {
-    return (
-      name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "") || "jar"
-    );
-  }
-
-  function exportJarPayload(jar) {
-    return {
-      app: "memory-jam",
-      version: 1,
-      exportedAt: Date.now(),
-      jar: {
-        name: jar.name,
-        photos: jar.photos.map(function (p) {
-          return {
-            id: p.id,
-            dataUrl: p.dataUrl,
-            caption: p.caption || "",
-            createdAt: p.createdAt,
-          };
-        }),
-      },
-    };
-  }
-
-  function importJarFromObject(data) {
-    if (!data || data.app !== "memory-jam" || !data.jar) {
-      throw new Error("Invalid file");
+      });
     }
-    var j = data.jar;
-    var state = loadState();
-    var newJar = {
-      id: uid(),
-      name: j.name || "Imported jar",
-      createdAt: Date.now(),
-      photos: (j.photos || []).map(function (p) {
-        return {
-          id: p.id || photoId(),
-          dataUrl: p.dataUrl,
-          caption: p.caption || "",
-          createdAt: p.createdAt || Date.now(),
-        };
-      }),
-    };
-    state.jars.push(newJar);
-    state.activeJarId = newJar.id;
-    saveState(state);
-    return newJar.id;
   }
 
-  function renderImport() {
+  function renderShared() {
     setFooter("", false);
+    var state = loadState();
+    ensureDemoSharedJars(state);
+    saveState(state);
+    var shared = state.jars.filter(function (j) {
+      return !!j.isShared;
+    });
+
     var html = "";
-    html += '<h2 class="screen-title">Import jar</h2>';
-    html += '<div class="card">';
-    html +=
-      "<p>Someone shared a <strong>Memory Jam</strong> export with you? Choose the <code>.json</code> file below. It will appear in <a href=\"jars.html\">My jars</a> as a new jar.</p>";
-    html += '<div class="btn-row">';
-    html += '<button type="button" class="btn primary" id="btn-pick-import">Choose file</button>';
-    html += "</div>";
+    html += '<h2 class="screen-title">Shared jars</h2>';
+    html += '<p class="jar-hint" style="text-align:left;margin:0 0 1rem">Browse memory jars shared by people in the Memory Jam neighborhood.</p>';
+    html += '<div class="shared-grid">';
+    shared.forEach(function (j) {
+      html += '<article class="card shared-card">';
+      html += '<p class="shared-profile"><span class="shared-avatar">' + escapeHtml(j.ownerAvatar || "👤") + "</span>";
+      html += '<strong>' + escapeHtml(j.ownerName || "Friend") + "</strong> ";
+      html += '<span>' + escapeHtml(j.ownerHandle || "@friend") + "</span></p>";
+      html += '<p class="prompt-box" style="min-height:0;margin:0 0 0.5rem">' + escapeHtml(j.name) + "</p>";
+      html += '<p class="jar-meta">' + j.photos.length + " shared memories</p>";
+      html += '<div class="btn-row"><a class="btn secondary" href="' + jarPageUrl(j.id) + '">Open shared jar</a></div>';
+      html += "</article>";
+    });
     html += "</div>";
     mainEl.innerHTML = html;
-    document.getElementById("btn-pick-import").addEventListener("click", function () {
-      importFile.click();
-    });
   }
 
   function openCamera(jarId) {
@@ -531,24 +572,6 @@
       }
     };
     reader.readAsDataURL(f);
-  });
-
-  importFile.addEventListener("change", function () {
-    var f = importFile.files && importFile.files[0];
-    if (!f) return;
-    var reader = new FileReader();
-    reader.onload = function () {
-      try {
-        var data = JSON.parse(reader.result);
-        var id = importJarFromObject(data);
-        toast("Jar imported!");
-        window.location.href = jarPageUrl(id);
-      } catch (e) {
-        toast("Could not read that file.");
-      }
-      importFile.value = "";
-    };
-    reader.readAsText(f);
   });
 
   modalMemoryClose.addEventListener("click", closeMemoryModal);
@@ -602,9 +625,9 @@
       document.title = "Memory Jam — My jars";
       return;
     }
-    if (page === "import") {
-      renderImport();
-      document.title = "Memory Jam — Import";
+    if (page === "shared") {
+      renderShared();
+      document.title = "Memory Jam — Shared jars";
       return;
     }
     if (page === "jar") {

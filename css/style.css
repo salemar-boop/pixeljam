@@ -90,7 +90,7 @@ body::after {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -105,7 +105,7 @@ body::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
+  padding: calc(0.6rem + env(safe-area-inset-top, 0px)) 1rem 0.75rem;
   border-bottom: var(--pixel) solid var(--border);
   background:
     linear-gradient(180deg, rgba(125, 211, 252, 0.1) 0%, transparent 50%),
@@ -291,6 +291,38 @@ body::after {
   gap: 1rem;
 }
 
+.shared-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.shared-card {
+  border-style: dashed;
+}
+
+.shared-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.45rem;
+  color: var(--text-dim);
+}
+
+.shared-profile strong {
+  color: var(--cream);
+}
+
+.shared-avatar {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(125, 211, 252, 0.12);
+  border: 1px solid var(--border-soft);
+}
+
 @media (min-width: 768px) {
   .home-grid {
     grid-template-columns: 1fr 1fr;
@@ -299,6 +331,10 @@ body::after {
 
   .home-grid__full {
     grid-column: 1 / -1;
+  }
+
+  .shared-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -624,6 +660,33 @@ body::after {
 @media (min-width: 960px) {
   .jar-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .shared-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* iPhone 14 Pro Max friendly sizing (430 x 932 CSS px) */
+@media (max-width: 460px) {
+  html {
+    font-size: 19px;
+  }
+
+  .main {
+    max-width: 430px;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .icon-nav__label {
+    font-size: 0.8rem;
+  }
+
+  .jar-svg {
+    width: 190px;
+    height: 220px;
   }
 }
 
