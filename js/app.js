@@ -304,15 +304,17 @@
     html += '<p class="prompt-box prompt-box--tight">' + escapeHtml(todayPrompt()) + "</p>";
     html += '<div class="btn-row">';
     html +=
-      '<button type="button" class="btn primary" id="btn-capture-prompt">Capture for Daily jar</button>';
+      '<button type="button" class="btn primary" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Capture for Daily jar</button>';
     html += "</div>";
     html += "</div>";
 
     html += '<div class="card home-where-card">';
     html += '<p class="prompt-box prompt-box--tight" style="margin:0 0 0.65rem">Where to next</p>';
     html += '<div class="quick-links">';
-    html += '<a class="btn secondary" href="jars.html">My jars — create &amp; open</a>';
-    html += '<a class="btn ghost" href="shared.html">Shared jars</a>';
+    html +=
+      '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">My jars — create &amp; open</a>';
+    html +=
+      '<a class="btn ghost" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared jars</a>';
     html += "</div>";
     html += "</div>";
     html += "</div>";
@@ -343,7 +345,8 @@
     var html = "";
     html += '<h2 class="screen-title">My jars</h2>';
     html += '<div class="btn-row" style="margin-bottom:1rem">';
-    html += '<button type="button" class="btn primary" id="btn-new-jar">New jar</button>';
+    html +=
+      '<button type="button" class="btn primary" id="btn-new-jar" data-burst="heart" data-burst-color="#fbcfe8">New jar</button>';
     html += "</div>";
 
     var personalJars = state.jars.filter(function (j) {
@@ -407,15 +410,18 @@
     html += jarSvg();
     html += "</div>";
     html += '<div class="btn-row" style="justify-content:center">';
-    html += '<button type="button" class="btn primary" id="btn-shake">Shake jar</button>';
+    html +=
+      '<button type="button" class="btn primary" id="btn-shake" data-burst="ring" data-burst-duration="560">Shake jar</button>';
     html += "</div>";
     html += '<p class="jar-hint">Give it a shake — a random photo from this jar will drift up like fruit in jam.</p>';
 
     html += '<div class="card">';
     html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
     html += '<div class="btn-row">';
-    html += '<button type="button" class="btn primary" id="btn-add-jar">Add today\'s photo here</button>';
-    html += '<button type="button" class="btn ghost" id="btn-clear-jar">Clear jar</button>';
+    html +=
+      '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add today\'s photo here</button>';
+    html +=
+      '<button type="button" class="btn ghost" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear jar</button>';
     html += "</div>";
     html += "</div>";
 
@@ -440,7 +446,8 @@
       html += '<p class="prompt-box" style="margin:0 0 0.5rem">Share this jar</p>';
       html += '<p class="jar-hint" style="text-align:left;margin:0 0 0.5rem">Share this memory jar with friends by sending them a link to this page.</p>';
       html += '<div class="btn-row">';
-      html += '<button type="button" class="btn ghost" id="btn-copy-share">Copy share text</button>';
+      html +=
+        '<button type="button" class="btn ghost" id="btn-copy-share" data-burst="plus" data-burst-char="*" data-burst-count="10">Copy share text</button>';
       html += "</div>";
       html += "</div>";
     }
@@ -542,7 +549,10 @@
       html += '<p class="shared-jar-title">' + escapeHtml(j.name) + "</p>";
       html += '<p class="jar-meta">' + j.photos.length + " memories</p>";
       html += '<div class="btn-row btn-row--stack">';
-      html += '<a class="btn secondary btn-block" href="' + jarPageUrl(j.id) + '">Open jar</a>';
+      html +=
+        '<a class="btn secondary btn-block" href="' +
+        jarPageUrl(j.id) +
+        '" data-burst="spark" data-burst-count="10" data-burst-distance="20">Open jar</a>';
       html += "</div>";
       html += "</article>";
     });
@@ -635,42 +645,227 @@
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
-  function burstStarsFromPhotoButton(btn) {
-    if (motionReduced() || !btn || !btn.getBoundingClientRect) return;
-    var rect = btn.getBoundingClientRect();
+  function ensureStarField() {
+    var existing = document.getElementById("star-field");
+    if (existing) return existing;
+    var el = document.createElement("div");
+    el.id = "star-field";
+    el.className = "star-field";
+    el.setAttribute("aria-hidden", "true");
+    document.body.insertBefore(el, document.body.firstChild);
+    return el;
+  }
+
+  function starFieldStarCount() {
+    var w = window.innerWidth || 400;
+    var h = window.innerHeight || 700;
+    return Math.max(42, Math.min(140, Math.floor((w * h) / 10500)));
+  }
+
+  function populateStarField() {
+    var container = ensureStarField();
+    container.innerHTML = "";
+    var n = starFieldStarCount();
+    var palette = ["#bae6fd", "#e0f2fe", "#e9d5ff", "#fbcfe8", "#a5f3fc"];
+    for (var i = 0; i < n; i++) {
+      var star = document.createElement("span");
+      star.className = "star-field__star";
+      star.textContent = "+";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.setProperty("--star-size", (9 + Math.random() * 7).toFixed(1) + "px");
+      star.style.setProperty("--star-color", palette[Math.floor(Math.random() * palette.length)]);
+      if (!motionReduced()) {
+        star.style.setProperty("--star-dur", (3.4 + Math.random() * 4.2).toFixed(2) + "s");
+        star.style.setProperty("--star-delay", (-Math.random() * 8).toFixed(2) + "s");
+      }
+      container.appendChild(star);
+    }
+  }
+
+  var resizeStarTimer;
+  window.addEventListener(
+    "resize",
+    function () {
+      clearTimeout(resizeStarTimer);
+      resizeStarTimer = setTimeout(populateStarField, 220);
+    },
+    false
+  );
+
+  function burstMsFromEl(el) {
+    var ms = parseInt(el.getAttribute("data-burst-duration") || "", 10);
+    if (isNaN(ms)) return 500;
+    return Math.min(1200, Math.max(220, ms));
+  }
+
+  function burstColorFromEl(el) {
+    var attr = el.getAttribute("data-burst-color");
+    if (attr && attr.trim()) return attr.trim();
+    var v = window.getComputedStyle(el).getPropertyValue("--burst-color");
+    return v ? v.trim() : "";
+  }
+
+  function burstVariantFromEl(el) {
+    var raw = (el.getAttribute("data-burst") || "plus").trim().toLowerCase();
+    if (raw === "none") return null;
+    if (raw === "hearts") return "heart";
+    if (raw === "rings") return "ring";
+    if (raw === "plus" || raw === "spark" || raw === "ring" || raw === "confetti" || raw === "heart") {
+      return raw;
+    }
+    return "plus";
+  }
+
+  function burstCountFor(el, variant) {
+    var c = parseInt(el.getAttribute("data-burst-count") || "", 10);
+    if (!isNaN(c) && c > 0) return Math.min(36, c);
+    if (variant === "ring") return 3;
+    if (variant === "spark") return 11;
+    if (variant === "confetti") return 16;
+    if (variant === "heart") return 7;
+    return 10;
+  }
+
+  function burstDistanceFor(el, variant) {
+    var d = parseFloat(el.getAttribute("data-burst-distance") || "");
+    if (!isNaN(d) && d > 4) return Math.min(96, d);
+    if (variant === "spark") return 21;
+    if (variant === "confetti") return 32;
+    if (variant === "heart") return 27;
+    return 28;
+  }
+
+  function findBurstHost(target) {
+    if (!target || typeof target.closest !== "function") return null;
+    var h = target.closest(
+      'button, input[type="submit"], input[type="button"], input[type="reset"], a.btn, .modal-close'
+    );
+    if (h) {
+      if (h.disabled) return null;
+      if (h.getAttribute("type") === "hidden") return null;
+      return h;
+    }
+    return target.closest(".icon-nav__link");
+  }
+
+  function burstRings(cx, cy, color, durMs) {
+    for (var r = 0; r < 3; r++) {
+      (function (idx) {
+        var ring = document.createElement("span");
+        ring.className = "burst-ring";
+        ring.setAttribute("aria-hidden", "true");
+        ring.style.setProperty("--burst-cx", cx + "px");
+        ring.style.setProperty("--burst-cy", cy + "px");
+        ring.style.setProperty("--burst-dur", durMs / 1000 + "s");
+        if (color) ring.style.setProperty("--burst-color", color);
+        document.body.appendChild(ring);
+        window.setTimeout(function () {
+          requestAnimationFrame(function () {
+            ring.classList.add("burst-ring--out");
+          });
+        }, idx * 55);
+        window.setTimeout(function () {
+          ring.remove();
+        }, durMs + idx * 55 + 50);
+      })(r);
+    }
+  }
+
+  function burstParticlesRadial(el, opts) {
+    if (motionReduced()) return;
+    var rect = el.getBoundingClientRect();
     var cx = rect.left + rect.width / 2;
     var cy = rect.top + rect.height / 2;
-    var count = 10;
+    var variant = opts.variant;
+    var count = opts.count;
+    var baseDist = opts.distance;
+    var durS = opts.durMs / 1000;
+    var color = opts.color;
+
+    if (variant === "ring") {
+      burstRings(cx, cy, color, opts.durMs);
+      return;
+    }
+
     for (var i = 0; i < count; i++) {
       (function (idx) {
-        var s = document.createElement("span");
-        s.className = "photo-burst-star";
-        s.setAttribute("aria-hidden", "true");
-        s.textContent = "+";
-        var angle = (Math.PI * 2 * idx) / count + (Math.random() - 0.5) * 0.4;
-        var dist = 26 + Math.random() * 28;
-        s.style.left = cx + "px";
-        s.style.top = cy + "px";
-        s.style.setProperty("--burst-dx", Math.cos(angle) * dist + "px");
-        s.style.setProperty("--burst-dy", Math.sin(angle) * dist + "px");
-        document.body.appendChild(s);
+        var p = document.createElement("span");
+        p.setAttribute("aria-hidden", "true");
+        p.style.setProperty("--burst-dur", durS + "s");
+        p.style.left = cx + "px";
+        p.style.top = cy + "px";
+        var angle = (Math.PI * 2 * idx) / count + (Math.random() - 0.45) * 0.35;
+        var dist = baseDist * (0.75 + Math.random() * 0.55);
+        p.style.setProperty("--burst-dx", Math.cos(angle) * dist + "px");
+        p.style.setProperty("--burst-dy", Math.sin(angle) * dist + "px");
+
+        if (variant === "confetti") {
+          p.style.setProperty("--burst-rot", (Math.random() * 540 - 270).toFixed(1) + "deg");
+          p.style.setProperty("--burst-end-scale", "0.08");
+          var hues = ["#f472b6", "#a78bfa", "#38bdf8", "#facc15", "#4ade80", "#fb923c"];
+          p.style.setProperty("--burst-color", color || hues[idx % hues.length]);
+        } else if (color) {
+          p.style.setProperty("--burst-color", color);
+        }
+        if (variant === "spark") {
+          p.style.setProperty("--burst-end-scale", "0.06");
+        }
+
+        var baseCls = "burst-particle";
+        if (variant === "heart") {
+          baseCls += " burst-particle--heart";
+          var ch = el.getAttribute("data-burst-char");
+          p.textContent = ch && ch.trim() ? ch.trim() : "\u2665";
+        } else if (variant === "plus") {
+          baseCls += " burst-particle--plus";
+          var chp = el.getAttribute("data-burst-char");
+          p.textContent = chp && chp.trim() ? chp.trim() : "+";
+        } else if (variant === "spark") {
+          baseCls += " burst-particle--spark";
+        } else if (variant === "confetti") {
+          baseCls += " burst-particle--confetti";
+        } else {
+          baseCls += " burst-particle--plus";
+          p.textContent = "+";
+        }
+
+        p.className = baseCls;
+        document.body.appendChild(p);
         requestAnimationFrame(function () {
-          s.classList.add("photo-burst-star--out");
+          requestAnimationFrame(function () {
+            p.classList.add("burst-particle--out");
+          });
         });
         window.setTimeout(function () {
-          s.remove();
-        }, 520);
+          p.remove();
+        }, opts.durMs + 100);
       })(i);
     }
+  }
+
+  function playBurstForClickTarget(el) {
+    if (motionReduced()) return;
+    var variant = burstVariantFromEl(el);
+    if (!variant) return;
+    var durMs = burstMsFromEl(el);
+    var color = burstColorFromEl(el);
+    burstParticlesRadial(el, {
+      variant: variant,
+      count: burstCountFor(el, variant),
+      distance: burstDistanceFor(el, variant),
+      durMs: durMs,
+      color: color,
+    });
   }
 
   document.addEventListener(
     "click",
     function (e) {
-      var t = e.target;
-      if (!t || typeof t.closest !== "function") return;
-      var btn = t.closest("#btn-capture-prompt, #btn-add-jar");
-      if (btn) burstStarsFromPhotoButton(btn);
+      var host = findBurstHost(e.target);
+      if (!host) return;
+      if (burstVariantFromEl(host) === null) return;
+      playBurstForClickTarget(host);
     },
     false
   );
@@ -708,5 +903,6 @@
     renderHome();
   }
 
+  populateStarField();
   initPage();
 })();

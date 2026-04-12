@@ -30,7 +30,14 @@
     </div>
 
     <nav class="icon-nav" aria-label="Main pages">
-      <a href="index.html" class="icon-nav__link is-active" data-nav="home">
+      <a
+        href="index.html"
+        class="icon-nav__link is-active"
+        data-nav="home"
+        data-burst="spark"
+        data-burst-count="7"
+        data-burst-distance="15"
+      >
         <span class="icon-nav__icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor" d="M4 14h4v12h6V18h4v8h6V14h4L16 4 4 14z" />
@@ -38,7 +45,7 @@
         </span>
         <span class="icon-nav__label">Home</span>
       </a>
-      <a href="jars.html" class="icon-nav__link" data-nav="jars">
+      <a href="jars.html" class="icon-nav__link" data-nav="jars" data-burst="spark" data-burst-count="7">
         <span class="icon-nav__icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor" d="M8 6h16v4H8V6zm-2 6h20v14a2 2 0 01-2 2H8a2 2 0 01-2-2V12zm4 4v2h8v-2h-8zm0 4v2h6v-2h-6z" />
@@ -46,7 +53,7 @@
         </span>
         <span class="icon-nav__label">Jars</span>
       </a>
-      <a href="shared.html" class="icon-nav__link" data-nav="shared">
+      <a href="shared.html" class="icon-nav__link" data-nav="shared" data-burst="heart" data-burst-count="6" data-burst-color="#e9d5ff">
         <span class="icon-nav__icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor" d="M6 24h20v2H6zm2-2h16l-2-8h-2l-2 4h-4l-2-4H10l-2 8zm6-12h4l2 3h-8l2-3z" />
@@ -58,7 +65,17 @@
 
     <div class="modal" id="modal-memory" hidden role="dialog" aria-modal="true" aria-labelledby="modal-memory-title">
       <div class="modal-card pixel-border">
-        <button type="button" class="modal-close" id="modal-memory-close" aria-label="Close">×</button>
+        <button
+          type="button"
+          class="modal-close"
+          id="modal-memory-close"
+          aria-label="Close"
+          data-burst="spark"
+          data-burst-count="9"
+          data-burst-duration="420"
+        >
+          ×
+        </button>
         <p class="modal-title" id="modal-memory-title">A memory floats up…</p>
         <p class="modal-memory-date" id="modal-memory-date" hidden></p>
         <img id="modal-memory-img" src="" alt="" />
@@ -74,8 +91,12 @@
           <input type="text" id="new-jar-name" maxlength="80" placeholder="e.g. Summer 2026" autocomplete="off" />
         </div>
         <div class="modal-actions">
-          <button type="button" class="btn ghost" id="new-jar-cancel">Cancel</button>
-          <button type="button" class="btn primary" id="new-jar-save">Create</button>
+          <button type="button" class="btn ghost" id="new-jar-cancel" data-burst="ring" data-burst-duration="520">
+            Cancel
+          </button>
+          <button type="button" class="btn primary" id="new-jar-save" data-burst="confetti" data-burst-count="18">
+            Create
+          </button>
         </div>
       </div>
     </div>

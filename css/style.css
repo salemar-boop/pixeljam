@@ -74,30 +74,50 @@ body::before {
     );
 }
 
-/* Pixel + star field — see stars-bg.svg */
+/* Pixel + star tile — static; individual motion lives in #star-field */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
-  opacity: 0.34;
+  opacity: 0.26;
   background-image: url("stars-bg.svg");
   background-size: 156px 156px;
-  animation: star-shimmer 5.5s ease-in-out infinite;
 }
 
-@keyframes star-shimmer {
+/* JS fills this with spans — each star breathes on its own */
+.star-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star-field__star {
+  position: absolute;
+  font-family: "VT323", monospace;
+  font-size: var(--star-size, 12px);
+  line-height: 1;
+  color: var(--star-color, #bae6fd);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.55;
+  text-shadow: 0 0 5px rgba(186, 230, 253, 0.55);
+  animation: star-breathe var(--star-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--star-delay, 0s);
+  will-change: transform, opacity;
+}
+
+@keyframes star-breathe {
   0%,
   100% {
-    opacity: 0.26;
-    filter: brightness(1);
-    background-size: 150px 150px;
+    transform: translate(-50%, -50%) scale(0.78);
+    opacity: 0.28;
   }
   50% {
-    opacity: 0.48;
-    filter: brightness(1.22);
-    background-size: 172px 172px;
+    transform: translate(-50%, -50%) scale(1.22);
+    opacity: 0.92;
   }
 }
 
@@ -644,9 +664,14 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   body::after {
-    animation: none;
-    opacity: 0.28;
+    opacity: 0.26;
     background-size: 156px 156px;
+  }
+
+  .star-field__star {
+    animation: none;
+    opacity: 0.42;
+    transform: translate(-50%, -50%) scale(1);
   }
 
   .btn:not(:disabled):active,
@@ -1052,28 +1077,80 @@ body::after {
   }
 }
 
-/* Pixel “+” stars burst from add-photo buttons */
-.photo-burst-star {
+/*
+ * Click burst FX — default on buttons / .btn / nav tabs.
+ * Per control: data-burst="plus|spark|ring|confetti|heart|none"
+ * Optional: data-burst-count, data-burst-distance, data-burst-duration (ms),
+ * data-burst-char (plus/heart only), or CSS --burst-color on the button.
+ */
+.burst-particle {
   position: fixed;
   z-index: 900;
   left: 0;
   top: 0;
   pointer-events: none;
-  font-family: "VT323", monospace;
-  font-size: 13px;
-  line-height: 1;
-  color: #e0f2fe;
-  text-shadow:
-    0 0 4px #7dd3fc,
-    0 0 10px rgba(167, 139, 250, 0.55);
   transform: translate(-50%, -50%);
   opacity: 1;
 }
 
-.photo-burst-star--out {
+.burst-particle--plus,
+.burst-particle--heart {
+  font-family: "VT323", monospace;
+  font-size: var(--burst-font-size, 13px);
+  line-height: 1;
+  color: var(--burst-color, #e0f2fe);
+  text-shadow:
+    0 0 4px #7dd3fc,
+    0 0 10px rgba(167, 139, 250, 0.55);
+}
+
+.burst-particle--spark {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff 0%, transparent 45%),
+    var(--burst-color, #7dd3fc);
+  box-shadow: 0 0 8px var(--burst-color, rgba(125, 211, 252, 0.95));
+}
+
+.burst-particle--confetti {
+  width: 6px;
+  height: 9px;
+  border-radius: 1px;
+  background: var(--burst-color, #f472b6);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.35);
+}
+
+.burst-particle--out {
   transition:
-    transform 0.5s cubic-bezier(0.12, 0.9, 0.2, 1),
-    opacity 0.5s ease-out;
-  transform: translate(calc(-50% + var(--burst-dx)), calc(-50% + var(--burst-dy))) scale(0.12);
+    transform var(--burst-dur, 0.5s) cubic-bezier(0.12, 0.9, 0.2, 1),
+    opacity var(--burst-dur, 0.5s) ease-out;
+  transform: translate(calc(-50% + var(--burst-dx)), calc(-50% + var(--burst-dy)))
+    rotate(var(--burst-rot, 0deg)) scale(var(--burst-end-scale, 0.12));
+  opacity: 0;
+}
+
+.burst-ring {
+  position: fixed;
+  z-index: 899;
+  left: var(--burst-cx, 50%);
+  top: var(--burst-cy, 50%);
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -6px;
+  border: 2px solid var(--burst-color, rgba(125, 211, 252, 0.9));
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(0.35);
+  opacity: 0.92;
+  box-shadow: 0 0 10px rgba(125, 211, 252, 0.35);
+}
+
+.burst-ring--out {
+  transition:
+    transform var(--burst-dur, 0.52s) ease-out,
+    opacity var(--burst-dur, 0.52s) ease-out;
+  transform: scale(5.5);
   opacity: 0;
 }
