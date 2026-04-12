@@ -631,6 +631,50 @@
     closeMemoryModal();
   });
 
+  function motionReduced() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function burstStarsFromPhotoButton(btn) {
+    if (motionReduced() || !btn || !btn.getBoundingClientRect) return;
+    var rect = btn.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    var count = 10;
+    for (var i = 0; i < count; i++) {
+      (function (idx) {
+        var s = document.createElement("span");
+        s.className = "photo-burst-star";
+        s.setAttribute("aria-hidden", "true");
+        s.textContent = "+";
+        var angle = (Math.PI * 2 * idx) / count + (Math.random() - 0.5) * 0.4;
+        var dist = 26 + Math.random() * 28;
+        s.style.left = cx + "px";
+        s.style.top = cy + "px";
+        s.style.setProperty("--burst-dx", Math.cos(angle) * dist + "px");
+        s.style.setProperty("--burst-dy", Math.sin(angle) * dist + "px");
+        document.body.appendChild(s);
+        requestAnimationFrame(function () {
+          s.classList.add("photo-burst-star--out");
+        });
+        window.setTimeout(function () {
+          s.remove();
+        }, 520);
+      })(i);
+    }
+  }
+
+  document.addEventListener(
+    "click",
+    function (e) {
+      var t = e.target;
+      if (!t || typeof t.closest !== "function") return;
+      var btn = t.closest("#btn-capture-prompt, #btn-add-jar");
+      if (btn) burstStarsFromPhotoButton(btn);
+    },
+    false
+  );
+
   function initPage() {
     closeNewJarModal();
     var page = document.body.getAttribute("data-page") || "home";

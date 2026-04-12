@@ -92,10 +92,12 @@ body::after {
   100% {
     opacity: 0.26;
     filter: brightness(1);
+    background-size: 150px 150px;
   }
   50% {
     opacity: 0.48;
     filter: brightness(1.22);
+    background-size: 172px 172px;
   }
 }
 
@@ -644,6 +646,7 @@ body::after {
   body::after {
     animation: none;
     opacity: 0.28;
+    background-size: 156px 156px;
   }
 
   .btn:not(:disabled):active,
@@ -1047,4 +1050,30 @@ body::after {
   html {
     font-size: 20px;
   }
+}
+
+/* Pixel “+” stars burst from add-photo buttons */
+.photo-burst-star {
+  position: fixed;
+  z-index: 900;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  font-family: "VT323", monospace;
+  font-size: 13px;
+  line-height: 1;
+  color: #e0f2fe;
+  text-shadow:
+    0 0 4px #7dd3fc,
+    0 0 10px rgba(167, 139, 250, 0.55);
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.photo-burst-star--out {
+  transition:
+    transform 0.5s cubic-bezier(0.12, 0.9, 0.2, 1),
+    opacity 0.5s ease-out;
+  transform: translate(calc(-50% + var(--burst-dx)), calc(-50% + var(--burst-dy))) scale(0.12);
+  opacity: 0;
 }
