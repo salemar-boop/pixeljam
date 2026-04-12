@@ -84,6 +84,19 @@ body::after {
   opacity: 0.34;
   background-image: url("stars-bg.svg");
   background-size: 156px 156px;
+  animation: star-shimmer 5.5s ease-in-out infinite;
+}
+
+@keyframes star-shimmer {
+  0%,
+  100% {
+    opacity: 0.26;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.48;
+    filter: brightness(1.22);
+  }
 }
 
 .app {
@@ -118,8 +131,8 @@ body::after {
 
 .logo {
   font-family: "Press Start 2P", monospace;
-  font-size: 0.65rem;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  line-height: 1.45;
   margin: 0;
   color: var(--accent);
   text-shadow:
@@ -259,7 +272,11 @@ body::after {
   text-decoration: none;
   font-size: 0.85rem;
   border-radius: var(--radius-sm);
-  transition: color 0.12s ease, background 0.12s ease;
+  transition: color 0.12s ease, background 0.12s ease, transform 0.12s ease;
+}
+
+.icon-nav__link:active {
+  animation: btn-tap-pop 0.28s ease;
 }
 
 .icon-nav__link:hover {
@@ -292,6 +309,27 @@ body::after {
   gap: 1rem;
 }
 
+.home-grid--compact {
+  gap: 0.65rem;
+}
+
+.home-prompt-label {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--accent-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.prompt-box--tight {
+  min-height: 0;
+  margin: 0;
+}
+
+.jar-hint--left {
+  text-align: left;
+}
+
 .shared-grid {
   display: grid;
   gap: 0.9rem;
@@ -299,6 +337,8 @@ body::after {
 
 .shared-card {
   border-style: dashed;
+  padding: 0.95rem 0.85rem;
+  min-height: 0;
 }
 
 .shared-profile {
@@ -322,6 +362,39 @@ body::after {
   border-radius: 999px;
   background: rgba(125, 211, 252, 0.12);
   border: 1px solid var(--border-soft);
+}
+
+.shared-avatar--letter {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.shared-profile-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.shared-handle {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  word-break: break-word;
+}
+
+.shared-jar-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: var(--cream);
+  word-break: break-word;
+}
+
+.shared-card .jar-meta {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
 }
 
 @media (min-width: 768px) {
@@ -405,17 +478,6 @@ body::after {
     inset 0 -2px 14px rgba(0, 0, 0, 0.2);
 }
 
-.prompt-card::before {
-  content: "★";
-  position: absolute;
-  top: 0.5rem;
-  right: 0.65rem;
-  font-size: 0.85rem;
-  color: var(--accent-pink);
-  opacity: 0.75;
-  text-shadow: 0 0 8px rgba(244, 114, 182, 0.45);
-}
-
 .quick-links {
   display: flex;
   flex-direction: column;
@@ -493,7 +555,40 @@ body::after {
   border-radius: var(--radius-btn);
   cursor: pointer;
   image-rendering: pixelated;
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.btn-block {
+  width: 100%;
+  text-align: center;
+  display: block;
+  box-sizing: border-box;
+}
+
+.btn-row--stack {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@keyframes btn-tap-pop {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  40% {
+    transform: scale(0.94);
+    filter: brightness(1.12);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+.btn:not(:disabled):active,
+.modal-close:active,
+.modal-actions .btn:active {
+  animation: btn-tap-pop 0.28s ease;
 }
 
 .btn.primary {
@@ -512,8 +607,7 @@ body::after {
 }
 
 .btn.primary:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.28);
 }
 
 .btn.secondary {
@@ -548,7 +642,15 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   body::after {
+    animation: none;
     opacity: 0.28;
+  }
+
+  .btn:not(:disabled):active,
+  .modal-close:active,
+  .modal-actions .btn:active,
+  .icon-nav__link:active {
+    animation: none;
   }
 
   .jar-preview-wrap.shaking .jar-svg {
@@ -686,9 +788,14 @@ body::after {
 
   .main {
     max-width: 430px;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+    padding-top: 0.65rem;
     padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .home-grid--compact {
+    gap: 0.55rem;
   }
 
   .icon-nav__label {
@@ -699,29 +806,52 @@ body::after {
     width: 178px;
     height: 205px;
   }
+
+  .jar-list {
+    display: block;
+  }
+
+  .jar-list li {
+    margin-bottom: 0.65rem;
+  }
+
+  .shared-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .screen-title {
+    font-size: 0.5rem;
+    margin-bottom: 0.65rem;
+  }
 }
 
 .jar-list a {
   display: block;
-  padding: 0.85rem 1rem;
+  padding: 1rem 1rem;
+  min-height: 4.5rem;
   background: linear-gradient(165deg, #243054 0%, var(--bg-panel) 100%);
   border: var(--pixel) solid var(--border);
   border-radius: var(--radius);
   color: var(--text);
   text-decoration: none;
-  font-size: 1.35rem;
+  font-size: 1.18rem;
+  line-height: 1.25;
+  word-break: break-word;
   box-shadow: var(--pixel) var(--pixel) 0 var(--shadow);
 }
 
 .jar-list a:active {
-  transform: translate(2px, 2px);
+  animation: btn-tap-pop 0.28s ease;
   box-shadow: none;
 }
 
 .jar-meta {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--text-dim);
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
+  line-height: 1.2;
 }
 
 .empty-state {

@@ -71,12 +71,6 @@
     });
   }
 
-  function totalPhotoCount(state) {
-    return state.jars.reduce(function (n, j) {
-      return n + (j.photos ? j.photos.length : 0);
-    }, 0);
-  }
-
   function setFooter(html, show) {
     if (!appFooter) return;
     if (show) {
@@ -138,17 +132,50 @@
     return def;
   }
 
-  function placeholderPhotoData(label, c1, c2) {
-    var safe = (label || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var svg =
-      "<svg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'>" +
-      "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
-      "<stop offset='0%' stop-color='" + c1 + "'/><stop offset='100%' stop-color='" + c2 + "'/></linearGradient></defs>" +
-      "<rect width='480' height='480' fill='url(%23g)'/>" +
-      "<rect x='46' y='46' width='388' height='388' rx='26' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='8'/>" +
-      "<text x='240' y='250' font-size='34' fill='white' text-anchor='middle' font-family='monospace'>" + safe + "</text>" +
-      "</svg>";
-    return "data:image/svg+xml;utf8," + svg;
+  /** Real image URL (demo) or captured data URL */
+  function photoSrc(p) {
+    if (!p) return "";
+    return p.remoteUrl || p.dataUrl || "";
+  }
+
+  function ownerInitial(name) {
+    if (!name || !String(name).length) return "?";
+    return String(name).charAt(0).toUpperCase();
+  }
+
+  function photoIsSvgPlaceholder(p) {
+    var u = p && (p.dataUrl || "");
+    return u.indexOf("image/svg+xml") !== -1;
+  }
+
+  function upgradeLegacySharedPlaceholders(state) {
+    var remoteSets = {
+      shared_nova: [
+        { caption: "City night", remoteUrl: "https://picsum.photos/seed/mj-nova-a/480/480" },
+        { caption: "Neon street", remoteUrl: "https://picsum.photos/seed/mj-nova-b/480/480" },
+      ],
+      shared_milo: [
+        { caption: "Warm meal", remoteUrl: "https://picsum.photos/seed/mj-milo-a/480/480" },
+        { caption: "Cafe corner", remoteUrl: "https://picsum.photos/seed/mj-milo-b/480/480" },
+      ],
+      shared_lumi: [
+        { caption: "Skyline glow", remoteUrl: "https://picsum.photos/seed/mj-lumi-a/480/480" },
+        { caption: "Evening lights", remoteUrl: "https://picsum.photos/seed/mj-lumi-b/480/480" },
+      ],
+    };
+    state.jars.forEach(function (j) {
+      if (!j.isShared || !remoteSets[j.id] || !j.photos || !j.photos.length) return;
+      var allSvg = j.photos.every(photoIsSvgPlaceholder);
+      if (!allSvg) return;
+      j.photos = remoteSets[j.id].map(function (p) {
+        return {
+          id: photoId(),
+          remoteUrl: p.remoteUrl,
+          caption: p.caption,
+          createdAt: Date.now(),
+        };
+      });
+    });
   }
 
   function ensureDemoSharedJars(state) {
@@ -158,10 +185,9 @@
         name: "Midnight Walks",
         ownerName: "Nova",
         ownerHandle: "@nova.pix",
-        ownerAvatar: "🌙",
         photos: [
-          { caption: "Neon corner", dataUrl: placeholderPhotoData("Neon Corner", "#1d4ed8", "#7c3aed") },
-          { caption: "Rain on glass", dataUrl: placeholderPhotoData("Rain Glass", "#0369a1", "#0f172a") },
+          { caption: "City night", remoteUrl: "https://picsum.photos/seed/mj-nova-a/480/480" },
+          { caption: "Neon street", remoteUrl: "https://picsum.photos/seed/mj-nova-b/480/480" },
         ],
       },
       {
@@ -169,10 +195,9 @@
         name: "Late Snacks Club",
         ownerName: "Milo",
         ownerHandle: "@milo.night",
-        ownerAvatar: "🍜",
         photos: [
-          { caption: "Corner ramen", dataUrl: placeholderPhotoData("Ramen", "#7c2d12", "#ea580c") },
-          { caption: "Window booth", dataUrl: placeholderPhotoData("Booth", "#1f2937", "#0ea5e9") },
+          { caption: "Warm meal", remoteUrl: "https://picsum.photos/seed/mj-milo-a/480/480" },
+          { caption: "Cafe corner", remoteUrl: "https://picsum.photos/seed/mj-milo-b/480/480" },
         ],
       },
       {
@@ -180,10 +205,9 @@
         name: "City Glow",
         ownerName: "Lumi",
         ownerHandle: "@lumi.stars",
-        ownerAvatar: "✨",
         photos: [
-          { caption: "Bridge lights", dataUrl: placeholderPhotoData("Bridge", "#0f172a", "#22d3ee") },
-          { caption: "Purple skyline", dataUrl: placeholderPhotoData("Skyline", "#312e81", "#a78bfa") },
+          { caption: "Skyline glow", remoteUrl: "https://picsum.photos/seed/mj-lumi-a/480/480" },
+          { caption: "Evening lights", remoteUrl: "https://picsum.photos/seed/mj-lumi-b/480/480" },
         ],
       },
     ];
@@ -198,17 +222,17 @@
         isShared: true,
         ownerName: d.ownerName,
         ownerHandle: d.ownerHandle,
-        ownerAvatar: d.ownerAvatar,
         photos: d.photos.map(function (p) {
           return {
             id: photoId(),
-            dataUrl: p.dataUrl,
+            remoteUrl: p.remoteUrl,
             caption: p.caption,
             createdAt: Date.now(),
           };
         }),
       });
     });
+    upgradeLegacySharedPlaceholders(state);
   }
 
   function findJar(state, id) {
@@ -268,45 +292,29 @@
     ensureDemoSharedJars(state);
     saveState(state);
 
-    var memories = totalPhotoCount(state);
-    var jarCount = state.jars.length;
-
-    setFooter(
-      "Memory Jam · starlight & snapshots · shake the jar for a random glow-memory",
-      true
-    );
+    setFooter("", false);
 
     var html = "";
-    html += '<div class="home-grid">';
-    html += '<div class="home-hero">';
-    html += '<h2 class="home-hero-kicker">Welcome home</h2>';
-    html += '<div class="home-stats">';
-    html += '<span class="home-stat"><strong>' + memories + "</strong> memor" + (memories === 1 ? "y" : "ies") + " saved</span>";
-    html += '<span class="home-stat"><strong>' + jarCount + "</strong> " + (jarCount === 1 ? "jar" : "jars") + "</span>";
-    html += "</div>";
-    html += "</div>";
-    html += '<div class="prompt-card">';
+    html += '<div class="home-grid home-grid--compact">';
+    html += '<div class="prompt-card home-prompt-card">';
     html += '<p class="prompt-date">' + escapeHtml(formatToday()) + "</p>";
-    html += '<p class="prompt-box" style="min-height:3.5rem;margin:0">Today\'s prompt<br/><strong>' + escapeHtml(todayPrompt()) + "</strong></p>";
+    html += '<p class="home-prompt-label">Today\'s prompt</p>';
+    html += "</div>";
+    html += '<div class="prompt-card home-prompt-card">';
+    html += '<p class="prompt-box prompt-box--tight">' + escapeHtml(todayPrompt()) + "</p>";
     html += '<div class="btn-row">';
     html +=
       '<button type="button" class="btn primary" id="btn-capture-prompt">Capture for Daily jar</button>';
     html += "</div>";
-    html +=
-      '<p class="jar-hint">Saves to <em>Daily memories</em>. Open <a href="jars.html">My jars</a> to use a different jar or start a new one.</p>';
     html += "</div>";
 
-    html += '<div class="card">';
-    html += '<p class="prompt-box" style="margin:0 0 0.65rem">Where to next</p>';
+    html += '<div class="card home-where-card">';
+    html += '<p class="prompt-box prompt-box--tight" style="margin:0 0 0.65rem">Where to next</p>';
     html += '<div class="quick-links">';
     html += '<a class="btn secondary" href="jars.html">My jars — create &amp; open</a>';
     html += '<a class="btn ghost" href="shared.html">Shared jars</a>';
     html += "</div>";
     html += "</div>";
-    html += '<div class="jar-preview-wrap" id="home-jar-tease">';
-    html += jarSvg();
-    html += "</div>";
-    html += '<p class="jar-hint">Open any jar, tap <strong>Shake jar</strong>, and a random photo will float up — like catching a firefly memory from a neon jar.</p>';
     html += "</div>";
 
     mainEl.innerHTML = html;
@@ -387,11 +395,13 @@
     html += '<h2 class="screen-title">' + escapeHtml(jar.name) + "</h2>";
     if (jar.isShared) {
       html +=
-        '<p class="jar-hint" style="margin:0 0 0.5rem">Shared by <strong>' +
+        '<p class="jar-hint" style="margin:0 0 0.35rem">Started by <strong>' +
         escapeHtml(jar.ownerName || "Friend") +
         "</strong> " +
         escapeHtml(jar.ownerHandle || "") +
         "</p>";
+      html +=
+        '<p class="jar-hint jar-hint--left" style="margin:0 0 0.75rem">Collab jar — add your own photos here too.</p>';
     }
     html += '<div class="jar-preview-wrap" id="jar-shake-zone">';
     html += jarSvg();
@@ -413,7 +423,12 @@
       html += '<div class="card"><p class="prompt-box" style="margin:0 0 0.5rem">Inside the jar</p>';
       html += '<div class="thumb-grid">';
       jar.photos.forEach(function (p) {
-        html += '<img src="' + escapeHtml(p.dataUrl) + '" alt="" data-photo-id="' + escapeHtml(p.id) + '" />';
+        html +=
+          '<img src="' +
+          escapeHtml(photoSrc(p)) +
+          '" alt="" data-photo-id="' +
+          escapeHtml(p.id) +
+          '" loading="lazy" />';
       });
       html += "</div></div>";
     } else {
@@ -445,7 +460,7 @@
       window.setTimeout(function () {
         if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
         var pick = jar.photos[Math.floor(Math.random() * jar.photos.length)];
-        modalMemoryImg.src = pick.dataUrl;
+        modalMemoryImg.src = photoSrc(pick);
         modalMemoryImg.alt = "Memory";
         var cap = pick.caption || pick.addedLabel || "";
         modalMemoryCaption.textContent = cap || "A quiet moment, saved.";
@@ -514,16 +529,21 @@
 
     var html = "";
     html += '<h2 class="screen-title">Shared jars</h2>';
-    html += '<p class="jar-hint" style="text-align:left;margin:0 0 1rem">Browse memory jars shared by people in the Memory Jam neighborhood.</p>';
+    html += '<p class="jar-hint jar-hint--left" style="margin:0 0 1rem">Collab jars — open one to browse or add your own photos.</p>';
     html += '<div class="shared-grid">';
     shared.forEach(function (j) {
       html += '<article class="card shared-card">';
-      html += '<p class="shared-profile"><span class="shared-avatar">' + escapeHtml(j.ownerAvatar || "👤") + "</span>";
+      html += '<p class="shared-profile">';
+      html += '<span class="shared-avatar shared-avatar--letter" aria-hidden="true">' + escapeHtml(ownerInitial(j.ownerName)) + "</span>";
+      html += '<span class="shared-profile-text">';
       html += '<strong>' + escapeHtml(j.ownerName || "Friend") + "</strong> ";
-      html += '<span>' + escapeHtml(j.ownerHandle || "@friend") + "</span></p>";
-      html += '<p class="prompt-box" style="min-height:0;margin:0 0 0.5rem">' + escapeHtml(j.name) + "</p>";
-      html += '<p class="jar-meta">' + j.photos.length + " shared memories</p>";
-      html += '<div class="btn-row"><a class="btn secondary" href="' + jarPageUrl(j.id) + '">Open shared jar</a></div>';
+      html += '<span class="shared-handle">' + escapeHtml(j.ownerHandle || "@friend") + "</span>";
+      html += "</span></p>";
+      html += '<p class="shared-jar-title">' + escapeHtml(j.name) + "</p>";
+      html += '<p class="jar-meta">' + j.photos.length + " memories</p>";
+      html += '<div class="btn-row btn-row--stack">';
+      html += '<a class="btn secondary btn-block" href="' + jarPageUrl(j.id) + '">Open jar</a>';
+      html += "</div>";
       html += "</article>";
     });
     html += "</div>";
