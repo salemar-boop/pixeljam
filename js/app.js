@@ -307,26 +307,24 @@
     setFooter("", false);
 
     var html = "";
-    html += '<section class="hero-jar">';
-    html += '<div class="hero-jar__art">';
-    html += jarSvg();
-    html += "</div>";
-    html += '<div class="hero-jar__content">';
-    html += '<p class="prompt-date">' + escapeHtml(formatToday()) + "</p>";
-    html += '<p class="home-prompt-label">Today\'s prompt</p>';
-    html += '<p class="prompt-box prompt-box--tight">' + escapeHtml(todayPrompt()) + "</p>";
+    html += '<section class="home-jar-full">';
+    html += '<div class="home-jar-full__art">' + jarSvg() + "</div>";
+    html += '<div class="home-jar-full__content">';
+    html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
+    html += '<p class="home-date-small">' + escapeHtml(formatToday()) + "</p>";
+    html += '<div class="home-jar-full__actions">';
     html +=
       '<button type="button" class="btn primary btn-block" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add today\'s photo</button>';
-    html += '<p class="hero-jar__meta">' + dailyJar.photos.length + " saved</p>";
-    html += "</div>";
-    html += "</section>";
-
-    html += '<div class="quick-links quick-links--home">';
+    html += '<div class="quick-links quick-links--home-inside">';
     html +=
       '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">My jars</a>';
     html +=
       '<a class="btn ghost" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared jars</a>';
     html += "</div>";
+    html += "</div>";
+    html += '<p class="hero-jar__meta">' + dailyJar.photos.length + " in Daily jar</p>";
+    html += "</div>";
+    html += "</section>";
 
     mainEl.innerHTML = html;
 
@@ -415,7 +413,7 @@
         escapeHtml(jar.ownerHandle || "") +
         "</p>";
     }
-    html += '<div class="jar-preview-wrap jar-preview-wrap--main" id="jar-shake-zone">';
+    html += '<div class="jar-preview-wrap jar-preview-wrap--main jar-preview-wrap--screen" id="jar-shake-zone">';
     html += jarSvg();
     html += '<div class="jar-photo-well">';
     if (jar.photos.length > 0) {
@@ -437,8 +435,7 @@
       });
     }
     html += "</div>";
-    html += "</div>";
-    html += '<div class="jar-actions">';
+    html += '<div class="jar-actions jar-actions--inside">';
     html +=
       '<a class="btn btn-icon-round" href="' +
       (jar.isShared ? "shared.html" : "jars.html") +
@@ -457,7 +454,7 @@
         '<button type="button" class="btn btn-icon-round ghost" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">\u267b</button>';
     }
     html += "</div>";
-    html += '<p class="jar-subtitle">Prompt: ' + escapeHtml(todayPrompt()) + "</p>";
+    html += "</div>";
     if (!jar.photos.length) html += '<p class="empty-state">No photos yet.</p>';
 
     if (!jar.isShared) {

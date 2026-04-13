@@ -1376,3 +1376,178 @@ body {
     height: 246px;
   }
 }
+
+/* Requested layout refinements */
+body {
+  font-family: "Nunito", "Segoe UI", sans-serif;
+}
+
+.logo,
+.screen-title,
+.home-prompt-big {
+  font-family: "Baloo 2", "Nunito", "Segoe UI", sans-serif;
+}
+
+.jar-card__tape {
+  font-family: "Patrick Hand", "Nunito", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+body[data-page="home"] .main {
+  padding-top: 0.55rem;
+  overflow: hidden;
+}
+
+.home-jar-full {
+  position: relative;
+  height: calc(100svh - 12.4rem - env(safe-area-inset-bottom, 0px));
+  min-height: 28.5rem;
+  max-height: 35rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-jar-full__art .jar-svg {
+  width: min(86vw, 390px);
+  height: min(95vw, 430px);
+  opacity: 0.58;
+  filter: drop-shadow(0 10px 24px rgba(8, 15, 40, 0.4));
+}
+
+.home-jar-full__content {
+  position: absolute;
+  inset: 0;
+  padding: 1rem 1.05rem 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
+  align-items: start;
+  gap: 0.25rem 0.55rem;
+}
+
+.home-prompt-big {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  margin: 0.2rem 0 0;
+  font-size: clamp(1.45rem, 5.8vw, 1.95rem);
+  line-height: 1.05;
+  color: #f6f8ff;
+  text-align: left;
+}
+
+.home-date-small {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  margin: 0.22rem 0 0;
+  font-size: 0.73rem;
+  color: #d9e4fb;
+  text-align: right;
+  max-width: 6.4rem;
+}
+
+.home-jar-full__actions {
+  grid-column: 1 / 3;
+  grid-row: 3 / 5;
+  align-self: end;
+}
+
+.quick-links--home-inside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.quick-links--home-inside .btn {
+  font-size: 0.96rem;
+  padding-left: 0.45rem;
+  padding-right: 0.45rem;
+  white-space: nowrap;
+}
+
+.hero-jar__meta {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.jar-list--visual {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.jar-card {
+  background: none;
+  border: none;
+  border-radius: 0;
+  min-height: 9.8rem;
+  padding: 0.1rem 0.15rem 0.2rem;
+}
+
+.jar-card__badge {
+  top: 0.08rem;
+  right: 0.16rem;
+  background: #b6c5ea;
+  color: #2f4068;
+  min-width: 1.26rem;
+  height: 1.26rem;
+  line-height: 1.26rem;
+}
+
+.jar-card__art .jar-svg {
+  width: 120px;
+  height: 136px;
+  opacity: 0.94;
+}
+
+body[data-page="jar"] .main {
+  padding-top: 0.45rem;
+}
+
+.jar-preview-wrap--screen {
+  min-height: calc(100svh - 17.8rem - env(safe-area-inset-bottom, 0px));
+  max-height: 34rem;
+}
+
+.jar-preview-wrap--screen .jar-svg {
+  width: min(82vw, 360px);
+  height: min(94vw, 412px);
+  opacity: 0.7;
+}
+
+.jar-preview-wrap--screen .jar-photo-well {
+  width: min(54vw, 210px);
+  height: min(40vw, 160px);
+  top: 52%;
+}
+
+.jar-preview-wrap--screen .jar-actions--inside {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1.05rem;
+  margin: 0;
+  z-index: 40;
+  background: rgba(20, 29, 53, 0.34);
+  border-radius: 999px;
+  padding: 0.35rem 0.45rem;
+}
+
+@media (max-width: 390px) {
+  .home-jar-full__art .jar-svg {
+    width: min(89vw, 350px);
+    height: min(98vw, 396px);
+  }
+  .home-date-small {
+    font-size: 0.67rem;
+  }
+  .quick-links--home-inside {
+    grid-template-columns: 1fr;
+  }
+  .jar-preview-wrap--screen {
+    min-height: calc(100svh - 17rem - env(safe-area-inset-bottom, 0px));
+  }
+}
