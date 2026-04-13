@@ -300,35 +300,32 @@
 
   function renderHome() {
     var state = loadState();
-    getOrCreateDefaultJar(state);
+    var dailyJar = getOrCreateDefaultJar(state);
     ensureDemoSharedJars(state);
     saveState(state);
 
     setFooter("", false);
 
     var html = "";
-    html += '<div class="home-grid home-grid--compact">';
-    html += '<div class="prompt-card home-prompt-card">';
+    html += '<section class="hero-jar">';
+    html += '<div class="hero-jar__art">';
+    html += jarSvg();
+    html += "</div>";
+    html += '<div class="hero-jar__content">';
     html += '<p class="prompt-date">' + escapeHtml(formatToday()) + "</p>";
     html += '<p class="home-prompt-label">Today\'s prompt</p>';
-    html += "</div>";
-    html += '<div class="prompt-card home-prompt-card">';
     html += '<p class="prompt-box prompt-box--tight">' + escapeHtml(todayPrompt()) + "</p>";
-    html += '<div class="btn-row">';
     html +=
-      '<button type="button" class="btn primary" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Capture for Daily jar</button>';
+      '<button type="button" class="btn primary btn-block" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add today\'s photo</button>';
+    html += '<p class="hero-jar__meta">' + dailyJar.photos.length + " saved</p>";
     html += "</div>";
-    html += "</div>";
+    html += "</section>";
 
-    html += '<div class="card home-where-card">';
-    html += '<p class="prompt-box prompt-box--tight" style="margin:0 0 0.65rem">Where to next</p>';
-    html += '<div class="quick-links">';
+    html += '<div class="quick-links quick-links--home">';
     html +=
-      '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">My jars — create &amp; open</a>';
+      '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">My jars</a>';
     html +=
       '<a class="btn ghost" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared jars</a>';
-    html += "</div>";
-    html += "</div>";
     html += "</div>";
 
     mainEl.innerHTML = html;
@@ -368,13 +365,15 @@
     if (personalJars.length === 0) {
       html += '<p class="empty-state">No jars yet. Create one!</p>';
     } else {
-      html += '<ul class="jar-list">';
+      html += '<ul class="jar-list jar-list--visual">';
       personalJars.forEach(function (j) {
         html += "<li>";
-        html += '<a href="' + jarPageUrl(j.id) + '">';
-        html += escapeHtml(j.name);
-        html += '<div class="jar-meta">' + j.photos.length + " memor" + (j.photos.length === 1 ? "y" : "ies") + "</div>";
-        html += "</a></li>";
+        html += '<a class="jar-card" href="' + jarPageUrl(j.id) + '">';
+        html += '<span class="jar-card__badge">' + j.photos.length + "</span>";
+        html += '<span class="jar-card__art">' + jarSvg() + "</span>";
+        html += '<span class="jar-card__tape">' + escapeHtml(j.name) + "</span>";
+        html += "</a>";
+        html += "</li>";
       });
       html += "</ul>";
     }
@@ -416,50 +415,50 @@
         escapeHtml(jar.ownerHandle || "") +
         "</p>";
     }
-    html += '<div class="jar-preview-wrap" id="jar-shake-zone">';
+    html += '<div class="jar-preview-wrap jar-preview-wrap--main" id="jar-shake-zone">';
     html += jarSvg();
-    html += "</div>";
-    html += '<div class="btn-row" style="justify-content:center">';
-    html +=
-      '<button type="button" class="btn primary" id="btn-shake" data-burst="ring" data-burst-duration="560">Shake jar</button>';
-    html += "</div>";
-    html += '<p class="jar-hint">Give it a shake — a random photo from this jar will drift up like fruit in jam.</p>';
-
-    html += '<div class="card">';
-    html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
-    html += '<div class="btn-row">';
-    if (jar.isShared) {
-      html +=
-        '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add photos</button>';
-    } else {
-      if (isDailyJar(jar)) {
-        html +=
-          '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add today\'s photos</button>';
-      } else {
-        html +=
-          '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add photos</button>';
-      }
-      html +=
-        '<button type="button" class="btn ghost" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear jar</button>';
-    }
-    html += "</div>";
-    html += "</div>";
-
+    html += '<div class="jar-photo-well">';
     if (jar.photos.length > 0) {
-      html += '<div class="card"><p class="prompt-box" style="margin:0 0 0.5rem">Inside the jar</p>';
-      html += '<div class="thumb-grid">';
-      jar.photos.forEach(function (p) {
+      jar.photos.forEach(function (p, idx) {
+        var rot = ((idx % 7) - 3) * 2.8;
+        var lift = Math.max(0, 14 - idx * 3.1);
         html +=
-          '<img src="' +
+          '<img class="jar-photo-note" style="--note-rot:' +
+          rot +
+          'deg;--note-lift:' +
+          lift +
+          'px;z-index:' +
+          (20 + idx) +
+          '" src="' +
           escapeHtml(photoSrc(p)) +
           '" alt="" data-photo-id="' +
           escapeHtml(p.id) +
           '" loading="lazy" />';
       });
-      html += "</div></div>";
-    } else {
-      html += '<p class="empty-state">No photos yet — add photos to start this jar.</p>';
     }
+    html += "</div>";
+    html += "</div>";
+    html += '<div class="jar-actions">';
+    html +=
+      '<a class="btn btn-icon-round" href="' +
+      (jar.isShared ? "shared.html" : "jars.html") +
+      '" aria-label="Back" data-burst="spark" data-burst-count="8">\u2190</a>';
+    html +=
+      '<button type="button" class="btn btn-icon-round primary" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u27f3</button>';
+    if (jar.isShared) {
+      html +=
+        '<button type="button" class="btn btn-icon-round primary" id="btn-add-jar" aria-label="Add photos" data-burst="plus" data-burst-count="12">+</button>';
+    } else {
+      html +=
+        '<button type="button" class="btn btn-icon-round primary" id="btn-add-jar" aria-label="' +
+        (isDailyJar(jar) ? "Add today's photos" : "Add photos") +
+        '" data-burst="plus" data-burst-count="12">+</button>';
+      html +=
+        '<button type="button" class="btn btn-icon-round ghost" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">\u267b</button>';
+    }
+    html += "</div>";
+    html += '<p class="jar-subtitle">Prompt: ' + escapeHtml(todayPrompt()) + "</p>";
+    if (!jar.photos.length) html += '<p class="empty-state">No photos yet.</p>';
 
     if (!jar.isShared) {
       html += '<div class="card">';
@@ -558,26 +557,18 @@
 
     var html = "";
     html += '<h2 class="screen-title">Shared jars</h2>';
-    html += '<div class="shared-grid">';
+    html += '<ul class="jar-list jar-list--visual">';
     shared.forEach(function (j) {
-      html += '<article class="card shared-card">';
-      html += '<p class="shared-profile">';
-      html += '<span class="shared-avatar shared-avatar--letter" aria-hidden="true">' + escapeHtml(ownerInitial(j.ownerName)) + "</span>";
-      html += '<span class="shared-profile-text">';
-      html += '<strong>' + escapeHtml(j.ownerName || "Friend") + "</strong> ";
-      html += '<span class="shared-handle">' + escapeHtml(j.ownerHandle || "@friend") + "</span>";
-      html += "</span></p>";
-      html += '<p class="shared-jar-title">' + escapeHtml(j.name) + "</p>";
-      html += '<p class="jar-meta">' + j.photos.length + " memories</p>";
-      html += '<div class="btn-row btn-row--stack">';
-      html +=
-        '<a class="btn secondary btn-block" href="' +
-        jarPageUrl(j.id) +
-        '" data-burst="spark" data-burst-count="10" data-burst-distance="20">Open jar</a>';
-      html += "</div>";
-      html += "</article>";
+      html += "<li>";
+      html += '<a class="jar-card jar-card--shared" href="' + jarPageUrl(j.id) + '" data-burst="spark" data-burst-count="10">';
+      html += '<span class="jar-card__badge">' + j.photos.length + "</span>";
+      html += '<span class="jar-card__art">' + jarSvg() + "</span>";
+      html += '<span class="jar-card__tape">' + escapeHtml(j.name) + "</span>";
+      html += '<span class="jar-card__owner">by ' + escapeHtml(j.ownerName || "Friend") + "</span>";
+      html += "</a>";
+      html += "</li>";
     });
-    html += "</div>";
+    html += "</ul>";
     mainEl.innerHTML = html;
   }
 
