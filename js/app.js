@@ -122,12 +122,16 @@
 
   function getOrCreateDefaultJar(state) {
     var def = state.jars.find(function (j) {
-      return j.name === "Daily memories";
+      return j.name === "Daily memories" || j.isDaily;
     });
-    if (def) return def;
+    if (def) {
+      if (!def.isDaily) def.isDaily = true;
+      return def;
+    }
     def = {
       id: uid(),
       name: "Daily memories",
+      isDaily: true,
       createdAt: Date.now(),
       photos: [],
     };
@@ -140,6 +144,10 @@
   function photoSrc(p) {
     if (!p) return "";
     return p.remoteUrl || p.dataUrl || "";
+  }
+
+  function isDailyJar(jar) {
+    return !!(jar && (jar.isDaily || (!jar.isShared && jar.name === "Daily memories")));
   }
 
   function ownerInitial(name) {
@@ -407,8 +415,6 @@
         "</strong> " +
         escapeHtml(jar.ownerHandle || "") +
         "</p>";
-      html +=
-        '<p class="jar-hint jar-hint--left" style="margin:0 0 0.75rem">Collab jar — add your own photos here too.</p>';
     }
     html += '<div class="jar-preview-wrap" id="jar-shake-zone">';
     html += jarSvg();
@@ -426,8 +432,13 @@
       html +=
         '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add photos</button>';
     } else {
-      html +=
-        '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add today\'s photo here</button>';
+      if (isDailyJar(jar)) {
+        html +=
+          '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add today\'s photos</button>';
+      } else {
+        html +=
+          '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add photos</button>';
+      }
       html +=
         '<button type="button" class="btn ghost" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear jar</button>';
     }
@@ -547,7 +558,6 @@
 
     var html = "";
     html += '<h2 class="screen-title">Shared jars</h2>';
-    html += '<p class="jar-hint jar-hint--left" style="margin:0 0 1rem">Collab jars — open one to browse or add your own photos.</p>';
     html += '<div class="shared-grid">';
     shared.forEach(function (j) {
       html += '<article class="card shared-card">';
