@@ -278,12 +278,13 @@
       '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>' +
       "</linearGradient>" +
       "</defs>" +
-      '<rect x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#1e3a5f" stroke-width="2"/>' +
-      '<rect x="28" y="13" width="22" height="4" rx="2" fill="#ffffff" opacity="0.15"/>' +
-      '<rect x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#334155" stroke="#1e3a5f" stroke-width="2"/>' +
-      '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)" stroke="#1e3a5f" stroke-width="2"/>' +
-      '<rect x="22" y="42" width="56" height="7" rx="3" fill="#f472b6" opacity="0.35"/>' +
-      '<rect x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
+      '<rect class="mj-lid" x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect class="mj-lid-shine" x="28" y="13" width="22" height="4" rx="2" fill="#ffffff" opacity="0.15"/>' +
+      '<rect class="mj-neck" x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#334155" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect class="mj-body-fill" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)"/>' +
+      '<rect class="mj-body-pink" x="22" y="42" width="56" height="7" rx="3" fill="#f472b6" opacity="0.35"/>' +
+      '<rect class="mj-body-shine" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
+      '<rect class="mj-body-stroke" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="none" stroke="#1e3a5f" stroke-width="2"/>' +
       '<g fill="#fef3c7" opacity="0.85">' +
       '<rect x="68" y="54" width="2" height="2"/>' +
       '<rect x="70" y="52" width="2" height="6"/>' +

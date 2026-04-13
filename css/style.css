@@ -1413,14 +1413,13 @@ body[data-page="home"] .main {
 .home-jar-full__art .jar-svg {
   width: min(86vw, 390px);
   height: min(95vw, 430px);
-  opacity: 0.58;
   filter: drop-shadow(0 10px 24px rgba(8, 15, 40, 0.4));
 }
 
 .home-jar-full__content {
   position: absolute;
-  inset: 0;
-  padding: 1rem 1.05rem 0.9rem;
+  inset: 13% 18% 12% 18%;
+  padding: 0.2rem 0.2rem 0.35rem;
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto 1fr auto;
@@ -1432,8 +1431,9 @@ body[data-page="home"] .main {
   grid-column: 1 / 2;
   grid-row: 1 / 3;
   margin: 0.2rem 0 0;
-  font-size: clamp(1.45rem, 5.8vw, 1.95rem);
+  font-size: clamp(1.48rem, 5.7vw, 2rem);
   line-height: 1.05;
+  font-weight: 800;
   color: #f6f8ff;
   text-align: left;
 }
@@ -1462,16 +1462,36 @@ body[data-page="home"] .main {
 }
 
 .quick-links--home-inside .btn {
-  font-size: 0.96rem;
+  font-size: 0.9rem;
   padding-left: 0.45rem;
   padding-right: 0.45rem;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .hero-jar__meta {
   text-align: center;
   margin-top: 0.5rem;
   font-size: 0.82rem;
+}
+
+/* Home jar: keep lid/outline fully opaque, fade only jam fill */
+body[data-page="home"] .home-jar-full .mj-lid,
+body[data-page="home"] .home-jar-full .mj-neck,
+body[data-page="home"] .home-jar-full .mj-body-stroke,
+body[data-page="home"] .home-jar-full .mj-lid-shine {
+  opacity: 1;
+}
+
+body[data-page="home"] .home-jar-full .mj-body-fill {
+  opacity: 0.28;
+}
+
+body[data-page="home"] .home-jar-full .mj-body-pink {
+  opacity: 0.18;
+}
+
+body[data-page="home"] .home-jar-full .mj-body-shine {
+  opacity: 0.2;
 }
 
 .jar-list--visual {
@@ -1541,11 +1561,11 @@ body[data-page="jar"] .main {
     width: min(89vw, 350px);
     height: min(98vw, 396px);
   }
+  .home-jar-full__content {
+    inset: 12.5% 15% 11.5% 15%;
+  }
   .home-date-small {
     font-size: 0.67rem;
-  }
-  .quick-links--home-inside {
-    grid-template-columns: 1fr;
   }
   .jar-preview-wrap--screen {
     min-height: calc(100svh - 17rem - env(safe-area-inset-bottom, 0px));
