@@ -422,10 +422,15 @@
     html += '<div class="card">';
     html += '<p class="prompt-box" style="margin:0 0 0.5rem"><strong>Today\'s prompt:</strong> ' + escapeHtml(todayPrompt()) + "</p>";
     html += '<div class="btn-row">';
-    html +=
-      '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add today\'s photo here</button>';
-    html +=
-      '<button type="button" class="btn ghost" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear jar</button>';
+    if (jar.isShared) {
+      html +=
+        '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add photos</button>';
+    } else {
+      html +=
+        '<button type="button" class="btn primary" id="btn-add-jar" data-burst="plus" data-burst-count="12">Add today\'s photo here</button>';
+      html +=
+        '<button type="button" class="btn ghost" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear jar</button>';
+    }
     html += "</div>";
     html += "</div>";
 
@@ -442,7 +447,7 @@
       });
       html += "</div></div>";
     } else {
-      html += '<p class="empty-state">No photos yet — add one from today\'s prompt.</p>';
+      html += '<p class="empty-state">No photos yet — add photos to start this jar.</p>';
     }
 
     if (!jar.isShared) {
@@ -491,17 +496,19 @@
       openCamera(jar.id);
     });
 
-    document.getElementById("btn-clear-jar").addEventListener("click", function () {
-      var ok = window.confirm("Clear all photos from this jar?");
-      if (!ok) return;
-      var s = loadState();
-      var target = findJar(s, jar.id);
-      if (!target) return;
-      target.photos = [];
-      saveState(s);
-      toast("Jar cleared.");
-      renderJar(jar.id);
-    });
+    if (!jar.isShared) {
+      document.getElementById("btn-clear-jar").addEventListener("click", function () {
+        var ok = window.confirm("Clear all photos from this jar?");
+        if (!ok) return;
+        var s = loadState();
+        var target = findJar(s, jar.id);
+        if (!target) return;
+        target.photos = [];
+        saveState(s);
+        toast("Jar cleared.");
+        renderJar(jar.id);
+      });
+    }
 
     if (!jar.isShared) {
       document.getElementById("btn-copy-share").addEventListener("click", function () {
