@@ -1429,11 +1429,11 @@ body[data-page="home"] .main {
 
 .home-jar-full__content {
   position: absolute;
-  inset: 27.8% 14.4% 13.2% 14.4%;
+  inset: 27% 14.4% 12.2% 14.4%;
   padding: 0.15rem 0.2rem 0.2rem;
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   align-items: start;
   gap: 0.25rem 0.55rem;
 }
@@ -1449,30 +1449,28 @@ body[data-page="home"] .main {
 }
 
 .home-prompt-big {
-  grid-column: 1 / 2;
+  grid-column: 1 / 3;
   grid-row: 2 / 3;
   margin: 0.08rem 0 0;
-  font-size: clamp(1.35rem, 5vw, 1.85rem);
-  line-height: 1.08;
+  font-size: clamp(1.45rem, 5.2vw, 2rem);
+  line-height: 1.06;
   font-weight: 800;
   color: #ffffff;
   text-align: left;
-  max-width: 8.2rem;
+  max-width: none;
+  min-height: 46%;
 }
 
 .home-date-small {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  margin: 0.22rem 0 0;
-  font-size: 0.73rem;
+  margin: 0.35rem 0 0;
+  font-size: 0.66rem;
   color: #f0f6ff;
-  text-align: right;
-  max-width: 6.4rem;
+  text-align: center;
 }
 
 .home-jar-full__actions {
   grid-column: 1 / 3;
-  grid-row: 3 / 5;
+  grid-row: 3 / 4;
   align-self: end;
   padding-bottom: 0.25rem;
 }
@@ -1485,8 +1483,8 @@ body[data-page="home"] .main {
 }
 
 .quick-links--home-inside .btn {
-  font-size: 0.76rem;
-  padding: 0.32rem 0.2rem;
+  font-size: 0.7rem;
+  padding: 0.27rem 0.16rem;
   white-space: normal;
   border-radius: 0.8rem;
 }
@@ -1499,6 +1497,13 @@ body[data-page="home"] .main {
   padding-bottom: 0.38rem;
   margin: 0.12rem auto 0;
   display: block;
+}
+
+.btn-home-small {
+  border-style: solid;
+  border-color: rgba(255, 224, 168, 0.7);
+  background: rgba(21, 82, 113, 0.45);
+  color: #ffe5bc;
 }
 
 .hero-jar__meta {
@@ -1534,21 +1539,6 @@ body[data-page="home"] .home-jar-full .mj-body-shine {
 .home-jar-svg rect {
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-.home-jar-stars {
-  filter: blur(0.2px);
-  animation: home-star-fade 3.4s ease-in-out infinite;
-}
-
-@keyframes home-star-fade {
-  0%,
-  100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 0.85;
-  }
 }
 
 .jar-list--visual {
@@ -1618,10 +1608,10 @@ body[data-page="jar"] .main {
     max-width: 100%;
   }
   .home-jar-full__content {
-    inset: 28.2% 13% 13.2% 13%;
+    inset: 27.2% 13% 12.8% 13%;
   }
   .home-date-small {
-    font-size: 0.67rem;
+    font-size: 0.62rem;
   }
   .jar-preview-wrap--screen {
     min-height: calc(100svh - 17rem - env(safe-area-inset-bottom, 0px));

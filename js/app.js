@@ -311,16 +311,6 @@
       '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#1a1f2c" stroke-width="1.9"/>' +
       '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#1a1f2c" stroke-width="1.8"/>' +
       '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#home-jar-fill)" stroke="#1a1f2c" stroke-width="2.2"/>' +
-      '<g class="home-jar-stars" fill="#ffd48f">' +
-      '<path d="M22 85l1.2 3.4h3.5l-2.8 2 1 3.4-2.9-2.1-2.9 2.1 1-3.4-2.8-2h3.5z" opacity="0.55"/>' +
-      '<path d="M37 80l1.5 4.2h4.3l-3.4 2.5 1.3 4.2-3.7-2.7-3.7 2.7 1.3-4.2-3.4-2.5h4.3z" opacity="0.48"/>' +
-      '<path d="M51 86l1.3 3.6h3.7l-3 2.2 1.1 3.7-3.1-2.3-3.1 2.3 1.1-3.7-3-2.2h3.7z" opacity="0.62"/>' +
-      '<path d="M66 81l1.4 3.9h4.1l-3.3 2.4 1.2 4-3.5-2.6-3.5 2.6 1.2-4-3.3-2.4h4.1z" opacity="0.44"/>' +
-      '<path d="M79 88l1.1 3.2h3.4l-2.7 2 1 3.2-2.8-2-2.8 2 1-3.2-2.7-2h3.4z" opacity="0.5"/>' +
-      '<path d="M30 95l1.7 4.7h4.8l-3.8 2.8 1.4 4.7-4.1-3-4.1 3 1.4-4.7-3.8-2.8h4.8z" opacity="0.42"/>' +
-      '<path d="M47 100l1.5 4.2h4.3l-3.4 2.5 1.3 4.2-3.7-2.7-3.7 2.7 1.3-4.2-3.4-2.5h4.3z" opacity="0.36"/>' +
-      '<path d="M64 96l1.6 4.4h4.5l-3.6 2.6 1.3 4.5-3.9-2.8-3.9 2.8 1.3-4.5-3.6-2.6h4.5z" opacity="0.4"/>' +
-      "</g>" +
       "</svg>"
     );
   }
@@ -339,16 +329,16 @@
     html += '<div class="home-jar-full__content">';
     html += '<p class="home-prompt-title">Today\'s Prompt:</p>';
     html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
-    html += '<p class="home-date-small">' + escapeHtml(formatToday()) + "</p>";
     html += '<div class="home-jar-full__actions">';
     html +=
       '<button type="button" class="btn primary btn-home-add" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add Photo</button>';
     html += '<div class="quick-links quick-links--home-inside">';
     html +=
-      '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">Mine</a>';
+      '<a class="btn ghost btn-home-small" href="jars.html" data-burst="confetti" data-burst-duration="580">Mine</a>';
     html +=
-      '<a class="btn ghost" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared</a>';
+      '<a class="btn ghost btn-home-small" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared</a>';
     html += "</div>";
+    html += '<p class="home-date-small">' + escapeHtml(formatToday()) + "</p>";
     html += "</div>";
     html += '<p class="hero-jar__meta">' + dailyJar.photos.length + " in Daily jar</p>";
     html += "</div>";
