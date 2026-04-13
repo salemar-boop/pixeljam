@@ -299,6 +299,32 @@
     );
   }
 
+  function homeJarSvg() {
+    return (
+      '<svg class="jar-svg home-jar-svg" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      "<defs>" +
+      '<linearGradient id="home-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%">' +
+      '<stop offset="0%" stop-color="#c9dcff" stop-opacity="0.38"/>' +
+      '<stop offset="100%" stop-color="#a8c6ff" stop-opacity="0.48"/>' +
+      "</linearGradient>" +
+      "</defs>" +
+      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#dbe7ff" stroke="#1d2230" stroke-width="1.9"/>' +
+      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#eef4ff" stroke="#1d2230" stroke-width="1.8"/>' +
+      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#home-jar-fill)" stroke="#1d2230" stroke-width="2.2"/>' +
+      '<g class="home-jar-stars" fill="#d7e8ff">' +
+      '<circle cx="22" cy="90" r="3.8" opacity="0.52"/>' +
+      '<circle cx="37" cy="84" r="4.6" opacity="0.46"/>' +
+      '<circle cx="51" cy="92" r="3.9" opacity="0.58"/>' +
+      '<circle cx="66" cy="86" r="4.4" opacity="0.42"/>' +
+      '<circle cx="79" cy="94" r="3.6" opacity="0.5"/>' +
+      '<circle cx="30" cy="102" r="5.2" opacity="0.4"/>' +
+      '<circle cx="47" cy="106" r="4.8" opacity="0.34"/>' +
+      '<circle cx="64" cy="101" r="5" opacity="0.38"/>' +
+      "</g>" +
+      "</svg>"
+    );
+  }
+
   function renderHome() {
     var state = loadState();
     var dailyJar = getOrCreateDefaultJar(state);
@@ -309,18 +335,19 @@
 
     var html = "";
     html += '<section class="home-jar-full">';
-    html += '<div class="home-jar-full__art">' + jarSvg() + "</div>";
+    html += '<div class="home-jar-full__art">' + homeJarSvg() + "</div>";
     html += '<div class="home-jar-full__content">';
+    html += '<p class="home-prompt-title">Today\'s Prompt:</p>';
     html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
     html += '<p class="home-date-small">' + escapeHtml(formatToday()) + "</p>";
     html += '<div class="home-jar-full__actions">';
     html +=
-      '<button type="button" class="btn primary btn-block" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add today\'s photo</button>';
+      '<button type="button" class="btn primary btn-home-add" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add Photo</button>';
     html += '<div class="quick-links quick-links--home-inside">';
     html +=
-      '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">My jars</a>';
+      '<a class="btn secondary" href="jars.html" data-burst="confetti" data-burst-duration="580">Mine</a>';
     html +=
-      '<a class="btn ghost" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared jars</a>';
+      '<a class="btn ghost" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared</a>';
     html += "</div>";
     html += "</div>";
     html += '<p class="hero-jar__meta">' + dailyJar.photos.length + " in Daily jar</p>";
