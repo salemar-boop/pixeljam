@@ -24,11 +24,15 @@
     };
   }
 
-  function saveState(state) {
+  function saveState(state, quiet) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      return true;
     } catch (e) {
-      toast("Could not save — storage may be full.");
+      if (!quiet) {
+        toast("Could not save — storage may be full.");
+      }
+      return false;
     }
   }
 
@@ -566,6 +570,113 @@
     cameraInput.click();
   }
 
+  function readFileAsDataUrl(file, onDone) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      onDone(reader.result || "");
+    };
+    reader.onerror = function () {
+      onDone("");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function compressDataUrl(dataUrl, maxEdge, quality, onDone) {
+    var img = new Image();
+    img.onload = function () {
+      var w = img.naturalWidth || img.width || 1;
+      var h = img.naturalHeight || img.height || 1;
+      var scale = Math.min(1, maxEdge / Math.max(w, h));
+      var outW = Math.max(1, Math.round(w * scale));
+      var outH = Math.max(1, Math.round(h * scale));
+      var canvas = document.createElement("canvas");
+      canvas.width = outW;
+      canvas.height = outH;
+      var ctx = canvas.getContext("2d");
+      if (!ctx) {
+        onDone(dataUrl);
+        return;
+      }
+      ctx.drawImage(img, 0, 0, outW, outH);
+      try {
+        onDone(canvas.toDataURL("image/jpeg", quality));
+      } catch (e) {
+        onDone(dataUrl);
+      }
+    };
+    img.onerror = function () {
+      onDone(dataUrl);
+    };
+    img.src = dataUrl;
+  }
+
+  function preparePhotoDataUrl(file, onDone) {
+    readFileAsDataUrl(file, function (rawDataUrl) {
+      if (!rawDataUrl) {
+        onDone("");
+        return;
+      }
+      var type = (file.type || "").toLowerCase();
+      var shouldCompress =
+        file.size > 420 * 1024 || type.indexOf("heic") !== -1 || type.indexOf("heif") !== -1;
+      if (!shouldCompress) {
+        onDone(rawDataUrl);
+        return;
+      }
+      compressDataUrl(rawDataUrl, 1400, 0.8, function (compressed) {
+        if (!compressed) {
+          onDone(rawDataUrl);
+          return;
+        }
+        onDone(compressed.length < rawDataUrl.length ? compressed : rawDataUrl);
+      });
+    });
+  }
+
+  function addPhotoWithStorageFallback(jarId, dataUrl, onDone) {
+    var attempts = [
+      { dataUrl: dataUrl },
+      { maxEdge: 1100, quality: 0.68 },
+      { maxEdge: 780, quality: 0.56 },
+    ];
+
+    function tryAttempt(idx, candidateDataUrl) {
+      if (idx >= attempts.length || !candidateDataUrl) {
+        onDone(false, null);
+        return;
+      }
+      var state = loadState();
+      var jar = findJar(state, jarId);
+      if (!jar) {
+        onDone(false, null);
+        return;
+      }
+      var label = formatToday() + " — " + todayPrompt();
+      jar.photos.push({
+        id: photoId(),
+        dataUrl: candidateDataUrl,
+        caption: "",
+        addedLabel: label,
+        createdAt: Date.now(),
+      });
+      if (saveState(state, true)) {
+        onDone(true, jar);
+        return;
+      }
+      jar.photos.pop();
+      var next = attempts[idx + 1];
+      if (!next) {
+        onDone(false, jar);
+        return;
+      }
+      compressDataUrl(candidateDataUrl, next.maxEdge, next.quality, function (smallerDataUrl) {
+        tryAttempt(idx + 1, smallerDataUrl);
+      });
+    }
+
+    tryAttempt(0, dataUrl);
+  }
+
   cameraInput.addEventListener("change", function () {
     var f = cameraInput.files && cameraInput.files[0];
     if (!pendingCapture) return;
@@ -573,34 +684,27 @@
       pendingCapture = null;
       return;
     }
-    var reader = new FileReader();
-    reader.onload = function () {
-      var dataUrl = reader.result;
-      var state = loadState();
-      var jar = findJar(state, pendingCapture.jarId);
-      if (!jar) {
-        pendingCapture = null;
+    var jarId = pendingCapture.jarId;
+    pendingCapture = null;
+    preparePhotoDataUrl(f, function (dataUrl) {
+      if (!dataUrl) {
+        toast("Could not read this photo.");
         return;
       }
-      var label = formatToday() + " — " + todayPrompt();
-      jar.photos.push({
-        id: photoId(),
-        dataUrl: dataUrl,
-        caption: "",
-        addedLabel: label,
-        createdAt: Date.now(),
+      addPhotoWithStorageFallback(jarId, dataUrl, function (ok, jar) {
+        if (!ok || !jar) {
+          toast("Could not save photo on this device — try a smaller image.");
+          return;
+        }
+        toast("Saved to " + jar.name + "!");
+        var page = document.body.getAttribute("data-page");
+        if (page === "jar") {
+          renderJar(jar.id);
+        } else {
+          window.location.href = jarPageUrl(jar.id);
+        }
       });
-      saveState(state);
-      pendingCapture = null;
-      toast("Saved to " + jar.name + "!");
-      var page = document.body.getAttribute("data-page");
-      if (page === "jar") {
-        renderJar(jar.id);
-      } else {
-        window.location.href = jarPageUrl(jar.id);
-      }
-    };
-    reader.readAsDataURL(f);
+    });
   });
 
   modalMemoryClose.addEventListener("click", closeMemoryModal);
