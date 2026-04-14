@@ -1823,13 +1823,19 @@ body {
   justify-content: start;
 }
 
+.jar-list--visual li {
+  text-align: left;
+}
+
 .jar-card {
+  display: block;
+  width: 100%;
   min-height: 0;
   padding: 0;
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
-  margin-left: 0;
+  margin: 0;
 }
 
 .jar-card__art .jar-svg--list {
