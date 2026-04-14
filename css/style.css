@@ -1735,3 +1735,45 @@ body {
   background: #ffd9a8;
   color: #5c3b1f;
 }
+
+/* Final card layout for My/Shared jars (sketch style) */
+.jar-list--visual {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.62rem;
+}
+
+.jar-card {
+  min-height: 12.8rem;
+  padding: 0.06rem 0.1rem 0.2rem;
+}
+
+.jar-card__art .jar-svg--list {
+  width: min(72vw, 230px);
+  height: auto;
+}
+
+.jar-card__tape {
+  top: 49%;
+  transform: translate(-50%, -50%);
+  width: min(64%, 13rem);
+  padding: 0.08rem 0.4rem;
+  background: #efe4c4;
+  border: 1px solid rgba(70, 70, 70, 0.2);
+  border-radius: 2px;
+  font-size: 1.02rem;
+}
+
+.jar-card__owner {
+  bottom: 1.35rem;
+  font-size: 0.98rem;
+}
+
+@media (min-width: 520px) {
+  .jar-list--visual {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jar-card__art .jar-svg--list {
+    width: min(42vw, 198px);
+  }
+}
