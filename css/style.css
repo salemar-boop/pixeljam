@@ -1956,9 +1956,9 @@ body::before {
 }
 
 body::after {
-  opacity: 0.42;
+  opacity: 0.22;
   background-image: url("strawberries-bg.svg");
-  background-size: 180px 180px;
+  background-size: 94px 94px;
 }
 
 .star-field {
@@ -1967,6 +1967,11 @@ body::after {
 
 .top-bar {
   background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(214, 48, 72, 0.17) 0 10px,
+      rgba(255, 238, 238, 0.17) 10px 20px
+    ),
     linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
     linear-gradient(180deg, #ffc2b5 0%, #ffb7ac 50%, #ffcfc0 100%);
   border-bottom-color: #f59ca2;
@@ -1993,20 +1998,21 @@ body::after {
 
 .btn.primary {
   color: #6d1f1e;
-  border-color: #e77a7a;
-  box-shadow: 0 3px 0 rgba(176, 84, 76, 0.22);
+  border-color: #ee9eb1;
+  background: linear-gradient(160deg, #fff3ba 0%, #ffd58c 38%, #ffadba 68%, #ff8fb0 100%);
+  box-shadow: 0 3px 0 rgba(176, 84, 76, 0.18);
 }
 
 .btn.secondary {
-  background: #ffe7d2;
+  background: linear-gradient(170deg, #fff4c6 0%, #ffdcb0 55%, #ffc4cf 100%);
   color: #6e3344;
-  border-color: #e9a09f;
+  border-color: #e7a9b2;
 }
 
 .btn.ghost {
-  background: #fff2de;
+  background: linear-gradient(170deg, #fff7d8 0%, #ffe5c5 58%, #ffd2d9 100%);
   color: #915263;
-  border-color: #efc68c;
+  border-color: #edc2ae;
 }
 
 .icon-nav {
@@ -2019,8 +2025,17 @@ body::after {
 }
 
 .icon-nav__link.is-active {
-  color: #d13e54;
-  background: rgba(255, 217, 191, 0.72);
+  color: #b62c44;
+  background: rgba(255, 219, 177, 0.95);
+  box-shadow:
+    inset 0 0 0 1px rgba(182, 57, 78, 0.35),
+    0 2px 6px rgba(182, 57, 78, 0.2);
+}
+
+.icon-nav__link:active {
+  background: rgba(255, 186, 151, 0.96);
+  color: #8f2137;
+  transform: translateY(1px);
 }
 
 .jar-card__tape {

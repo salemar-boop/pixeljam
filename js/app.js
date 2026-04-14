@@ -283,13 +283,13 @@
       '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>' +
       "</linearGradient>" +
       "</defs>" +
-      '<rect class="mj-lid" x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect class="mj-lid" x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#8b1e34" stroke-width="2"/>' +
       '<rect class="mj-lid-shine" x="28" y="13" width="22" height="4" rx="2" fill="#ffffff" opacity="0.15"/>' +
-      '<rect class="mj-neck" x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#334155" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect class="mj-neck" x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#7b5b60" stroke="#8b1e34" stroke-width="2"/>' +
       '<rect class="mj-body-fill" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)"/>' +
       '<rect class="mj-body-pink" x="22" y="42" width="56" height="7" rx="3" fill="#ffd37a" opacity="0.24"/>' +
       '<rect class="mj-body-shine" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
-      '<rect class="mj-body-stroke" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="none" stroke="#1e3a5f" stroke-width="2"/>' +
+      '<rect class="mj-body-stroke" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="none" stroke="#8b1e34" stroke-width="2"/>' +
       '<g fill="#ffe9ac" opacity="0.9">' +
       '<rect x="68" y="54" width="2" height="2"/>' +
       '<rect x="70" y="52" width="2" height="6"/>' +
@@ -313,9 +313,9 @@
       '<stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/>' +
       "</linearGradient>" +
       "</defs>" +
-      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#1a1f2c" stroke-width="1.9"/>' +
-      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#1a1f2c" stroke-width="1.8"/>' +
-      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#home-jar-fill)" stroke="#1a1f2c" stroke-width="2.2"/>' +
+      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#8b1e34" stroke-width="1.9"/>' +
+      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#8b1e34" stroke-width="1.8"/>' +
+      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#home-jar-fill)" stroke="#8b1e34" stroke-width="2.2"/>' +
       "</svg>"
     );
   }
@@ -324,9 +324,9 @@
     return (
       '<svg class="jar-svg jar-svg--list" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
       '<defs><linearGradient id="list-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.5"/><stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/></linearGradient></defs>' +
-      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#1a1f2c" stroke-width="1.9"/>' +
-      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#1a1f2c" stroke-width="1.8"/>' +
-      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#list-jar-fill)" stroke="#1a1f2c" stroke-width="2.2"/>' +
+      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#8b1e34" stroke-width="1.9"/>' +
+      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#8b1e34" stroke-width="1.8"/>' +
+      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#list-jar-fill)" stroke="#8b1e34" stroke-width="2.2"/>' +
       "</svg>"
     );
   }
