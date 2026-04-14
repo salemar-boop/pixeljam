@@ -1441,7 +1441,7 @@ body[data-page="home"] .main {
 .home-prompt-title {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  margin: 0;
+  margin: 0.3rem 0 0;
   font-family: "Fredoka", "Nunito", sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
@@ -1451,7 +1451,7 @@ body[data-page="home"] .main {
 .home-prompt-big {
   grid-column: 1 / 3;
   grid-row: 2 / 3;
-  margin: 0.34rem 0 0;
+  margin: 0.62rem 0 0;
   font-size: clamp(1.45rem, 5.2vw, 2rem);
   line-height: 1.06;
   font-weight: 700;
@@ -1472,7 +1472,7 @@ body[data-page="home"] .main {
   grid-column: 1 / 3;
   grid-row: 3 / 4;
   align-self: end;
-  padding-bottom: 0.7rem;
+  padding-bottom: 1.05rem;
 }
 
 .quick-links--home-inside {
@@ -1545,32 +1545,91 @@ body[data-page="home"] .home-jar-full .mj-body-shine {
 }
 
 .jar-list--visual {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.7rem;
 }
 
 .jar-card {
+  position: relative;
   background: none;
   border: none;
   border-radius: 0;
-  min-height: 9.8rem;
+  min-height: 13.2rem;
   padding: 0.1rem 0.15rem 0.2rem;
+  display: block;
 }
 
 .jar-card__badge {
-  top: 0.08rem;
-  right: 0.16rem;
+  top: 0.24rem;
+  right: 0.45rem;
   background: #b6c5ea;
   color: #2f4068;
-  min-width: 1.26rem;
-  height: 1.26rem;
-  line-height: 1.26rem;
+  min-width: 1.36rem;
+  height: 1.36rem;
+  line-height: 1.36rem;
+  z-index: 5;
+}
+
+.jar-card__art {
+  display: block;
+  text-align: center;
 }
 
 .jar-card__art .jar-svg {
-  width: 120px;
-  height: 136px;
-  opacity: 0.94;
+  width: 172px;
+  height: 198px;
+  opacity: 0.95;
+}
+
+.jar-card__tape {
+  position: absolute;
+  left: 50%;
+  top: 48.5%;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  width: min(73%, 14rem);
+  text-align: center;
+  font-size: 1.05rem;
+  padding: 0.14rem 0.45rem;
+  border-radius: 3px;
+  background: #efe4c4;
+  color: #404040;
+  border: 1px solid rgba(90, 90, 90, 0.18);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+.jar-card__owner {
+  position: absolute;
+  left: 50%;
+  bottom: 1.22rem;
+  transform: translateX(-50%);
+  width: 85%;
+  text-align: center;
+  font-size: 0.9rem;
+  font-family: "Patrick Hand", "Fredoka", sans-serif;
+  color: #1c2436;
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+@media (min-width: 470px) {
+  .jar-list--visual {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .jar-card__art .jar-svg {
+    width: 150px;
+    height: 174px;
+  }
+
+  .jar-card__tape {
+    font-size: 0.96rem;
+  }
+
+  .jar-card__owner {
+    font-size: 0.82rem;
+    bottom: 1.05rem;
+  }
 }
 
 body[data-page="jar"] .main {
@@ -1611,7 +1670,7 @@ body[data-page="jar"] .main {
     max-width: 100%;
   }
   .home-jar-full__content {
-    inset: 27.2% 13% 12.8% 13%;
+    inset: 27.8% 13% 12% 13%;
   }
   .home-date-small {
     font-size: 0.62rem;
