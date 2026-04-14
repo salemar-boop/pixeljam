@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <rect width="160" height="160" fill="none"/>
+  <g>
+    <g transform="translate(18 22)">
+      <path d="M8 0h8l2 3h-4l2 2H4l2-2H2z" fill="#8bc34a"/>
+      <path d="M2 8c0-4 4-6 10-6s10 2 10 6v10c0 7-5 12-10 12S2 25 2 18z" fill="#ff5a5f"/>
+      <rect x="8" y="11" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="14" y="13" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="5" y="16" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="12" y="19" width="2" height="2" fill="#ffe3a3"/>
+    </g>
+    <g transform="translate(100 18)">
+      <path d="M8 0h8l2 3h-4l2 2H4l2-2H2z" fill="#8bc34a"/>
+      <path d="M2 8c0-4 4-6 10-6s10 2 10 6v10c0 7-5 12-10 12S2 25 2 18z" fill="#ff6f61"/>
+      <rect x="8" y="11" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="14" y="13" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="5" y="16" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="12" y="19" width="2" height="2" fill="#ffe3a3"/>
+    </g>
+    <g transform="translate(56 84)">
+      <path d="M8 0h8l2 3h-4l2 2H4l2-2H2z" fill="#8bc34a"/>
+      <path d="M2 8c0-4 4-6 10-6s10 2 10 6v10c0 7-5 12-10 12S2 25 2 18z" fill="#ff4d6d"/>
+      <rect x="8" y="11" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="14" y="13" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="5" y="16" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="12" y="19" width="2" height="2" fill="#ffe3a3"/>
+    </g>
+    <g transform="translate(120 106)">
+      <path d="M6 0h6l2 2h-3l2 2H3l2-2H2z" fill="#8bc34a"/>
+      <path d="M2 7c0-3 3-5 8-5s8 2 8 5v8c0 6-4 10-8 10s-8-4-8-10z" fill="#ff7b7f"/>
+      <rect x="7" y="10" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="11" y="12" width="2" height="2" fill="#ffe3a3"/>
+    </g>
+    <g transform="translate(16 102)">
+      <path d="M6 0h6l2 2h-3l2 2H3l2-2H2z" fill="#8bc34a"/>
+      <path d="M2 7c0-3 3-5 8-5s8 2 8 5v8c0 6-4 10-8 10s-8-4-8-10z" fill="#ff7b7f"/>
+      <rect x="7" y="10" width="2" height="2" fill="#ffe3a3"/>
+      <rect x="11" y="12" width="2" height="2" fill="#ffe3a3"/>
+    </g>
+  </g>
+</svg>

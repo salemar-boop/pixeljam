@@ -1922,3 +1922,108 @@ body {
   line-height: 0.95rem;
   font-size: 0.56rem;
 }
+
+/* Strawberry jam reskin */
+:root {
+  --bg-deep: #fff6ee;
+  --bg: #ffe7d2;
+  --bg-panel: #ffd4c2;
+  --bg-card-inner: #ffeede;
+  --border: #f28f8f;
+  --border-soft: #f5b0a1;
+  --accent: #e03f58;
+  --accent-soft: #f6b45d;
+  --text: #5a1f2b;
+  --text-dim: #8c5a62;
+  --cream: #fff3c8;
+  --btn-primary-top: #ff6a6e;
+  --btn-primary-mid: #f58b68;
+  --btn-primary-deep: #efb84f;
+}
+
+body {
+  color: var(--text);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(255, 231, 193, 0.65) 0%, transparent 32%),
+    radial-gradient(circle at 90% 18%, rgba(255, 191, 169, 0.5) 0%, transparent 28%),
+    linear-gradient(180deg, #ffe0cf 0%, #ffd6bd 48%, #ffe9d8 100%);
+}
+
+body::before {
+  background:
+    radial-gradient(ellipse 115% 78% at 50% 40%, transparent 44%, rgba(255, 221, 199, 0.55) 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.15) 3px, rgba(255, 255, 255, 0.15) 4px);
+}
+
+body::after {
+  opacity: 0.42;
+  background-image: url("strawberries-bg.svg");
+  background-size: 180px 180px;
+}
+
+.star-field {
+  display: none;
+}
+
+.top-bar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
+    linear-gradient(180deg, #ffc2b5 0%, #ffb7ac 50%, #ffcfc0 100%);
+  border-bottom-color: #f59ca2;
+}
+
+.logo {
+  color: #cb2f4f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75), 0 0 8px rgba(255, 188, 120, 0.35);
+}
+
+.main::before {
+  background: linear-gradient(165deg, rgba(255, 165, 157, 0.2) 0%, transparent 42%, rgba(255, 221, 152, 0.2) 100%);
+}
+
+.card,
+.prompt-card,
+.shared-card {
+  background:
+    radial-gradient(ellipse 120% 85% at 12% 6%, rgba(255, 217, 174, 0.38) 0%, transparent 44%),
+    linear-gradient(160deg, #fff4e6 0%, #ffe8d8 100%);
+  border-color: #ef9c92;
+  box-shadow: 0 4px 12px rgba(209, 120, 110, 0.18);
+}
+
+.btn.primary {
+  color: #6d1f1e;
+  border-color: #e77a7a;
+  box-shadow: 0 3px 0 rgba(176, 84, 76, 0.22);
+}
+
+.btn.secondary {
+  background: #ffe7d2;
+  color: #6e3344;
+  border-color: #e9a09f;
+}
+
+.btn.ghost {
+  background: #fff2de;
+  color: #915263;
+  border-color: #efc68c;
+}
+
+.icon-nav {
+  background: linear-gradient(180deg, rgba(255, 247, 236, 0.74) 0%, #ffd9c6 42%, #ffc9ba 100%);
+  border-top-color: #f59ca2;
+}
+
+.icon-nav__link {
+  color: #9c5861;
+}
+
+.icon-nav__link.is-active {
+  color: #d13e54;
+  background: rgba(255, 217, 191, 0.72);
+}
+
+.jar-card__tape {
+  background: #fff0cc;
+  color: #6d3240;
+}

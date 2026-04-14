@@ -268,9 +268,9 @@
       '<svg class="jar-svg" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
       "<defs>" +
       '<linearGradient id="mj-jam" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#35bfd3"/>' +
-      '<stop offset="42%" stop-color="#1f97bb"/>' +
-      '<stop offset="100%" stop-color="#0f5f82"/>' +
+      '<stop offset="0%" stop-color="#ff787e"/>' +
+      '<stop offset="42%" stop-color="#ea4f61"/>' +
+      '<stop offset="100%" stop-color="#b71f3d"/>' +
       "</linearGradient>" +
       '<linearGradient id="mj-lid" x1="0%" y1="0%" x2="100%" y2="0%">' +
       '<stop offset="0%" stop-color="#566377"/>' +
@@ -279,7 +279,7 @@
       "</linearGradient>" +
       '<linearGradient id="mj-shine" x1="0%" y1="0%" x2="100%" y2="20%">' +
       '<stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>' +
-      '<stop offset="40%" stop-color="#e3f8ff" stop-opacity="0.33"/>' +
+      '<stop offset="40%" stop-color="#fff4d2" stop-opacity="0.3"/>' +
       '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>' +
       "</linearGradient>" +
       "</defs>" +
@@ -287,15 +287,15 @@
       '<rect class="mj-lid-shine" x="28" y="13" width="22" height="4" rx="2" fill="#ffffff" opacity="0.15"/>' +
       '<rect class="mj-neck" x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#334155" stroke="#1e3a5f" stroke-width="2"/>' +
       '<rect class="mj-body-fill" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)"/>' +
-      '<rect class="mj-body-pink" x="22" y="42" width="56" height="7" rx="3" fill="#f7aa4a" opacity="0.28"/>' +
+      '<rect class="mj-body-pink" x="22" y="42" width="56" height="7" rx="3" fill="#ffd37a" opacity="0.24"/>' +
       '<rect class="mj-body-shine" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
       '<rect class="mj-body-stroke" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="none" stroke="#1e3a5f" stroke-width="2"/>' +
-      '<g fill="#ffd98a" opacity="0.9">' +
+      '<g fill="#ffe9ac" opacity="0.9">' +
       '<rect x="68" y="54" width="2" height="2"/>' +
       '<rect x="70" y="52" width="2" height="6"/>' +
       '<rect x="66" y="56" width="10" height="2"/>' +
       "</g>" +
-      '<g fill="#7fdff2" opacity="0.58">' +
+      '<g fill="#ffc2b2" opacity="0.58">' +
       '<rect x="26" y="88" width="2" height="2"/>' +
       '<rect x="28" y="86" width="2" height="6"/>' +
       '<rect x="24" y="90" width="10" height="2"/>' +
@@ -309,8 +309,8 @@
       '<svg class="jar-svg home-jar-svg" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
       "<defs>" +
       '<linearGradient id="home-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#88d9ec" stop-opacity="0.5"/>' +
-      '<stop offset="100%" stop-color="#2f9fc7" stop-opacity="0.58"/>' +
+      '<stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.5"/>' +
+      '<stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/>' +
       "</linearGradient>" +
       "</defs>" +
       '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#1a1f2c" stroke-width="1.9"/>' +
@@ -323,7 +323,7 @@
   function listJarSvg() {
     return (
       '<svg class="jar-svg jar-svg--list" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      '<defs><linearGradient id="list-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#88d9ec" stop-opacity="0.5"/><stop offset="100%" stop-color="#2f9fc7" stop-opacity="0.58"/></linearGradient></defs>' +
+      '<defs><linearGradient id="list-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.5"/><stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/></linearGradient></defs>' +
       '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#1a1f2c" stroke-width="1.9"/>' +
       '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#1a1f2c" stroke-width="1.8"/>' +
       '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#list-jar-fill)" stroke="#1a1f2c" stroke-width="2.2"/>' +
