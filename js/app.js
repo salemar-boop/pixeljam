@@ -448,7 +448,7 @@
         "</p>";
     }
     html += '<div class="jar-preview-wrap jar-preview-wrap--main jar-preview-wrap--screen" id="jar-shake-zone">';
-    html += jarSvg();
+    html += homeJarSvg();
     html += '<div class="jar-photo-well">';
     if (jar.photos.length > 0) {
       jar.photos.forEach(function (p, idx) {

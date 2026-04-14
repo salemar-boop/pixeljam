@@ -1701,12 +1701,14 @@ body[data-page="jar"] .main {
 }
 
 .jar-actions--below .btn {
-  width: 100%;
+  width: 2.25rem;
+  height: 2.25rem;
+  justify-self: center;
   text-align: center;
-  padding: 0.4rem 0.2rem;
+  padding: 0;
   font-size: 1rem;
-  border-radius: 0.9rem;
-  line-height: 1;
+  border-radius: 999px;
+  line-height: 2.25rem;
 }
 
 .jar-photo-note {
@@ -1779,29 +1781,32 @@ body {
 
 /* Final card layout for My/Shared jars (sketch style) */
 .jar-list--visual {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.62rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.42rem;
 }
 
 .jar-card {
-  min-height: 12.8rem;
-  padding: 0.06rem 0.1rem 0.2rem;
+  min-height: 0;
+  padding: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .jar-card__art .jar-svg--list {
-  width: min(72vw, 230px);
+  width: min(28vw, 124px);
   height: auto;
 }
 
 .jar-card__tape {
   top: 49%;
   transform: translate(-50%, -50%);
-  width: min(64%, 13rem);
-  padding: 0.08rem 0.4rem;
+  width: min(74%, 5.5rem);
+  padding: 0.05rem 0.22rem;
   background: #efe4c4;
   border: 1px solid rgba(70, 70, 70, 0.2);
   border-radius: 0;
-  font-size: 1.02rem;
+  font-size: 0.72rem;
   clip-path: polygon(
     0% 24%,
     5% 12%,
@@ -1858,16 +1863,17 @@ body {
 }
 
 .jar-card__owner {
-  bottom: 1.35rem;
-  font-size: 0.98rem;
+  width: 84%;
+  bottom: 1.9rem;
+  font-size: 0.63rem;
 }
 
 @media (min-width: 520px) {
-  .jar-list--visual {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .jar-card__art .jar-svg--list {
+    width: min(16vw, 124px);
   }
 
-  .jar-card__art .jar-svg--list {
-    width: min(42vw, 198px);
+  .jar-card__owner {
+    bottom: 1.55rem;
   }
 }
