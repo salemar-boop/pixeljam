@@ -1637,32 +1637,43 @@ body[data-page="jar"] .main {
 }
 
 .jar-preview-wrap--screen {
-  min-height: calc(100svh - 17.8rem - env(safe-area-inset-bottom, 0px));
-  max-height: 34rem;
+  min-height: calc(100svh - 14.6rem - env(safe-area-inset-bottom, 0px));
+  max-height: none;
 }
 
 .jar-preview-wrap--screen .jar-svg {
-  width: min(82vw, 360px);
-  height: min(94vw, 412px);
+  width: min(90vw, 396px);
+  height: min(104vw, 462px);
   opacity: 0.7;
 }
 
 .jar-preview-wrap--screen .jar-photo-well {
-  width: min(54vw, 210px);
-  height: min(40vw, 160px);
-  top: 52%;
+  width: min(64vw, 250px);
+  height: min(50vw, 194px);
+  top: 53%;
 }
 
-.jar-preview-wrap--screen .jar-actions--inside {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1.05rem;
-  margin: 0;
-  z-index: 40;
-  background: rgba(20, 29, 53, 0.34);
-  border-radius: 999px;
-  padding: 0.35rem 0.45rem;
+.jar-actions--below {
+  margin-top: 0.35rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.jar-actions--below .btn {
+  width: 100%;
+  text-align: center;
+  padding: 0.42rem 0.28rem;
+  font-size: 0.82rem;
+  border-radius: 0.9rem;
+}
+
+.jar-photo-note {
+  width: min(38vw, 150px);
+  height: min(21vw, 84px);
+  border-radius: 6px;
+  border: 1px solid #f4efe4;
+  box-shadow: 0 3px 10px rgba(16, 18, 34, 0.32);
 }
 
 @media (max-width: 390px) {
@@ -1676,7 +1687,7 @@ body[data-page="jar"] .main {
     font-size: 0.62rem;
   }
   .jar-preview-wrap--screen {
-    min-height: calc(100svh - 17rem - env(safe-area-inset-bottom, 0px));
+    min-height: calc(100svh - 14.2rem - env(safe-area-inset-bottom, 0px));
   }
 }
 

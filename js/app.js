@@ -437,7 +437,7 @@
     if (jar.photos.length > 0) {
       jar.photos.forEach(function (p, idx) {
         var rot = ((idx % 7) - 3) * 2.8;
-        var lift = Math.max(0, 14 - idx * 3.1);
+        var lift = Math.max(0, 18 - idx * 2.2);
         html +=
           '<img class="jar-photo-note" style="--note-rot:' +
           rot +
@@ -453,38 +453,16 @@
       });
     }
     html += "</div>";
-    html += '<div class="jar-actions jar-actions--inside">';
-    html +=
-      '<a class="btn btn-icon-round" href="' +
-      (jar.isShared ? "shared.html" : "jars.html") +
-      '" aria-label="Back" data-burst="spark" data-burst-count="8">\u2190</a>';
-    html +=
-      '<button type="button" class="btn btn-icon-round primary" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u27f3</button>';
-    if (jar.isShared) {
-      html +=
-        '<button type="button" class="btn btn-icon-round primary" id="btn-add-jar" aria-label="Add photos" data-burst="plus" data-burst-count="12">+</button>';
-    } else {
-      html +=
-        '<button type="button" class="btn btn-icon-round primary" id="btn-add-jar" aria-label="' +
-        (isDailyJar(jar) ? "Add today's photos" : "Add photos") +
-        '" data-burst="plus" data-burst-count="12">+</button>';
-      html +=
-        '<button type="button" class="btn btn-icon-round ghost" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">\u267b</button>';
-    }
     html += "</div>";
+    html += '<div class="jar-actions jar-actions--below">';
+    html +=
+      '<button type="button" class="btn secondary" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear</button>';
+    html +=
+      '<button type="button" class="btn primary" id="btn-shake" data-burst="ring" data-burst-duration="560">Shake</button>';
+    html +=
+      '<button type="button" class="btn ghost" id="btn-share-jar" data-burst="plus" data-burst-char="*" data-burst-count="10">Share</button>';
     html += "</div>";
     if (!jar.photos.length) html += '<p class="empty-state">No photos yet.</p>';
-
-    if (!jar.isShared) {
-      html += '<div class="card">';
-      html += '<p class="prompt-box" style="margin:0 0 0.5rem">Share this jar</p>';
-      html += '<p class="jar-hint" style="text-align:left;margin:0 0 0.5rem">Share this memory jar with friends by sending them a link to this page.</p>';
-      html += '<div class="btn-row">';
-      html +=
-        '<button type="button" class="btn ghost" id="btn-copy-share" data-burst="plus" data-burst-char="*" data-burst-count="10">Copy share text</button>';
-      html += "</div>";
-      html += "</div>";
-    }
 
     mainEl.innerHTML = html;
 
@@ -517,48 +495,40 @@
 
     document.getElementById("btn-shake").addEventListener("click", doShake);
 
-    document.getElementById("btn-add-jar").addEventListener("click", function () {
-      openCamera(jar.id);
+    document.getElementById("btn-clear-jar").addEventListener("click", function () {
+      var ok = window.confirm("Clear all photos from this jar?");
+      if (!ok) return;
+      var s = loadState();
+      var target = findJar(s, jar.id);
+      if (!target) return;
+      target.photos = [];
+      saveState(s);
+      toast("Jar cleared.");
+      renderJar(jar.id);
     });
 
-    if (!jar.isShared) {
-      document.getElementById("btn-clear-jar").addEventListener("click", function () {
-        var ok = window.confirm("Clear all photos from this jar?");
-        if (!ok) return;
-        var s = loadState();
-        var target = findJar(s, jar.id);
-        if (!target) return;
-        target.photos = [];
-        saveState(s);
-        toast("Jar cleared.");
-        renderJar(jar.id);
-      });
-    }
-
-    if (!jar.isShared) {
-      document.getElementById("btn-copy-share").addEventListener("click", function () {
-        var text =
-          "Memory Jam — shared jar \"" +
-          jar.name +
-          "\"\n\nOpen this link:\n" +
-          window.location.href +
-          "\n\nPreview: " +
-          jar.photos.length +
-          " photos.\n";
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(
-            function () {
-              toast("Share blurb copied.");
-            },
-            function () {
-              toast("Could not copy — copy the page URL manually.");
-            }
-          );
-        } else {
-          toast("Clipboard not available — copy the page URL manually.");
-        }
-      });
-    }
+    document.getElementById("btn-share-jar").addEventListener("click", function () {
+      var text =
+        "Memory Jam — jar \"" +
+        jar.name +
+        "\"\n\nOpen this link:\n" +
+        window.location.href +
+        "\n\nPreview: " +
+        jar.photos.length +
+        " photos.\n";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () {
+            toast("Share blurb copied.");
+          },
+          function () {
+            toast("Could not copy — copy the page URL manually.");
+          }
+        );
+      } else {
+        toast("Clipboard not available — copy the page URL manually.");
+      }
+    });
   }
 
   function renderShared() {
