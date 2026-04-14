@@ -1441,7 +1441,7 @@ body[data-page="home"] .main {
 .home-prompt-title {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  margin: 0.3rem 0 0;
+  margin: 0.58rem 0 0;
   font-family: "Fredoka", "Nunito", sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
@@ -1794,7 +1794,7 @@ body {
 }
 
 .jar-card__art .jar-svg--list {
-  width: min(28vw, 124px);
+  width: min(24vw, 102px);
   height: auto;
 }
 
@@ -1870,10 +1870,20 @@ body {
 
 @media (min-width: 520px) {
   .jar-card__art .jar-svg--list {
-    width: min(16vw, 124px);
+    width: min(15vw, 100px);
   }
 
   .jar-card__owner {
     bottom: 1.55rem;
   }
+}
+
+/* tighter badge placement for 3-up phone grid */
+.jar-card__badge {
+  top: 0.72rem;
+  right: 0.18rem;
+  min-width: 0.95rem;
+  height: 0.95rem;
+  line-height: 0.95rem;
+  font-size: 0.56rem;
 }
