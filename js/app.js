@@ -384,10 +384,10 @@
     saveState(state);
 
     var html = "";
-    html += '<h2 class="screen-title">My jars</h2>';
+    html += '<h2 class="screen-title screen-title--list">My jars</h2>';
     html += '<div class="btn-row" style="margin-bottom:1rem">';
     html +=
-      '<button type="button" class="btn primary" id="btn-new-jar" data-burst="heart" data-burst-color="#fbcfe8">New jar</button>';
+      '<button type="button" class="btn primary btn-new-jar-mini" id="btn-new-jar" data-burst="heart" data-burst-color="#fbcfe8">New jar</button>';
     html += "</div>";
 
     var personalJars = state.jars.filter(function (j) {
@@ -564,7 +564,7 @@
     });
 
     var html = "";
-    html += '<h2 class="screen-title">Shared jars</h2>';
+    html += '<h2 class="screen-title screen-title--list">Shared jars</h2>';
     html += '<ul class="jar-list jar-list--visual">';
     shared.forEach(function (j) {
       html += "<li>";
