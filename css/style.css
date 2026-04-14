@@ -1696,16 +1696,17 @@ body[data-page="jar"] .main {
 .jar-actions--below {
   margin-top: 0.35rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.45rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.36rem;
 }
 
 .jar-actions--below .btn {
   width: 100%;
   text-align: center;
-  padding: 0.42rem 0.28rem;
-  font-size: 0.82rem;
+  padding: 0.4rem 0.2rem;
+  font-size: 1rem;
   border-radius: 0.9rem;
+  line-height: 1;
 }
 
 .jar-photo-note {

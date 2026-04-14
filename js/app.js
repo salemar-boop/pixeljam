@@ -109,6 +109,11 @@
   var cameraInput = document.getElementById("camera-input");
 
   var pendingCapture = null; // { jarId } or null for daily default jar
+  var motionShakeHandlerBound = false;
+  var motionShakePermissionRequested = false;
+  var motionShakeActiveCallback = null;
+  var motionShakeLastMag = 0;
+  var motionShakeLastMs = 0;
 
   function toast(msg) {
     var t = document.createElement("div");
@@ -467,11 +472,13 @@
     html += "</div>";
     html += '<div class="jar-actions jar-actions--below">';
     html +=
-      '<button type="button" class="btn secondary" id="btn-clear-jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">Clear</button>';
+      '<button type="button" class="btn secondary" id="btn-add-jar" aria-label="Add photo" data-burst="plus" data-burst-count="12">+</button>';
     html +=
-      '<button type="button" class="btn primary" id="btn-shake" data-burst="ring" data-burst-duration="560">Shake</button>';
+      '<button type="button" class="btn ghost" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10">\u21aa</button>';
     html +=
-      '<button type="button" class="btn ghost" id="btn-share-jar" data-burst="plus" data-burst-char="*" data-burst-count="10">Share</button>';
+      '<button type="button" class="btn secondary" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">\u27f3</button>';
+    html +=
+      '<button type="button" class="btn primary" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u2726</button>';
     html += "</div>";
     if (!jar.photos.length) html += '<p class="empty-state">No photos yet.</p>';
 
@@ -505,6 +512,11 @@
     }
 
     document.getElementById("btn-shake").addEventListener("click", doShake);
+    enableMotionShake(doShake);
+
+    document.getElementById("btn-add-jar").addEventListener("click", function () {
+      openCamera(jar.id);
+    });
 
     document.getElementById("btn-clear-jar").addEventListener("click", function () {
       var ok = window.confirm("Clear all photos from this jar?");
@@ -751,6 +763,59 @@
 
   function motionReduced() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function bindDeviceMotionShake() {
+    if (motionShakeHandlerBound || typeof window === "undefined" || !("DeviceMotionEvent" in window)) return;
+    motionShakeHandlerBound = true;
+    window.addEventListener(
+      "devicemotion",
+      function (e) {
+        if (!motionShakeActiveCallback) return;
+        var acc = e.accelerationIncludingGravity;
+        if (!acc) return;
+        var mag = Math.abs(acc.x || 0) + Math.abs(acc.y || 0) + Math.abs(acc.z || 0);
+        var delta = Math.abs(mag - motionShakeLastMag);
+        motionShakeLastMag = mag;
+        var now = Date.now();
+        if (delta > 18 && now - motionShakeLastMs > 1200) {
+          motionShakeLastMs = now;
+          motionShakeActiveCallback();
+        }
+      },
+      false
+    );
+  }
+
+  function requestMotionPermissionIfNeeded() {
+    if (
+      motionShakePermissionRequested ||
+      typeof window === "undefined" ||
+      !window.DeviceMotionEvent ||
+      typeof window.DeviceMotionEvent.requestPermission !== "function"
+    ) {
+      return;
+    }
+    motionShakePermissionRequested = true;
+    var ask = function () {
+      window.DeviceMotionEvent.requestPermission()
+        .then(function (state) {
+          if (state !== "granted") {
+            toast("Enable motion access to shake the jar.");
+          }
+        })
+        .catch(function () {});
+      document.removeEventListener("click", ask, true);
+      document.removeEventListener("touchstart", ask, true);
+    };
+    document.addEventListener("click", ask, true);
+    document.addEventListener("touchstart", ask, true);
+  }
+
+  function enableMotionShake(callback) {
+    motionShakeActiveCallback = callback;
+    bindDeviceMotionShake();
+    requestMotionPermissionIfNeeded();
   }
 
   function ensureStarField() {
