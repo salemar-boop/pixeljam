@@ -1195,6 +1195,7 @@ body {
   font-size: 2.05rem;
   line-height: 1.02;
   margin-bottom: 0.55rem;
+  color: #7d1f34;
 }
 
 .btn-new-jar-mini {
@@ -1829,7 +1830,7 @@ body {
 }
 
 .jar-card__art .jar-svg--list {
-  width: min(40vw, 148px);
+  width: min(37vw, 136px);
   height: auto;
 }
 
@@ -1900,7 +1901,7 @@ body {
 .jar-card__owner {
   width: 84%;
   bottom: 1.98rem;
-  font-size: 0.66rem;
+  font-size: 0.68rem;
 }
 
 @media (min-width: 520px) {
@@ -1916,7 +1917,7 @@ body {
 /* tighter badge placement for 3-up phone grid */
 .jar-card__badge {
   top: 0.78rem;
-  right: 1.05rem;
+  right: 0.45rem;
   min-width: 0.95rem;
   height: 0.95rem;
   line-height: 0.95rem;
@@ -1998,21 +1999,21 @@ body::after {
 
 .btn.primary {
   color: #6d1f1e;
-  border-color: #ee9eb1;
-  background: linear-gradient(160deg, #fff3ba 0%, #ffd58c 38%, #ffadba 68%, #ff8fb0 100%);
-  box-shadow: 0 3px 0 rgba(176, 84, 76, 0.18);
+  border-color: #d98a98;
+  background: linear-gradient(160deg, #f6d7cf 0%, #eaa7a0 52%, #d9828a 100%);
+  box-shadow: 0 3px 0 rgba(155, 78, 86, 0.2);
 }
 
 .btn.secondary {
-  background: linear-gradient(170deg, #fff4c6 0%, #ffdcb0 55%, #ffc4cf 100%);
-  color: #6e3344;
-  border-color: #e7a9b2;
+  background: linear-gradient(170deg, #f6ddd6 0%, #ebbab0 58%, #de98a2 100%);
+  color: #6d2f40;
+  border-color: #d99da4;
 }
 
 .btn.ghost {
-  background: linear-gradient(170deg, #fff7d8 0%, #ffe5c5 58%, #ffd2d9 100%);
-  color: #915263;
-  border-color: #edc2ae;
+  background: linear-gradient(170deg, #fcebe1 0%, #f4d7c6 58%, #e9bcc1 100%);
+  color: #7e4455;
+  border-color: #d8aeb0;
 }
 
 .icon-nav {
