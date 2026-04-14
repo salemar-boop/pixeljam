@@ -1819,6 +1819,8 @@ body {
 .jar-list--visual {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.56rem;
+  justify-items: start;
+  justify-content: start;
 }
 
 .jar-card {
@@ -1827,6 +1829,7 @@ body {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+  margin-left: 0;
 }
 
 .jar-card__art .jar-svg--list {
@@ -1917,11 +1920,14 @@ body {
 /* tighter badge placement for 3-up phone grid */
 .jar-card__badge {
   top: 0.78rem;
-  right: 0.45rem;
+  right: 1.85rem;
   min-width: 0.95rem;
   height: 0.95rem;
   line-height: 0.95rem;
   font-size: 0.56rem;
+  background: #c92747;
+  color: #fff2e6;
+  border: 1px solid rgba(255, 226, 209, 0.8);
 }
 
 /* Strawberry jam reskin */
