@@ -354,9 +354,8 @@
     html +=
       '<a class="btn ghost btn-home-small" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared</a>';
     html += "</div>";
-    html += '<p class="home-date-small">' + escapeHtml(formatToday()) + "</p>";
     html += "</div>";
-    html += '<p class="hero-jar__meta">' + dailyJar.photos.length + " in Daily jar</p>";
+    html += '<p class="hero-jar__meta">' + escapeHtml(formatToday()) + "</p>";
     html += "</div>";
     html += "</section>";
 

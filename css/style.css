@@ -2043,3 +2043,22 @@ body::after {
   background: #fff0cc;
   color: #6d3240;
 }
+
+/* Home header + button polish */
+.top-bar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 42%),
+    repeating-linear-gradient(0deg, rgba(198, 52, 74, 0.1) 0 12px, rgba(255, 240, 240, 0.1) 12px 24px),
+    repeating-linear-gradient(90deg, rgba(198, 52, 74, 0.1) 0 12px, rgba(255, 240, 240, 0.1) 12px 24px),
+    linear-gradient(180deg, #ffc8b9 0%, #ffbeb2 54%, #ffd6c4 100%);
+}
+
+.logo {
+  font-size: 1.24rem;
+}
+
+.btn.primary {
+  border-color: #e4b29f;
+  background: linear-gradient(160deg, #fff2c5 0%, #f8ddb6 45%, #efc1b6 100%);
+  color: #6a2b2e;
+}
