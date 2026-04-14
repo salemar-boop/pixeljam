@@ -1600,7 +1600,7 @@ body[data-page="home"] .home-jar-full .mj-body-shine {
 .jar-card__owner {
   position: absolute;
   left: 50%;
-  bottom: 1.22rem;
+  bottom: 1.9rem;
   transform: translateX(-50%);
   width: 85%;
   text-align: center;
@@ -1628,7 +1628,47 @@ body[data-page="home"] .home-jar-full .mj-body-shine {
 
   .jar-card__owner {
     font-size: 0.82rem;
-    bottom: 1.05rem;
+    bottom: 1.55rem;
+  }
+}
+
+/* Enforce sketch-style clickable jar-only cards */
+.jar-list--visual li {
+  text-align: center;
+}
+
+.jar-card {
+  display: inline-block;
+  width: min(72vw, 230px);
+  min-height: 0;
+  padding: 0;
+  margin: 0 auto;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.jar-card__art .jar-svg--list {
+  width: 100%;
+  height: auto;
+}
+
+.jar-card__tape {
+  width: min(56%, 10.8rem);
+}
+
+.jar-card__owner {
+  width: 74%;
+}
+
+.jar-card__badge {
+  top: 0.55rem;
+  right: 0.35rem;
+}
+
+@media (min-width: 520px) {
+  .jar-card {
+    width: min(43vw, 205px);
   }
 }
 

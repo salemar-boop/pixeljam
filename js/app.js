@@ -318,16 +318,10 @@
   function listJarSvg() {
     return (
       '<svg class="jar-svg jar-svg--list" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#e7effb" stroke="#1f2533" stroke-width="1.9"/>' +
-      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#f0f5ff" stroke="#1f2533" stroke-width="1.8"/>' +
-      '<rect x="10" y="26" width="80" height="90" rx="10" fill="#d6e8f8" fill-opacity="0.35" stroke="#1f2533" stroke-width="2.25"/>' +
-      '<g fill="#cfe1f5">' +
-      '<path d="M22 84l1.2 3.4h3.5l-2.8 2 1 3.4-2.9-2.1-2.9 2.1 1-3.4-2.8-2h3.5z" opacity="0.6"/>' +
-      '<path d="M37 79l1.6 4.4h4.5l-3.6 2.6 1.3 4.5-3.9-2.8-3.9 2.8 1.3-4.5-3.6-2.6h4.5z" opacity="0.5"/>' +
-      '<path d="M51 86l1.3 3.7h3.9l-3.1 2.3 1.1 3.8-3.3-2.4-3.3 2.4 1.1-3.8-3.1-2.3h3.9z" opacity="0.57"/>' +
-      '<path d="M66 81l1.4 3.9h4.1l-3.3 2.4 1.2 4-3.5-2.6-3.5 2.6 1.2-4-3.3-2.4h4.1z" opacity="0.46"/>' +
-      '<path d="M79 88l1.1 3.2h3.4l-2.7 2 1 3.2-2.8-2-2.8 2 1-3.2-2.7-2h3.4z" opacity="0.52"/>' +
-      "</g>" +
+      '<defs><linearGradient id="list-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#88d9ec" stop-opacity="0.5"/><stop offset="100%" stop-color="#2f9fc7" stop-opacity="0.58"/></linearGradient></defs>' +
+      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#1a1f2c" stroke-width="1.9"/>' +
+      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#1a1f2c" stroke-width="1.8"/>' +
+      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#list-jar-fill)" stroke="#1a1f2c" stroke-width="2.2"/>' +
       "</svg>"
     );
   }
