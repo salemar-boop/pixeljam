@@ -4,8 +4,8 @@
   "description": "Pixel nightlife journal with memory jars.",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#0a0f24",
-  "theme_color": "#0a0f24",
+  "background_color": "#fff6ee",
+  "theme_color": "#a6313b",
   "icons": [
     {
       "src": "icons/icon-192.png",

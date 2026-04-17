@@ -1532,13 +1532,33 @@ body[data-page="home"] .main {
   font-size: 0.82rem;
 }
 
-/* Home jar: fade only the jam fill so prompt text stays readable */
-body[data-page="home"] .home-jar-full .memory-jam-fill {
-  opacity: 0.52;
+/* Home jar: keep lid/outline fully opaque, fade only jam fill */
+body[data-page="home"] .home-jar-full .mj-lid,
+body[data-page="home"] .home-jar-full .mj-neck,
+body[data-page="home"] .home-jar-full .mj-body-stroke,
+body[data-page="home"] .home-jar-full .mj-lid-shine {
+  opacity: 1;
+}
+
+body[data-page="home"] .home-jar-full .mj-body-fill {
+  opacity: 0.5;
+}
+
+body[data-page="home"] .home-jar-full .mj-body-pink {
+  opacity: 0.28;
+}
+
+body[data-page="home"] .home-jar-full .mj-body-shine {
+  opacity: 0.3;
 }
 
 .home-jar-svg {
   filter: drop-shadow(0 8px 16px rgba(12, 18, 36, 0.24));
+}
+
+.home-jar-svg rect {
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .jar-list--visual {
@@ -1913,42 +1933,36 @@ body {
   border: 1px solid rgba(255, 226, 209, 0.8);
 }
 
-/* Strawberry jam reskin */
+/* Strawberry jam — solid surfaces, minimal noise (matches app icon palette) */
 :root {
   --bg-deep: #fff6ee;
-  --bg: #ffe7d2;
-  --bg-panel: #ffd4c2;
-  --bg-card-inner: #ffeede;
-  --border: #f28f8f;
-  --border-soft: #f5b0a1;
-  --accent: #e03f58;
-  --accent-soft: #f6b45d;
-  --text: #5a1f2b;
-  --text-dim: #8c5a62;
+  --bg: #ffeee8;
+  --bg-panel: #ffd8cc;
+  --bg-card-inner: #fff0e8;
+  --border: #d97a7a;
+  --border-soft: #e8a8a4;
+  --accent: #a6313b;
+  --accent-soft: #c06169;
+  --text: #2b1617;
+  --text-dim: #6b4548;
   --cream: #fff3c8;
-  --btn-primary-top: #ff6a6e;
-  --btn-primary-mid: #f58b68;
-  --btn-primary-deep: #efb84f;
+  --btn-primary-top: #a6313b;
+  --btn-primary-mid: #a6313b;
+  --btn-primary-deep: #8c2a32;
 }
 
 body {
   color: var(--text);
-  background-image:
-    radial-gradient(circle at 15% 10%, rgba(255, 231, 193, 0.65) 0%, transparent 32%),
-    radial-gradient(circle at 90% 18%, rgba(255, 191, 169, 0.5) 0%, transparent 28%),
-    linear-gradient(180deg, #ffe0cf 0%, #ffd6bd 48%, #ffe9d8 100%);
+  background: var(--bg-deep);
+  background-image: none;
 }
 
 body::before {
-  background:
-    radial-gradient(ellipse 115% 78% at 50% 40%, transparent 44%, rgba(255, 221, 199, 0.55) 100%),
-    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255, 255, 255, 0.15) 3px, rgba(255, 255, 255, 0.15) 4px);
+  display: none;
 }
 
 body::after {
-  opacity: 0.22;
-  background-image: url("strawberries-bg.svg");
-  background-size: 94px 94px;
+  display: none;
 }
 
 .star-field {
@@ -1956,98 +1970,115 @@ body::after {
 }
 
 .top-bar {
-  background:
-    repeating-linear-gradient(
-      45deg,
-      rgba(214, 48, 72, 0.17) 0 10px,
-      rgba(255, 238, 238, 0.17) 10px 20px
-    ),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%),
-    linear-gradient(180deg, #ffc2b5 0%, #ffb7ac 50%, #ffcfc0 100%);
-  border-bottom-color: #f59ca2;
+  background: #ffd4c8;
+  border-bottom-color: var(--border);
+  box-shadow: none;
 }
 
 .logo {
-  color: #cb2f4f;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75), 0 0 8px rgba(255, 188, 120, 0.35);
+  font-size: 1.24rem;
+  color: #8f2330;
+  text-shadow: none;
 }
 
 .main::before {
-  background: linear-gradient(165deg, rgba(255, 165, 157, 0.2) 0%, transparent 42%, rgba(255, 221, 152, 0.2) 100%);
+  display: none;
 }
 
 .card,
 .prompt-card,
 .shared-card {
-  background:
-    radial-gradient(ellipse 120% 85% at 12% 6%, rgba(255, 217, 174, 0.38) 0%, transparent 44%),
-    linear-gradient(160deg, #fff4e6 0%, #ffe8d8 100%);
-  border-color: #ef9c92;
-  box-shadow: 0 4px 12px rgba(209, 120, 110, 0.18);
+  background: var(--bg-card-inner);
+  border-color: var(--border);
+  box-shadow: 0 2px 10px rgba(43, 22, 23, 0.08);
 }
 
 .btn.primary {
-  color: #6d1f1e;
-  border-color: #d98a98;
-  background: linear-gradient(160deg, #f6d7cf 0%, #eaa7a0 52%, #d9828a 100%);
-  box-shadow: 0 3px 0 rgba(155, 78, 86, 0.2);
+  color: #fffaf9;
+  border-color: #8c2a32;
+  background: #a6313b;
+  box-shadow: 0 2px 0 rgba(43, 22, 23, 0.12);
+  text-shadow: none;
 }
 
 .btn.secondary {
-  background: linear-gradient(170deg, #f6ddd6 0%, #ebbab0 58%, #de98a2 100%);
-  color: #6d2f40;
-  border-color: #d99da4;
+  background: #f7d7d9;
+  color: var(--text);
+  border-color: #e0a8ad;
 }
 
 .btn.ghost {
-  background: linear-gradient(170deg, #fcebe1 0%, #f4d7c6 58%, #e9bcc1 100%);
-  color: #7e4455;
-  border-color: #d8aeb0;
+  background: #ffeee8;
+  color: var(--text);
+  border-color: #dcb0b0;
+  border-style: solid;
+}
+
+.drawer {
+  background: #fff0e8;
+}
+
+.btn-icon {
+  background: #f7d7d9;
+  border-color: var(--border);
+  color: #8f2330;
+  box-shadow: none;
+}
+
+.modal-card {
+  background: #fff6f0;
+  box-shadow: 0 4px 18px rgba(43, 22, 23, 0.12);
+}
+
+.toast {
+  background: #ffe8df;
+  border-color: #c97a7a;
+}
+
+.jar-list a {
+  background: var(--bg-card-inner);
+  box-shadow: 0 2px 0 rgba(43, 22, 23, 0.08);
+}
+
+.btn-home-small {
+  background: rgba(255, 255, 255, 0.82);
+  color: #5a3038;
+  border-color: #ddb8bc;
+  filter: none;
 }
 
 .icon-nav {
-  background: linear-gradient(180deg, rgba(255, 247, 236, 0.74) 0%, #ffd9c6 42%, #ffc9ba 100%);
-  border-top-color: #f59ca2;
+  background: #ffe4dc;
+  border-top-color: var(--border);
+  box-shadow: 0 -2px 10px rgba(43, 22, 23, 0.06);
 }
 
 .icon-nav__link {
-  color: #9c5861;
+  color: var(--text-dim);
+}
+
+.icon-nav__link:hover {
+  color: var(--text);
+  background: rgba(247, 215, 217, 0.45);
 }
 
 .icon-nav__link.is-active {
-  color: #b62c44;
-  background: rgba(255, 219, 177, 0.95);
-  box-shadow:
-    inset 0 0 0 1px rgba(182, 57, 78, 0.35),
-    0 2px 6px rgba(182, 57, 78, 0.2);
+  color: #8f2330;
+  background: #f7d7d9;
+  box-shadow: inset 0 0 0 1px rgba(166, 49, 59, 0.28);
 }
 
 .icon-nav__link:active {
-  background: rgba(255, 186, 151, 0.96);
-  color: #8f2137;
+  background: #f0c8cc;
+  color: #6a1c24;
   transform: translateY(1px);
 }
 
 .jar-card__tape {
   background: #fff0cc;
-  color: #6d3240;
+  color: #4a2a30;
 }
 
-/* Home header + button polish */
-.top-bar {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, transparent 42%),
-    repeating-linear-gradient(0deg, rgba(198, 52, 74, 0.1) 0 12px, rgba(255, 240, 240, 0.1) 12px 24px),
-    repeating-linear-gradient(90deg, rgba(198, 52, 74, 0.1) 0 12px, rgba(255, 240, 240, 0.1) 12px 24px),
-    linear-gradient(180deg, #ffc8b9 0%, #ffbeb2 54%, #ffd6c4 100%);
-}
-
-.logo {
-  font-size: 1.24rem;
-}
-
-.btn.primary {
-  border-color: #e4b29f;
-  background: linear-gradient(160deg, #fff2c5 0%, #f8ddb6 45%, #efc1b6 100%);
-  color: #6a2b2e;
+.nav-link {
+  border-bottom: 1px solid rgba(217, 122, 122, 0.4);
 }
