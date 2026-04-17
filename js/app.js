@@ -262,73 +262,98 @@
     return "jar.html?id=" + encodeURIComponent(id);
   }
 
-  function jarSvg() {
-    /* Rounded-square jar — neon nightlife jam + cool metal lid */
+  function safeSvgIdFragment(s) {
+    return String(s || "m").replace(/[^a-zA-Z0-9_-]/g, "-");
+  }
+
+  /** Watercolor jam jar: gingham cloth lid, glass highlights, seed specks — matches app icon art. */
+  function memoryJamJarSvg(uid, extraClass) {
+    var id = safeSvgIdFragment(uid);
+    var cls = "jar-svg memory-jar-svg" + (extraClass ? " " + extraClass : "");
     return (
-      '<svg class="jar-svg" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<svg class="' +
+      cls +
+      '" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
       "<defs>" +
-      '<linearGradient id="mj-jam" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#ff787e"/>' +
-      '<stop offset="42%" stop-color="#ea4f61"/>' +
-      '<stop offset="100%" stop-color="#b71f3d"/>' +
+      '<pattern id="mj-gj-' +
+      id +
+      '" width="5" height="5" patternUnits="userSpaceOnUse">' +
+      '<rect width="5" height="5" fill="#ffffff"/>' +
+      '<rect width="2.5" height="2.5" fill="#f0a0a4"/>' +
+      '<rect x="2.5" y="2.5" width="2.5" height="2.5" fill="#f0a0a4"/>' +
+      "</pattern>" +
+      '<radialGradient id="mj-jam-' +
+      id +
+      '" cx="42%" cy="32%" r="72%">' +
+      '<stop offset="0%" stop-color="#d85a62"/>' +
+      '<stop offset="45%" stop-color="#a83e52"/>' +
+      '<stop offset="100%" stop-color="#4f2840"/>' +
+      "</radialGradient>" +
+      '<linearGradient id="mj-lidsh-' +
+      id +
+      '" x1="0%" y1="0%" x2="100%" y2="0%">' +
+      '<stop offset="0%" stop-color="#c8787e" stop-opacity="0"/>' +
+      '<stop offset="100%" stop-color="#a8555c" stop-opacity="0.55"/>' +
       "</linearGradient>" +
-      '<linearGradient id="mj-lid" x1="0%" y1="0%" x2="100%" y2="0%">' +
-      '<stop offset="0%" stop-color="#566377"/>' +
-      '<stop offset="50%" stop-color="#8f9fb3"/>' +
-      '<stop offset="100%" stop-color="#3d4a5f"/>' +
-      "</linearGradient>" +
-      '<linearGradient id="mj-shine" x1="0%" y1="0%" x2="100%" y2="20%">' +
+      '<linearGradient id="mj-glass-' +
+      id +
+      '" x1="0%" y1="0%" x2="100%" y2="100%">' +
       '<stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>' +
-      '<stop offset="40%" stop-color="#fff4d2" stop-opacity="0.3"/>' +
-      '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>' +
+      '<stop offset="100%" stop-color="#2a1018" stop-opacity="0.12"/>' +
       "</linearGradient>" +
+      '<clipPath id="mj-bodyclip-' +
+      id +
+      '">' +
+      '<path d="M30.2 40.2 L69.8 40.2 C79 40.5 83.2 54.5 83.2 72.2 C83.2 92.5 69 108.2 50 110.2 C31 108.2 16.8 92.5 16.8 72.2 C16.8 54.5 21 40.5 30.2 40.2 Z"/>' +
+      "</clipPath>" +
       "</defs>" +
-      '<rect class="mj-lid" x="22" y="10" width="56" height="18" rx="5" ry="5" fill="url(#mj-lid)" stroke="#8b1e34" stroke-width="2"/>' +
-      '<rect class="mj-lid-shine" x="28" y="13" width="22" height="4" rx="2" fill="#ffffff" opacity="0.15"/>' +
-      '<rect class="mj-neck" x="26" y="28" width="48" height="10" rx="3" ry="3" fill="#7b5b60" stroke="#8b1e34" stroke-width="2"/>' +
-      '<rect class="mj-body-fill" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-jam)"/>' +
-      '<rect class="mj-body-pink" x="22" y="42" width="56" height="7" rx="3" fill="#ffd37a" opacity="0.24"/>' +
-      '<rect class="mj-body-shine" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="url(#mj-shine)"/>' +
-      '<rect class="mj-body-stroke" x="14" y="38" width="72" height="70" rx="18" ry="18" fill="none" stroke="#8b1e34" stroke-width="2"/>' +
-      '<g fill="#ffe9ac" opacity="0.9">' +
-      '<rect x="68" y="54" width="2" height="2"/>' +
-      '<rect x="70" y="52" width="2" height="6"/>' +
-      '<rect x="66" y="56" width="10" height="2"/>' +
+      '<g stroke-linecap="round" stroke-linejoin="round">' +
+      '<path class="memory-jam-fill" d="M30.2 40.2 L69.8 40.2 C79 40.5 83.2 54.5 83.2 72.2 C83.2 92.5 69 108.2 50 110.2 C31 108.2 16.8 92.5 16.8 72.2 C16.8 54.5 21 40.5 30.2 40.2 Z" fill="url(#mj-jam-' +
+      id +
+      ')" stroke="none"/>' +
+      '<g clip-path="url(#mj-bodyclip-' +
+      id +
+      ')" fill="#f7ced2" opacity="0.92">' +
+      '<circle cx="41" cy="58" r="1.15"/>' +
+      '<circle cx="56" cy="52" r="0.95"/>' +
+      '<circle cx="48" cy="72" r="1.05"/>' +
+      '<circle cx="63" cy="66" r="0.9"/>' +
+      '<circle cx="36" cy="78" r="1"/>' +
+      '<circle cx="54" cy="88" r="1.1"/>' +
+      '<circle cx="68" cy="80" r="0.85"/>' +
+      '<circle cx="44" cy="94" r="0.95"/>' +
+      '<circle cx="72" cy="58" r="0.75"/>' +
+      '<circle cx="32" cy="64" r="0.8"/>' +
       "</g>" +
-      '<g fill="#ffc2b2" opacity="0.58">' +
-      '<rect x="26" y="88" width="2" height="2"/>' +
-      '<rect x="28" y="86" width="2" height="6"/>' +
-      '<rect x="24" y="90" width="10" height="2"/>' +
+      '<g clip-path="url(#mj-bodyclip-' +
+      id +
+      ')" opacity="1">' +
+      '<path d="M22 52 C22 68 24 90 28 98" stroke="#fbe8ea" stroke-width="7" fill="none" opacity="0.42"/>' +
+      '<ellipse cx="24.5" cy="64" rx="4.2" ry="13" fill="#f7d6da" opacity="0.38" transform="rotate(-12 24.5 64)"/>' +
+      '<ellipse cx="77" cy="96" rx="6" ry="3.6" fill="#f7d6da" opacity="0.32" transform="rotate(28 77 96)"/>' +
+      '<path d="M30.2 40.2 L69.8 40.2 C79 40.5 83.2 54.5 83.2 72.2 C83.2 92.5 69 108.2 50 110.2 C31 108.2 16.8 92.5 16.8 72.2 C16.8 54.5 21 40.5 30.2 40.2 Z" fill="url(#mj-glass-' +
+      id +
+      ')" stroke="none" opacity="0.85"/>' +
+      "</g>" +
+      '<path d="M30.2 40.2 L69.8 40.2 C79 40.5 83.2 54.5 83.2 72.2 C83.2 92.5 69 108.2 50 110.2 C31 108.2 16.8 92.5 16.8 72.2 C16.8 54.5 21 40.5 30.2 40.2 Z" fill="none" stroke="#3e2324" stroke-width="2.35"/>' +
+      '<path d="M31.5 36.2 L68.5 36.2 L70.2 40.2 L29.8 40.2 Z" fill="#e8c4c8" stroke="#3e2324" stroke-width="2"/>' +
+      '<path d="M19.5 19.2 Q50 9.5 80.5 19.2 L82.2 24.8 C76 29.5 68 33.8 58.5 34.8 C48 35.8 40 34.5 32 33.2 C28 32.5 24.5 29.5 17.8 24.8 Z" fill="url(#mj-gj-' +
+      id +
+      ')" stroke="#3e2324" stroke-width="2.2"/>' +
+      '<path d="M58 11 L83 20 L81 26 C74 30 66 33.5 58 34.5 C55 34.8 52.5 32.5 52 28 Z" fill="url(#mj-lidsh-' +
+      id +
+      ')" stroke="none" opacity="0.88"/>' +
       "</g>" +
       "</svg>"
     );
   }
 
   function homeJarSvg() {
-    return (
-      '<svg class="jar-svg home-jar-svg" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      "<defs>" +
-      '<linearGradient id="home-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.5"/>' +
-      '<stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/>' +
-      "</linearGradient>" +
-      "</defs>" +
-      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#8b1e34" stroke-width="1.9"/>' +
-      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#8b1e34" stroke-width="1.8"/>' +
-      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#home-jar-fill)" stroke="#8b1e34" stroke-width="2.2"/>' +
-      "</svg>"
-    );
+    return memoryJamJarSvg("home", "home-jar-svg");
   }
 
-  function listJarSvg() {
-    return (
-      '<svg class="jar-svg jar-svg--list" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-      '<defs><linearGradient id="list-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.5"/><stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/></linearGradient></defs>' +
-      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#8b1e34" stroke-width="1.9"/>' +
-      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#8b1e34" stroke-width="1.8"/>' +
-      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#list-jar-fill)" stroke="#8b1e34" stroke-width="2.2"/>' +
-      "</svg>"
-    );
+  function listJarSvg(jarId) {
+    return memoryJamJarSvg("j-" + jarId, "jar-svg--list");
   }
 
   function renderHome() {
@@ -401,7 +426,7 @@
         html += "<li>";
         html += '<a class="jar-card" href="' + jarPageUrl(j.id) + '">';
         html += '<span class="jar-card__badge">' + j.photos.length + "</span>";
-        html += '<span class="jar-card__art">' + listJarSvg() + "</span>";
+        html += '<span class="jar-card__art">' + listJarSvg(j.id) + "</span>";
         html += '<span class="jar-card__tape">' + escapeHtml(j.name) + "</span>";
         html += "</a>";
         html += "</li>";
@@ -569,7 +594,7 @@
       html += "<li>";
       html += '<a class="jar-card jar-card--shared" href="' + jarPageUrl(j.id) + '" data-burst="spark" data-burst-count="10">';
       html += '<span class="jar-card__badge">' + j.photos.length + "</span>";
-      html += '<span class="jar-card__art">' + listJarSvg() + "</span>";
+      html += '<span class="jar-card__art">' + listJarSvg(j.id) + "</span>";
       html += '<span class="jar-card__tape">' + escapeHtml(j.name) + "</span>";
       html += '<span class="jar-card__owner">Shared with: ' + escapeHtml(j.ownerName || "Friend") + "</span>";
       html += "</a>";

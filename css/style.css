@@ -1532,33 +1532,13 @@ body[data-page="home"] .main {
   font-size: 0.82rem;
 }
 
-/* Home jar: keep lid/outline fully opaque, fade only jam fill */
-body[data-page="home"] .home-jar-full .mj-lid,
-body[data-page="home"] .home-jar-full .mj-neck,
-body[data-page="home"] .home-jar-full .mj-body-stroke,
-body[data-page="home"] .home-jar-full .mj-lid-shine {
-  opacity: 1;
-}
-
-body[data-page="home"] .home-jar-full .mj-body-fill {
-  opacity: 0.5;
-}
-
-body[data-page="home"] .home-jar-full .mj-body-pink {
-  opacity: 0.28;
-}
-
-body[data-page="home"] .home-jar-full .mj-body-shine {
-  opacity: 0.3;
+/* Home jar: fade only the jam fill so prompt text stays readable */
+body[data-page="home"] .home-jar-full .memory-jam-fill {
+  opacity: 0.52;
 }
 
 .home-jar-svg {
   filter: drop-shadow(0 8px 16px rgba(12, 18, 36, 0.24));
-}
-
-.home-jar-svg rect {
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .jar-list--visual {
