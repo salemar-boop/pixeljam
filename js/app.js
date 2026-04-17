@@ -65,6 +65,12 @@
     });
   }
 
+  /** Compact date for home header (e.g. 4/17). */
+  function formatTodayShort() {
+    var d = new Date();
+    return d.getMonth() + 1 + "/" + d.getDate();
+  }
+
   function formatMemoryDate(ts) {
     if (!ts) return "";
     return new Date(ts).toLocaleDateString(undefined, {
@@ -305,17 +311,17 @@
   }
 
   function homeJarSvg() {
+    /* Squat jam jar + ruffled cloth lid — wireframe silhouette (home only). */
     return (
-      '<svg class="jar-svg home-jar-svg" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<svg class="jar-svg home-jar-svg" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
       "<defs>" +
       '<linearGradient id="home-jar-fill" x1="0%" y1="0%" x2="0%" y2="100%">' +
-      '<stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.5"/>' +
-      '<stop offset="100%" stop-color="#d83f58" stop-opacity="0.58"/>' +
+      '<stop offset="0%" stop-color="#ff9ba3" stop-opacity="0.42"/>' +
+      '<stop offset="100%" stop-color="#d83f58" stop-opacity="0.52"/>' +
       "</linearGradient>" +
       "</defs>" +
-      '<rect x="18" y="9" width="64" height="10" rx="5" fill="#d3deed" stroke="#8b1e34" stroke-width="1.9"/>' +
-      '<rect x="27" y="19" width="46" height="7" rx="3.5" fill="#e7effc" stroke="#8b1e34" stroke-width="1.8"/>' +
-      '<rect x="10" y="26" width="80" height="90" rx="10" fill="url(#home-jar-fill)" stroke="#8b1e34" stroke-width="2.2"/>' +
+      '<path class="home-jar-body-fill" fill="url(#home-jar-fill)" stroke="#8b1e34" stroke-width="2.15" stroke-linejoin="round" stroke-linecap="round" d="M13.5 29.2Q50 26.2 86.5 29.2L88.2 32.2L88.2 90.5Q88.2 101.8 50 105.5Q11.8 101.8 11.8 90.5L11.8 32.2Q11.8 29.5 13.5 29.2Z"/>' +
+      '<path class="home-jar-lid" fill="#faf4ef" stroke="#8b1e34" stroke-width="2.15" stroke-linejoin="round" stroke-linecap="round" d="M5.5 20.5C5.5 8.5 21.5 3.2 50 2.7C78.5 3.2 94.5 8.2 94.5 20.5C94.5 25.8 88.8 29.2 80.5 27.2C72.5 25.5 64.2 28.5 50 26.8C35.8 28.5 27.5 25.5 19.5 27.2C11.2 29.2 5.5 25.8 5.5 20.5Z"/>' +
       "</svg>"
     );
   }
@@ -343,19 +349,21 @@
     html += '<section class="home-jar-full">';
     html += '<div class="home-jar-full__art">' + homeJarSvg() + "</div>";
     html += '<div class="home-jar-full__content">';
-    html += '<p class="home-prompt-title">Today\'s Prompt:</p>';
-    html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
+    html += '<div class="home-jar-full__head">';
+    html += '<p class="home-prompt-title">Today prompt</p>';
+    html += '<p class="home-prompt-date">' + escapeHtml(formatTodayShort()) + "</p>";
+    html += "</div>";
+    html += '<div class="home-prompt-panel"><p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p></div>";
     html += '<div class="home-jar-full__actions">';
     html +=
-      '<button type="button" class="btn primary btn-home-add" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add Photo</button>';
+      '<button type="button" class="btn primary btn-home-add" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34" aria-label="Add photo to today\'s jar">Add</button>';
     html += '<div class="quick-links quick-links--home-inside">';
     html +=
-      '<a class="btn ghost btn-home-small" href="jars.html" data-burst="confetti" data-burst-duration="580">Mine</a>';
+      '<a class="btn ghost btn-home-small" href="jars.html" data-burst="confetti" data-burst-duration="580">mine</a>';
     html +=
-      '<a class="btn ghost btn-home-small" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared</a>';
+      '<a class="btn ghost btn-home-small" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">shared</a>';
     html += "</div>";
     html += "</div>";
-    html += '<p class="hero-jar__meta">' + escapeHtml(formatToday()) + "</p>";
     html += "</div>";
     html += "</section>";
 
@@ -447,7 +455,7 @@
         "</p>";
     }
     html += '<div class="jar-preview-wrap jar-preview-wrap--main jar-preview-wrap--screen" id="jar-shake-zone">';
-    html += homeJarSvg();
+    html += jarSvg();
     html += '<div class="jar-photo-well">';
     if (jar.photos.length > 0) {
       jar.photos.forEach(function (p, idx) {
