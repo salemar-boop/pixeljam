@@ -1775,9 +1775,16 @@ body[data-page="jar"] .screen-title {
   line-height: 1;
 }
 
+.jar-actions--below .jar-action-btn {
+  background: #f7d7d9;
+  color: #6a1c24;
+  border: 1px solid #d98a98;
+  box-shadow: 0 2px 0 rgba(43, 22, 23, 0.12);
+}
+
 .jar-photo-note {
-  width: min(36vw, 142px);
-  height: min(18vw, 74px);
+  width: min(31vw, 122px);
+  height: min(31vw, 122px);
   border-radius: 6px;
   border: 1px solid #f4efe4;
   box-shadow: 0 3px 10px rgba(16, 18, 34, 0.32);
