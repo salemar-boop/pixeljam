@@ -402,25 +402,7 @@
     }
     html += '<div class="jar-preview-wrap jar-preview-wrap--main jar-preview-wrap--screen" id="jar-shake-zone">';
     html += jamJarRasterHtml("detail");
-    html += '<div class="jar-photo-well">';
-    if (jar.photos.length > 0) {
-      jar.photos.forEach(function (p, idx) {
-        var rot = ((idx % 7) - 3) * 2.8;
-        var lift = Math.max(0, 18 - idx * 2.2);
-        html +=
-          '<img class="jar-photo-note" style="--note-rot:' +
-          rot +
-          'deg;--note-lift:' +
-          lift +
-          'px;z-index:' +
-          (20 + idx) +
-          '" src="' +
-          escapeHtml(photoSrc(p)) +
-          '" alt="" data-photo-id="' +
-          escapeHtml(p.id) +
-          '" loading="lazy" />';
-      });
-    }
+    html += '<div class="jar-photo-well" id="jar-photo-well">';
     html += "</div>";
     html += "</div>";
     html += '<div class="jar-actions jar-actions--below">';
@@ -438,6 +420,75 @@
     mainEl.innerHTML = html;
 
     var shakeZone = document.getElementById("jar-shake-zone");
+    var photoWell = document.getElementById("jar-photo-well");
+    var stackStart = 0;
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchActive = false;
+
+    function renderPhotoStack() {
+      if (!photoWell) return;
+      if (!jar.photos.length) {
+        photoWell.innerHTML = "";
+        return;
+      }
+      var stackHtml = "";
+      var total = jar.photos.length;
+      for (var layer = 0; layer < total; layer++) {
+        var idx = (stackStart + layer) % total;
+        var p = jar.photos[idx];
+        var rot = ((layer % 7) - 3) * 2.8;
+        var lift = Math.max(0, 18 - layer * 2.2);
+        stackHtml +=
+          '<img class="jar-photo-note" style="--note-rot:' +
+          rot +
+          'deg;--note-lift:' +
+          lift +
+          'px;z-index:' +
+          (20 + layer) +
+          '" src="' +
+          escapeHtml(photoSrc(p)) +
+          '" alt="" data-photo-id="' +
+          escapeHtml(p.id) +
+          '" loading="lazy" />';
+      }
+      photoWell.innerHTML = stackHtml;
+    }
+
+    function stepStack(delta) {
+      if (jar.photos.length < 2) return;
+      stackStart = (stackStart + delta + jar.photos.length) % jar.photos.length;
+      renderPhotoStack();
+    }
+
+    renderPhotoStack();
+
+    if (shakeZone) {
+      shakeZone.addEventListener(
+        "touchstart",
+        function (e) {
+          if (!e.touches || !e.touches.length) return;
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          touchActive = true;
+        },
+        { passive: true }
+      );
+
+      shakeZone.addEventListener(
+        "touchend",
+        function (e) {
+          if (!touchActive || !e.changedTouches || !e.changedTouches.length) return;
+          var dx = e.changedTouches[0].clientX - touchStartX;
+          var dy = e.changedTouches[0].clientY - touchStartY;
+          touchActive = false;
+          if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+            stepStack(dx < 0 ? 1 : -1);
+          }
+        },
+        { passive: true }
+      );
+    }
 
     function doShake() {
       if (!jar.photos.length) {
