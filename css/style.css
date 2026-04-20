@@ -1427,10 +1427,16 @@ body {
   letter-spacing: 0.01em;
 }
 
-/* iPhone 14 Pro Max logical portrait (CSS px) — home jar is sized to this “screen” */
+/* Home jar: iPhone 14 Pro Max width cap; fills viewport band between header and bottom tab bar */
 body[data-page="home"] {
   --iphone14pm-w: 430px;
-  --iphone14pm-h: 932px;
+  /* Bottom edge of .top-bar (padding includes safe-area-inset-top) + logo line + bottom pad + border */
+  --home-topbar-stack: calc(0.6rem + env(safe-area-inset-top, 0px) + 1.85rem + 0.75rem + var(--pixel, 3px));
+  /* Top edge of .icon-nav measured from bottom (incl. safe-area in nav padding) */
+  --home-iconnav-stack: calc(env(safe-area-inset-bottom, 0px) + 4.45rem);
+  /* Smaller = jar closer to title bar / tab buttons */
+  --home-jar-nudge-top: 0;
+  --home-jar-nudge-bottom: 0;
 }
 
 body[data-page="home"] .main {
@@ -1440,34 +1446,34 @@ body[data-page="home"] .main {
   min-height: 0;
   max-width: 100%;
   padding: 0;
+  /* Jar is position:fixed; reserve vertical space so the page still scrolls/layouts sensibly */
   padding-bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
+  min-height: calc(100svh - var(--home-topbar-stack));
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
 .home-jar-full {
-  position: relative;
-  flex: 1 1 auto;
-  width: 100%;
-  max-width: var(--iphone14pm-w);
-  margin-inline: auto;
-  /* As tall as the visible area allows, up to a 14 Pro Max–sized slab minus header + tab bar */
-  min-height: calc(
-    min(var(--iphone14pm-h), 100svh) - 9.25rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)
-  );
-  max-height: none;
+  position: fixed;
+  z-index: 1;
+  top: calc(var(--home-topbar-stack) - var(--home-jar-nudge-top));
+  bottom: calc(var(--home-iconnav-stack) - var(--home-jar-nudge-bottom));
+  left: env(safe-area-inset-left, 0px);
+  right: env(safe-area-inset-right, 0px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   overflow: visible;
+  pointer-events: none;
 }
 
 .home-jar-full__art {
   width: 100%;
+  max-width: var(--iphone14pm-w);
   height: 100%;
-  min-height: inherit;
+  min-height: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1508,6 +1514,7 @@ body[data-page="home"] .main {
   grid-template-rows: auto 1fr auto;
   align-items: start;
   gap: 0.25rem 0.55rem;
+  pointer-events: auto;
 }
 
 .home-prompt-title {
