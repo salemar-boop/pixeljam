@@ -8,7 +8,11 @@ Add-Type -AssemblyName System.Drawing
 $root = Split-Path -Parent $PSScriptRoot
 $targets = @(
   (Join-Path $root "assets/jam-jar-ui.png"),
-  (Join-Path $root "assets/jam-app-icon.png")
+  (Join-Path $root "assets/jam-app-icon.png"),
+  (Join-Path $root "assets/jar-btn-add.png"),
+  (Join-Path $root "assets/jar-btn-shake.png"),
+  (Join-Path $root "assets/jar-btn-share.png"),
+  (Join-Path $root "assets/jar-btn-clear.png")
 )
 
 function Get-RefColor {

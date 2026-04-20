@@ -407,13 +407,13 @@
     html += "</div>";
     html += '<div class="jar-actions jar-actions--below">';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">\u27f3</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16"><img class="jar-action-icon" src="assets/jar-btn-clear.png" alt="" loading="lazy" decoding="async" /></button>';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u21c4</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560"><img class="jar-action-icon" src="assets/jar-btn-shake.png" alt="" loading="lazy" decoding="async" /></button>';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10">\u21e2</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10"><img class="jar-action-icon" src="assets/jar-btn-share.png" alt="" loading="lazy" decoding="async" /></button>';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-add-jar" aria-label="Add photo" data-burst="plus" data-burst-count="12">+</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-add-jar" aria-label="Add photo" data-burst="plus" data-burst-count="12"><img class="jar-action-icon" src="assets/jar-btn-add.png" alt="" loading="lazy" decoding="async" /></button>';
     html += "</div>";
     if (!jar.photos.length) html += '<p class="empty-state">No photos yet.</p>';
 

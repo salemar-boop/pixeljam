@@ -1785,10 +1785,21 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-actions--below .jar-action-btn {
-  background: #f7d7d9;
-  color: #6a1c24;
-  border: 1px solid #d98a98;
-  box-shadow: 0 2px 0 rgba(43, 22, 23, 0.12);
+  width: 2.48rem;
+  height: 2.48rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+}
+
+.jar-action-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .jar-photo-note {
