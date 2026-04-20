@@ -1498,8 +1498,8 @@ body[data-page="home"] .main {
   height: 100%;
   max-width: none;
   max-height: none;
-  /* Stretch artwork to the full jar box (430-wide × tall area) so the jar reads taller on screen */
-  object-fit: fill;
+  /* Preserve jar proportions from source artwork */
+  object-fit: contain;
   object-position: center center;
   filter: drop-shadow(0 10px 24px rgba(43, 22, 23, 0.22));
 }
