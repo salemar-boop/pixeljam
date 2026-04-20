@@ -1857,6 +1857,44 @@ body {
   gap: 0.56rem;
   justify-items: start;
   justify-content: start;
+  position: relative;
+  padding-top: 0.18rem;
+  padding-bottom: 0.35rem;
+  overflow: hidden;
+}
+
+/* Illustrated light-brown shelving under jar rows (My jars + Shared jars). */
+body[data-page="jars"] .jar-list--visual,
+body[data-page="shared"] .jar-list--visual {
+  --shelf-wood: #ddbc95;
+  --shelf-wood-dark: #cfa779;
+  --shelf-shadow: rgba(106, 66, 34, 0.22);
+  --shelf-line: rgba(132, 84, 45, 0.22);
+  background-image:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 22%,
+      var(--shelf-wood) 22%,
+      var(--shelf-wood-dark) 26.5%,
+      transparent 26.5%,
+      transparent 71%,
+      var(--shelf-wood) 71%,
+      var(--shelf-wood-dark) 75.5%,
+      transparent 75.5%,
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 22px,
+      var(--shelf-line) 22px,
+      var(--shelf-line) 24px
+    );
+  border-radius: 0.35rem;
+  box-shadow:
+    inset 0 -4px 0 rgba(160, 112, 72, 0.18),
+    0 6px 10px -8px var(--shelf-shadow);
 }
 
 .jar-list--visual li {
