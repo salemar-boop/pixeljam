@@ -1791,6 +1791,10 @@ body[data-page="jar"] .screen-title {
 }
 
 @media (max-width: 390px) {
+  .jar-list--visual {
+    --shelf-y: 7.06rem;
+  }
+
   .home-jar-full__content {
     inset: 35.8% 15% 11.2% 15%;
   }
@@ -1857,51 +1861,43 @@ body {
   gap: 0.56rem;
   justify-items: start;
   justify-content: start;
-  position: relative;
-  padding-top: 0.18rem;
-  padding-bottom: 0.2rem;
-  overflow: hidden;
-}
-
-/* Single thick light-brown shelf aligned to jar bottoms (My jars + Shared jars). */
-body[data-page="jars"] .jar-list--visual,
-body[data-page="shared"] .jar-list--visual {
-  --shelf-wood: #d8b184;
-  --shelf-wood-dark: #c69766;
-  --shelf-shadow: rgba(98, 61, 33, 0.24);
-  --shelf-grain: rgba(122, 79, 43, 0.2);
-  background-color: transparent;
-  background-image:
-    linear-gradient(
-      180deg,
-      transparent 0%,
-      transparent 83%,
-      var(--shelf-wood) 83%,
-      var(--shelf-wood-dark) 100%
-    ),
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 6%,
-      rgba(255, 247, 234, 0.35) 12%,
-      transparent 18%,
-      transparent 100%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 24px,
-      var(--shelf-grain) 24px 26px
-    );
-  background-size: 100% 100%, 100% 100%, 100% 100%;
-  background-repeat: no-repeat;
-  border-radius: 0.22rem;
-  box-shadow:
-    inset 0 -2px 0 rgba(113, 70, 39, 0.24),
-    0 5px 9px -8px var(--shelf-shadow);
+  --shelf-gap: 0.56rem;
+  --shelf-thickness: 0.56rem;
+  --shelf-y: 7.52rem;
 }
 
 .jar-list--visual li {
   text-align: left;
+  position: relative;
+}
+
+/* One shelf per row: draw on the left (odd) cell and span across both jars */
+.jar-list--visual li:nth-child(odd)::after {
+  content: "";
+  position: absolute;
+  left: 0.08rem;
+  top: var(--shelf-y);
+  width: calc(200% + var(--shelf-gap) - 0.16rem);
+  height: var(--shelf-thickness);
+  border-radius: 0.35rem;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 204, 0.32) 0%, rgba(255, 235, 204, 0) 36%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(119, 76, 46, 0.14) 0 9px,
+      rgba(165, 111, 73, 0.1) 9px 18px
+    ),
+    linear-gradient(180deg, #c79667 0%, #b57e54 56%, #9b6944 100%);
+  box-shadow:
+    0 2px 7px rgba(65, 38, 25, 0.2),
+    inset 0 1px 0 rgba(255, 236, 216, 0.3),
+    inset 0 -1px 0 rgba(110, 72, 46, 0.24);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.jar-list--visual li:nth-child(even)::after {
+  content: none;
 }
 
 .jar-card {
@@ -1913,6 +1909,8 @@ body[data-page="shared"] .jar-list--visual {
   box-shadow: none !important;
   border: none !important;
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .jar-card__art .jar-raster--list {
@@ -1973,6 +1971,10 @@ body[data-page="shared"] .jar-list--visual {
 }
 
 @media (min-width: 520px) {
+  .jar-list--visual {
+    --shelf-y: 6.3rem;
+  }
+
   .jar-card__art .jar-raster--list {
     width: min(18vw, 114px);
   }
