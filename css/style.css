@@ -1859,42 +1859,45 @@ body {
   justify-content: start;
   position: relative;
   padding-top: 0.18rem;
-  padding-bottom: 0.35rem;
+  padding-bottom: 0.2rem;
   overflow: hidden;
 }
 
-/* Illustrated light-brown shelving under jar rows (My jars + Shared jars). */
+/* Single thick light-brown shelf aligned to jar bottoms (My jars + Shared jars). */
 body[data-page="jars"] .jar-list--visual,
 body[data-page="shared"] .jar-list--visual {
-  --shelf-wood: #ddbc95;
-  --shelf-wood-dark: #cfa779;
-  --shelf-shadow: rgba(106, 66, 34, 0.22);
-  --shelf-line: rgba(132, 84, 45, 0.22);
+  --shelf-wood: #d8b184;
+  --shelf-wood-dark: #c69766;
+  --shelf-shadow: rgba(98, 61, 33, 0.24);
+  --shelf-grain: rgba(122, 79, 43, 0.2);
+  background-color: transparent;
   background-image:
     linear-gradient(
       180deg,
       transparent 0%,
-      transparent 22%,
-      var(--shelf-wood) 22%,
-      var(--shelf-wood-dark) 26.5%,
-      transparent 26.5%,
-      transparent 71%,
-      var(--shelf-wood) 71%,
-      var(--shelf-wood-dark) 75.5%,
-      transparent 75.5%,
+      transparent 83%,
+      var(--shelf-wood) 83%,
+      var(--shelf-wood-dark) 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 6%,
+      rgba(255, 247, 234, 0.35) 12%,
+      transparent 18%,
       transparent 100%
     ),
     repeating-linear-gradient(
       90deg,
-      transparent 0,
-      transparent 22px,
-      var(--shelf-line) 22px,
-      var(--shelf-line) 24px
+      transparent 0 24px,
+      var(--shelf-grain) 24px 26px
     );
-  border-radius: 0.35rem;
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 0.22rem;
   box-shadow:
-    inset 0 -4px 0 rgba(160, 112, 72, 0.18),
-    0 6px 10px -8px var(--shelf-shadow);
+    inset 0 -2px 0 rgba(113, 70, 39, 0.24),
+    0 5px 9px -8px var(--shelf-shadow);
 }
 
 .jar-list--visual li {
