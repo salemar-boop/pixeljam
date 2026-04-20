@@ -1560,9 +1560,11 @@ body[data-page="home"] .main {
 
 .quick-links--home-inside {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.14rem;
-  margin-top: 0.14rem;
+  grid-template-columns: repeat(2, auto);
+  gap: 0.1rem;
+  margin: 0.14rem auto 0;
+  width: fit-content;
+  justify-content: center;
 }
 
 .quick-links--home-inside .btn {

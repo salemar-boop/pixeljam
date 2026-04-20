@@ -429,7 +429,7 @@
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u21c4</button>';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10">\u2b06</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10">\u21e2</button>';
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-add-jar" aria-label="Add photo" data-burst="plus" data-burst-count="12">+</button>';
     html += "</div>";
