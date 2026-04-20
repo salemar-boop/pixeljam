@@ -1555,7 +1555,7 @@ body[data-page="home"] .main {
   grid-column: 1 / 3;
   grid-row: 3 / 4;
   align-self: end;
-  padding-bottom: 2.62rem;
+  padding-bottom: 3.2rem;
 }
 
 .quick-links--home-inside {
@@ -1571,13 +1571,13 @@ body[data-page="home"] .main {
   font-size: 0.5rem;
   padding: 0.13rem 0.08rem;
   white-space: normal;
-  border-radius: 0.46rem;
+  border-radius: 0.9rem;
   width: 3.66rem;
   justify-self: center;
 }
 
 .btn-home-add {
-  border-radius: 0.46rem;
+  border-radius: 1rem;
   width: 4.45rem;
   font-size: 0.58rem;
   padding-top: 0.2rem;
@@ -1785,8 +1785,8 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-actions--below .jar-action-btn {
-  width: 2.48rem;
-  height: 2.48rem;
+  width: 3.15rem;
+  height: 3.15rem;
   padding: 0;
   border: none;
   background: transparent;
