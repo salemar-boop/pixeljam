@@ -427,9 +427,9 @@
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16">\u27f3</button>';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u2726</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-shake" aria-label="Shake jar" data-burst="ring" data-burst-duration="560">\u21c4</button>';
     html +=
-      '<button type="button" class="btn jar-action-btn" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10">\ud83c\udf20</button>';
+      '<button type="button" class="btn jar-action-btn" id="btn-share-jar" aria-label="Share jar" data-burst="plus" data-burst-char="*" data-burst-count="10">\u2197</button>';
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-add-jar" aria-label="Add photo" data-burst="plus" data-burst-count="12">+</button>';
     html += "</div>";
