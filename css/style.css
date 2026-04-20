@@ -1471,7 +1471,7 @@ body[data-page="home"] .main {
 
 .home-jar-full__art {
   width: 100%;
-  max-width: calc(var(--iphone14pm-w) + 40px);
+  max-width: calc(var(--iphone14pm-w) + 64px);
   height: 100%;
   min-height: 0;
   display: flex;
@@ -1482,7 +1482,7 @@ body[data-page="home"] .main {
 }
 
 .home-jar-full__art .jar-raster {
-  width: 114%;
+  width: 120%;
   height: 100%;
   max-width: none;
   max-height: none;
@@ -1507,7 +1507,7 @@ body[data-page="home"] .main {
 .home-jar-full__content {
   position: absolute;
   z-index: 2;
-  inset: 36.6% 16% 10.6% 16%;
+  inset: 39.6% 16% 10.2% 16%;
   padding: 0.1rem 0.16rem 0.15rem;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -1578,6 +1578,9 @@ body[data-page="home"] .main {
   padding-bottom: 0.26rem;
   margin: 0.06rem auto 0;
   display: block;
+  background: #f6d6a8;
+  border-color: #d49a62;
+  color: #5e2a1d;
 }
 
 .btn-home-small {
@@ -1796,7 +1799,7 @@ body[data-page="jar"] .screen-title {
   }
 
   .home-jar-full__content {
-    inset: 35.8% 15% 11.2% 15%;
+    inset: 38.8% 15% 10.8% 15%;
   }
   .home-date-small {
     font-size: 0.62rem;
@@ -1862,7 +1865,7 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 0.56rem;
+  --shelf-thickness: 0.84rem;
   --shelf-y: 7.52rem;
 }
 
