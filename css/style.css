@@ -1768,7 +1768,7 @@ body[data-page="jar"] .screen-title {
   margin-top: 0.18rem;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.2rem;
+  gap: 0.12rem;
 }
 
 .jar-actions--below .btn {
@@ -1785,8 +1785,8 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-actions--below .jar-action-btn {
-  width: 3.15rem;
-  height: 3.15rem;
+  width: 3.6rem;
+  height: 3.6rem;
   padding: 0;
   border: none;
   background: transparent;
