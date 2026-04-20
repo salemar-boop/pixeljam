@@ -281,7 +281,6 @@
       '" alt="" ' +
       imgAttrs +
       " />" +
-      '<div class="jar-raster__fade" aria-hidden="true"></div>' +
       "</div>"
     );
   }
