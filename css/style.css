@@ -1428,18 +1428,26 @@ body {
 }
 
 body[data-page="home"] .main {
-  padding-top: 0.25rem;
-  padding-left: 0.35rem;
-  padding-right: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  max-width: 100%;
+  padding: 0;
+  padding-bottom: calc(5.25rem + env(safe-area-inset-bottom, 0px));
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
   overflow-x: hidden;
-  overflow-y: visible;
+  overflow-y: hidden;
 }
 
 .home-jar-full {
   position: relative;
-  height: calc(100svh - 10.15rem - env(safe-area-inset-bottom, 0px));
-  min-height: 31rem;
-  max-height: 42rem;
+  flex: 1 1 auto;
+  width: 100%;
+  /* Nearly full screen between header and bottom tab bar */
+  min-height: calc(100svh - 9.25rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  max-height: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1449,28 +1457,33 @@ body[data-page="home"] .main {
 .home-jar-full__art {
   width: 100%;
   height: 100%;
+  min-height: inherit;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 0.15rem;
+  align-items: center;
+  padding: 0;
   overflow: visible;
 }
 
 .home-jar-full__art .jar-raster {
-  height: min(92dvh, 40rem);
-  width: auto;
+  width: 100%;
+  height: 100%;
   max-width: none;
+  max-height: none;
   flex-shrink: 0;
-  transform: translateY(-1.35rem) scale(1);
-  transform-origin: 50% 62%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: none;
 }
 
 .home-jar-full__art .jar-raster__img {
-  width: auto;
+  width: 100%;
   height: 100%;
-  max-height: min(92dvh, 40rem);
-  max-width: min(104vw, 34rem);
+  max-width: none;
+  max-height: none;
   object-fit: contain;
+  object-position: center center;
   filter: drop-shadow(0 10px 24px rgba(43, 22, 23, 0.22));
 }
 
@@ -1750,16 +1763,6 @@ body[data-page="jar"] .screen-title {
 }
 
 @media (max-width: 390px) {
-  .home-jar-full__art .jar-raster {
-    height: min(88dvh, 36rem);
-    max-width: none;
-    transform: translateY(-1rem) scale(1);
-    transform-origin: 50% 62%;
-  }
-  .home-jar-full__art .jar-raster__img {
-    max-height: min(88dvh, 36rem);
-    max-width: min(108vw, 30rem);
-  }
   .home-jar-full__content {
     inset: 27.8% 13% 12% 13%;
   }
