@@ -1860,8 +1860,8 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 0.84rem;
-  --shelf-y: 7.52rem;
+  --shelf-thickness: 1.65rem;
+  --shelf-y: 7.06rem;
 }
 
 .jar-list--visual li {
@@ -1882,7 +1882,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(74, 34, 24, 0.22);
   z-index: 0;
   pointer-events: none;
 }
@@ -1910,14 +1910,14 @@ body {
 }
 
 .jar-card__tape {
-  top: 60%;
+  top: 57%;
   transform: translate(-50%, -50%);
   width: min(60%, 4.8rem);
   padding: 0;
   background: transparent;
   border: none;
   border-radius: 0;
-  font-size: 0.64rem;
+  font-size: 0.56rem;
   clip-path: none;
   box-shadow: none;
   color: #5c2d33;
@@ -1949,7 +1949,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 6.3rem;
+    --shelf-y: 5.9rem;
   }
 
   .jar-card__art .jar-raster--list {
