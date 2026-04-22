@@ -1860,8 +1860,8 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 1.65rem;
-  --shelf-y: 7.06rem;
+  --shelf-thickness: 2.55rem;
+  --shelf-y: 6.56rem;
 }
 
 .jar-list--visual li {
@@ -1949,7 +1949,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 5.9rem;
+    --shelf-y: 5.45rem;
   }
 
   .jar-card__art .jar-raster--list {
@@ -2093,14 +2093,15 @@ body::after {
 }
 
 .icon-nav {
+  --nav-hit-area: 4.9rem;
   background-color: #ffe4dc;
   background-image: url("../assets/nav-bar-art.png");
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 100% 6.15rem;
+  background-size: 100% var(--nav-hit-area);
   border-top: none;
   box-shadow: none;
-  min-height: calc(6.15rem + env(safe-area-inset-bottom, 0px));
+  min-height: calc(var(--nav-hit-area) + env(safe-area-inset-bottom, 0px));
   padding: 0 0 calc(env(safe-area-inset-bottom, 0px));
   align-items: center;
 }
@@ -2112,7 +2113,7 @@ body::after {
   border-radius: 0;
   flex: 0 1 30%;
   max-width: 6.8rem;
-  min-height: 4.9rem;
+  min-height: var(--nav-hit-area);
   padding: 0;
   margin: 0 auto;
 }
