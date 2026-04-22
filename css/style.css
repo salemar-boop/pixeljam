@@ -2093,29 +2093,25 @@ body::after {
 }
 
 .icon-nav {
-  --nav-hit-area: 5.6rem;
-  background-color: #ffe4dc;
-  background-image: url("../assets/nav-bar-art.png");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 100% var(--nav-hit-area);
+  background: transparent;
   border-top: none;
   box-shadow: none;
-  min-height: calc(var(--nav-hit-area) + env(safe-area-inset-bottom, 0px));
-  padding: 0 0 calc(env(safe-area-inset-bottom, 0px));
+  min-height: auto;
+  padding: 0.18rem 0.45rem calc(0.35rem + env(safe-area-inset-bottom, 0px));
   align-items: center;
 }
 
 .icon-nav__link {
-  color: transparent;
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0;
+  color: #7a3a42;
+  background: rgba(255, 240, 234, 0.88) !important;
+  box-shadow: 0 1px 4px rgba(74, 34, 24, 0.1) !important;
+  border-radius: 1rem;
   flex: 0 1 30%;
   max-width: 6.8rem;
-  min-height: var(--nav-hit-area);
-  padding: 0;
+  min-height: 3.6rem;
+  padding: 0.18rem 0.35rem;
   margin: 0 auto;
+  border: 1px solid rgba(191, 112, 112, 0.35);
 }
 
 .icon-nav::before {
@@ -2124,38 +2120,30 @@ body::after {
 
 /* Paint iOS bottom safe area to prevent white strip flashes */
 .icon-nav::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: calc(env(safe-area-inset-bottom, 0px) + 2px);
-  background: #ffe4dc;
-  pointer-events: none;
-  z-index: -1;
+  content: none;
 }
 
 .icon-nav__link:hover {
-  color: transparent;
-  background: transparent !important;
+  color: #6a1f2a;
+  background: rgba(255, 236, 228, 0.95) !important;
 }
 
 .icon-nav__link.is-active {
-  color: transparent;
-  background: transparent !important;
-  box-shadow: none !important;
+  color: #8f2330;
+  background: rgba(247, 215, 217, 0.95) !important;
+  box-shadow: inset 0 0 0 1px rgba(166, 49, 59, 0.24) !important;
 }
 
 .icon-nav__link:active {
-  background: transparent !important;
-  color: transparent;
-  transform: translateY(0);
+  background: rgba(240, 200, 204, 0.95) !important;
+  color: #6a1c24;
+  transform: translateY(1px);
 }
 
 .icon-nav__icon,
 .icon-nav__label {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .jar-card__tape {
