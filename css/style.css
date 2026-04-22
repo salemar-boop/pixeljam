@@ -1877,9 +1877,9 @@ body {
   height: var(--shelf-thickness);
   border-radius: 0;
   background-image: url("../assets/shelf-art.png");
-  background-repeat: repeat-x;
-  background-position: center;
-  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
   box-shadow: none;
   z-index: 0;
   pointer-events: none;
@@ -2094,12 +2094,12 @@ body::after {
   background-color: #ffe4dc;
   background-image: url("../assets/nav-bar-art.png");
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: center center;
   background-size: 100% 100%;
   border-top: none;
   box-shadow: none;
-  min-height: calc(6.2rem + env(safe-area-inset-bottom, 0px));
-  padding: 0.42rem 0.45rem calc(0.58rem + env(safe-area-inset-bottom, 0px));
+  min-height: calc(7rem + env(safe-area-inset-bottom, 0px));
+  padding: 0.55rem 0.45rem calc(0.8rem + env(safe-area-inset-bottom, 0px));
 }
 
 .icon-nav__link {
@@ -2107,7 +2107,7 @@ body::after {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 0;
-  min-height: 4.75rem;
+  min-height: 5.3rem;
   padding: 0;
 }
 
