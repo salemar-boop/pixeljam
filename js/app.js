@@ -264,6 +264,17 @@
 
   /** Reference watercolor jam jar art (same asset as home-screen icon source). */
   var JAM_JAR_UI_SRC = "assets/jam-jar-ui.png";
+  var HOME_HERO_JAR_SRC = "assets/home-jar-hero.png";
+
+  function homeHeroJarHtml() {
+    return (
+      '<div class="jar-raster jar-raster--hero">' +
+      '<img class="jar-raster__img" src="' +
+      HOME_HERO_JAR_SRC +
+      '" alt="" decoding="async" fetchpriority="high" />' +
+      "</div>"
+    );
+  }
 
   /** @param {"home"|"list"|"detail"} variant */
   function jamJarRasterHtml(variant) {
@@ -294,22 +305,18 @@
     setFooter("", false);
 
     var html = "";
-    html += '<section class="home-jar-full">';
-    html += '<div class="home-jar-full__art">' + jamJarRasterHtml("home") + "</div>";
-    html += '<div class="home-jar-full__content">';
+    html += '<section class="home-stack">';
+    html += '<div class="home-stack__art">' + homeHeroJarHtml() + "</div>";
+    html += '<div class="home-stack__content">';
     html += '<p class="home-prompt-title">Today\'s Prompt:</p>';
     html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
-    html += '<div class="home-jar-full__actions">';
+    html += '<p class="home-date-small hero-jar__meta">' + escapeHtml(formatToday()) + "</p>";
+    html += '<div class="home-stack__actions">';
     html +=
-      '<button type="button" class="btn primary btn-home-add" id="btn-capture-prompt" data-burst="plus" data-burst-distance="34">Add Photo</button>';
-    html += '<div class="quick-links quick-links--home-inside">';
-    html +=
-      '<a class="btn ghost btn-home-small" href="jars.html" data-burst="confetti" data-burst-duration="580">Mine</a>';
-    html +=
-      '<a class="btn ghost btn-home-small" href="shared.html" data-burst="spark" data-burst-count="9" data-burst-distance="18">Shared</a>';
+      '<button type="button" class="btn jar-action-btn" id="btn-capture-prompt" aria-label="Add photo" data-burst="plus" data-burst-count="12" data-burst-distance="24">' +
+      '<img class="jar-action-icon" src="assets/jar-btn-add.png" alt="" loading="eager" decoding="async" />' +
+      "</button>";
     html += "</div>";
-    html += "</div>";
-    html += '<p class="hero-jar__meta">' + escapeHtml(formatToday()) + "</p>";
     html += "</div>";
     html += "</section>";
 
