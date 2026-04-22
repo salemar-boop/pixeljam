@@ -2142,3 +2142,23 @@ body::after {
 .nav-link {
   border-bottom: 1px solid rgba(217, 122, 122, 0.4);
 }
+
+/* Handwritten font pass */
+body,
+.btn,
+.icon-nav__label,
+.screen-title,
+.home-prompt-title,
+.home-prompt-big,
+.jar-card__tape,
+.jar-card__owner,
+.modal-title,
+.modal-caption,
+.toast {
+  font-family: "Gloria Hallelujah", "Caveat", "Patrick Hand", cursive;
+}
+
+.home-prompt-big,
+.screen-title {
+  font-family: "Caveat", "Gloria Hallelujah", "Patrick Hand", cursive;
+}
