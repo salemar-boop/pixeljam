@@ -2094,12 +2094,13 @@ body::after {
   background-color: #ffe4dc;
   background-image: url("../assets/nav-bar-art.png");
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 100% 100%;
+  background-position: center top;
+  background-size: 100% 6.15rem;
   border-top: none;
   box-shadow: none;
-  min-height: calc(7rem + env(safe-area-inset-bottom, 0px));
-  padding: 0.55rem 0.45rem calc(0.8rem + env(safe-area-inset-bottom, 0px));
+  min-height: calc(6.15rem + env(safe-area-inset-bottom, 0px));
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0px));
+  align-items: stretch;
 }
 
 .icon-nav__link {
@@ -2107,8 +2108,12 @@ body::after {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 0;
-  min-height: 5.3rem;
+  min-height: 6.15rem;
   padding: 0;
+}
+
+.icon-nav::before {
+  display: none;
 }
 
 .icon-nav__link:hover {
