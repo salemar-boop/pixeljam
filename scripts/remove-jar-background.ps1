@@ -9,6 +9,7 @@ $root = Split-Path -Parent $PSScriptRoot
 $targets = @(
   (Join-Path $root "assets/jam-jar-ui.png"),
   (Join-Path $root "assets/home-jar-hero.png"),
+  (Join-Path $root "assets/home-btn-add.png"),
   (Join-Path $root "assets/jam-app-icon.png"),
   (Join-Path $root "assets/jar-btn-add.png"),
   (Join-Path $root "assets/jar-btn-shake.png"),
