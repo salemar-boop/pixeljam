@@ -1716,8 +1716,8 @@ body[data-page="home"] .main {
 }
 
 body[data-page="jar"] .main {
-  padding-top: calc(0.28rem + env(safe-area-inset-top, 0px));
-  padding-bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px));
+  padding-top: calc(0.04rem + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(4.15rem + env(safe-area-inset-bottom, 0px));
 }
 
 body[data-page="jar"] .screen-title {
@@ -1728,12 +1728,12 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-preview-wrap--screen {
-  min-height: calc(100svh - 16.2rem - env(safe-area-inset-bottom, 0px));
+  min-height: calc(100dvh - 18.8rem - env(safe-area-inset-bottom, 0px));
   max-height: none;
 }
 
 .jar-preview-wrap--screen .jar-raster {
-  width: min(84vw, 360px);
+  width: min(80vw, 336px);
   margin: 0 auto;
 }
 
@@ -1746,7 +1746,7 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-actions--below {
-  margin-top: 0.18rem;
+  margin-top: -0.32rem;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.12rem;
@@ -1800,7 +1800,7 @@ body[data-page="jar"] .screen-title {
     font-size: 0.86rem;
   }
   .jar-preview-wrap--screen {
-    min-height: calc(100svh - 15.5rem - env(safe-area-inset-bottom, 0px));
+    min-height: calc(100dvh - 17.8rem - env(safe-area-inset-bottom, 0px));
   }
 
   body[data-page="jar"] .screen-title {
