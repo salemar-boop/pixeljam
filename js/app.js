@@ -587,7 +587,7 @@
       html += '<span class="jar-card__badge">' + j.photos.length + "</span>";
       html += '<span class="jar-card__art">' + jamJarRasterHtml("list") + "</span>";
       html += '<span class="jar-card__tape">' + escapeHtml(j.name) + "</span>";
-      html += '<span class="jar-card__owner">Shared with: ' + escapeHtml(j.ownerName || "Friend") + "</span>";
+      html += '<span class="jar-card__owner">' + escapeHtml(j.ownerName || "Friend") + "</span>";
       html += "</a>";
       html += "</li>";
     });
