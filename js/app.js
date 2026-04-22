@@ -264,6 +264,7 @@
 
   /** Reference watercolor jam jar art (same asset as home-screen icon source). */
   var JAM_JAR_UI_SRC = "assets/jam-jar-ui.png";
+  var JAR_LIST_UI_SRC = "assets/jar-list-ui.png";
   var HOME_HERO_JAR_SRC = "assets/home-jar-hero.png";
 
   function homeHeroJarHtml() {
@@ -279,6 +280,7 @@
   /** @param {"home"|"list"|"detail"} variant */
   function jamJarRasterHtml(variant) {
     var v = variant === "list" || variant === "detail" ? variant : "home";
+    var src = v === "list" ? JAR_LIST_UI_SRC : JAM_JAR_UI_SRC;
     var imgAttrs =
       v === "home"
         ? ' decoding="async" fetchpriority="high"'
@@ -288,7 +290,7 @@
       v +
       '">' +
       '<img class="jar-raster__img" src="' +
-      JAM_JAR_UI_SRC +
+      src +
       '" alt="" ' +
       imgAttrs +
       " />" +
