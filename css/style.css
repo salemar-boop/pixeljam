@@ -1875,19 +1875,12 @@ body {
   top: var(--shelf-y);
   width: calc(200% + var(--shelf-gap) - 0.16rem);
   height: var(--shelf-thickness);
-  border-radius: 0.35rem;
-  background:
-    linear-gradient(180deg, rgba(255, 235, 204, 0.32) 0%, rgba(255, 235, 204, 0) 36%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(119, 76, 46, 0.14) 0 9px,
-      rgba(165, 111, 73, 0.1) 9px 18px
-    ),
-    linear-gradient(180deg, #c79667 0%, #b57e54 56%, #9b6944 100%);
-  box-shadow:
-    0 2px 7px rgba(65, 38, 25, 0.2),
-    inset 0 1px 0 rgba(255, 236, 216, 0.3),
-    inset 0 -1px 0 rgba(110, 72, 46, 0.24);
+  border-radius: 0;
+  background-image: url("../assets/shelf-art.png");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 100%;
+  box-shadow: none;
   z-index: 0;
   pointer-events: none;
 }
