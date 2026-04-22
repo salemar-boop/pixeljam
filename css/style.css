@@ -2093,7 +2093,7 @@ body::after {
 }
 
 .icon-nav {
-  --nav-hit-area: 4.9rem;
+  --nav-hit-area: 5.6rem;
   background-color: #ffe4dc;
   background-image: url("../assets/nav-bar-art.png");
   background-repeat: no-repeat;
