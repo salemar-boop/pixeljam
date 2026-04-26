@@ -2150,6 +2150,7 @@ body::after {
 
 .icon-nav__link[data-nav="jars"] {
   background-image: url("../icons/jars.svg") !important;
+  background-size: 95% auto !important;
 }
 
 .icon-nav__link[data-nav="shared"] {
