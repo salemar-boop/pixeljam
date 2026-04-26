@@ -1486,8 +1486,8 @@ body[data-page="home"] .main {
 }
 
 .home-stack__art .jar-raster--hero {
-  width: min(126vw, 35rem);
-  max-height: min(70vh, 40rem);
+  width: min(136vw, 39rem);
+  max-height: min(74vh, 44rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1496,7 +1496,7 @@ body[data-page="home"] .main {
 .home-stack__art .jar-raster--hero .jar-raster__img {
   width: 100%;
   height: auto;
-  max-height: min(70vh, 40rem);
+  max-height: min(74vh, 44rem);
   object-fit: contain;
   object-position: center center;
   filter: drop-shadow(0 10px 24px rgba(43, 22, 23, 0.2));
