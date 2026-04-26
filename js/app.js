@@ -311,16 +311,18 @@
     html += '<div class="home-stack__art">' + homeHeroJarHtml() + "</div>";
     html += '<div class="home-stack__content">';
     html += '<div class="home-prompt-row">';
+    html += '<div class="home-prompt-meta">';
     html += '<p class="home-prompt-title">Today\'s Prompt:</p>';
     html += '<p class="home-date-small hero-jar__meta">' + escapeHtml(formatToday()) + "</p>";
     html += "</div>";
-    html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
     html += '<div class="home-stack__actions">';
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-capture-prompt" aria-label="Add photo" data-burst="plus" data-burst-count="12" data-burst-distance="24">' +
       '<img class="jar-action-icon" src="assets/home-btn-add.png" alt="" loading="eager" decoding="async" />' +
       "</button>";
     html += "</div>";
+    html += "</div>";
+    html += '<p class="home-prompt-big">' + escapeHtml(todayPrompt()) + "</p>";
     html += "</div>";
     html += "</section>";
 
