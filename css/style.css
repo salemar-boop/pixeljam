@@ -1060,6 +1060,40 @@ body::after {
   image-rendering: pixelated;
 }
 
+.jar-grid-modal {
+  width: min(24rem, 94vw);
+  max-height: 82dvh;
+  overflow: auto;
+}
+
+.jar-grid-modal__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.48rem;
+}
+
+.jar-grid-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.jar-grid-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid rgba(141, 70, 61, 0.35);
+  border-radius: 0.36rem;
+}
+
+.jar-grid-item figcaption {
+  font-size: 0.58rem;
+  line-height: 1.1;
+  color: #7a3540;
+  text-align: center;
+}
+
 .share-box {
   margin-top: 1rem;
   padding: 0.75rem;

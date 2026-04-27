@@ -95,6 +95,25 @@
     }
   }
 
+  function ensureJarGridModal() {
+    var existing = document.getElementById("modal-jar-grid");
+    if (existing) return existing;
+    var el = document.createElement("div");
+    el.className = "modal";
+    el.id = "modal-jar-grid";
+    el.hidden = true;
+    el.setAttribute("role", "dialog");
+    el.setAttribute("aria-modal", "true");
+    el.innerHTML =
+      '<div class="modal-card jar-grid-modal">' +
+      '<button type="button" class="modal-close" id="modal-jar-grid-close" aria-label="Close">×</button>' +
+      '<p class="modal-title" id="modal-jar-grid-title">All photos</p>' +
+      '<div class="jar-grid-modal__list" id="modal-jar-grid-list"></div>' +
+      "</div>";
+    document.body.appendChild(el);
+    return el;
+  }
+
   var mainEl = document.getElementById("main");
   var modalMemory = document.getElementById("modal-memory");
   var modalMemoryImg = document.getElementById("modal-memory-img");
@@ -107,6 +126,10 @@
   var newJarCancel = document.getElementById("new-jar-cancel");
   var newJarSave = document.getElementById("new-jar-save");
   var cameraInput = document.getElementById("camera-input");
+  var modalJarGrid = ensureJarGridModal();
+  var modalJarGridList = document.getElementById("modal-jar-grid-list");
+  var modalJarGridTitle = document.getElementById("modal-jar-grid-title");
+  var modalJarGridClose = document.getElementById("modal-jar-grid-close");
 
   var pendingCapture = null; // { jarId } or null for daily default jar
   var motionShakeHandlerBound = false;
@@ -411,7 +434,8 @@
         escapeHtml(jar.ownerHandle || "") +
         "</p>";
     }
-    html += '<div class="jar-preview-wrap jar-preview-wrap--main jar-preview-wrap--screen" id="jar-shake-zone">';
+    html +=
+      '<div class="jar-preview-wrap jar-preview-wrap--main jar-preview-wrap--screen" id="jar-shake-zone" role="button" tabindex="0" aria-label="Open all photos in this jar">';
     html += jamJarRasterHtml("detail");
     html += '<div class="jar-photo-well" id="jar-photo-well">';
     html += "</div>";
@@ -466,6 +490,29 @@
       photoWell.innerHTML = stackHtml;
     }
 
+    function openJarGrid() {
+      if (!jar.photos.length) {
+        toast("No photos in this jar yet.");
+        return;
+      }
+      var gridHtml = "";
+      jar.photos.forEach(function (p, idx) {
+        var cap = p.caption || p.addedLabel || "";
+        gridHtml +=
+          '<figure class="jar-grid-item">' +
+          '<img src="' +
+          escapeHtml(photoSrc(p)) +
+          '" alt="' +
+          escapeHtml(cap || "Photo " + (idx + 1)) +
+          '" loading="lazy" decoding="async" />' +
+          (cap ? '<figcaption>' + escapeHtml(cap) + "</figcaption>" : "") +
+          "</figure>";
+      });
+      modalJarGridTitle.textContent = jar.name + " — all photos";
+      modalJarGridList.innerHTML = gridHtml;
+      modalJarGrid.hidden = false;
+    }
+
     function stepStack(delta) {
       if (jar.photos.length < 2) return;
       stackStart = (stackStart + delta + jar.photos.length) % jar.photos.length;
@@ -475,6 +522,19 @@
     renderPhotoStack();
 
     if (shakeZone) {
+      shakeZone.addEventListener("click", function (e) {
+        if (e.target && e.target.closest(".jar-photo-note")) {
+          openJarGrid();
+          return;
+        }
+        openJarGrid();
+      });
+      shakeZone.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openJarGrid();
+        }
+      });
       shakeZone.addEventListener(
         "touchstart",
         function (e) {
@@ -742,6 +802,19 @@
   modalMemory.addEventListener("click", function (e) {
     if (e.target === modalMemory) closeMemoryModal();
   });
+  function closeJarGridModal() {
+    if (!modalJarGrid) return;
+    modalJarGrid.hidden = true;
+    if (modalJarGridList) modalJarGridList.innerHTML = "";
+  }
+  if (modalJarGridClose) {
+    modalJarGridClose.addEventListener("click", closeJarGridModal);
+  }
+  if (modalJarGrid) {
+    modalJarGrid.addEventListener("click", function (e) {
+      if (e.target === modalJarGrid) closeJarGridModal();
+    });
+  }
 
   function closeNewJarModal() {
     if (modalNewJar) modalNewJar.hidden = true;
@@ -774,6 +847,7 @@
     if (e.key !== "Escape") return;
     closeNewJarModal();
     closeMemoryModal();
+    closeJarGridModal();
   });
 
   function motionReduced() {
