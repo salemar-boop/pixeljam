@@ -1909,7 +1909,7 @@ body {
   justify-content: start;
   --shelf-gap: 0.56rem;
   --shelf-thickness: 1.7rem;
-  --shelf-y: 6.65rem;
+  --shelf-y: 6.95rem;
 }
 
 .jar-list--visual li {
@@ -1996,7 +1996,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 5.75rem;
+    --shelf-y: 6.05rem;
   }
 
   .jar-card__art .jar-raster--list {
