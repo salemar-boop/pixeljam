@@ -1873,8 +1873,8 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 3.85rem;
-  --shelf-y: 5.9rem;
+  --shelf-thickness: 4.85rem;
+  --shelf-y: 5.35rem;
 }
 
 .jar-list--visual li {
@@ -1886,16 +1886,18 @@ body {
 .jar-list--visual li:nth-child(odd)::after {
   content: "";
   position: absolute;
-  left: 0;
+  left: -10%;
   top: var(--shelf-y);
-  width: calc(200% + var(--shelf-gap));
+  width: calc(220% + var(--shelf-gap));
   height: var(--shelf-thickness);
   border-radius: 0;
   background-image: url("../icons/wood.svg");
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center bottom;
   background-size: 100% 100%;
   box-shadow: none;
+  transform: perspective(420px) rotateX(9deg);
+  transform-origin: center top;
   z-index: 0;
   pointer-events: none;
 }
@@ -1962,7 +1964,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 4.8rem;
+    --shelf-y: 4.4rem;
   }
 
   .jar-card__art .jar-raster--list {
@@ -2163,7 +2165,7 @@ body::after {
 
 .icon-nav__link[data-nav="jars"] {
   background-image: url("../icons/jarss.svg") !important;
-  background-size: 93% auto !important;
+  background-size: 88% auto !important;
 }
 
 .icon-nav__link[data-nav="shared"] {
