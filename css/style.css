@@ -1480,14 +1480,14 @@ body[data-page="home"] .main {
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin-top: -0.1rem;
+  margin-top: 0.48rem;
   transform: none;
   flex-shrink: 0;
 }
 
 .home-stack__art .jar-raster--hero {
-  width: min(132vw, 39rem);
-  max-height: min(72vh, 44rem);
+  width: min(138vw, 42rem);
+  max-height: min(76vh, 47rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1496,7 +1496,7 @@ body[data-page="home"] .main {
 .home-stack__art .jar-raster--hero .jar-raster__img {
   width: 100%;
   height: auto;
-  max-height: min(72vh, 44rem);
+  max-height: min(76vh, 47rem);
   object-fit: contain;
   object-position: center center;
   filter: none;
@@ -1742,14 +1742,15 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-preview-wrap--screen .jar-raster {
-  width: min(86vw, 356px);
+  width: min(92vw, 392px);
   margin: 0 auto;
+  transform: translateY(0.5rem);
 }
 
 .jar-preview-wrap--screen .jar-photo-well {
-  width: min(64vw, 252px);
-  height: min(46vw, 188px);
-  top: 56%;
+  width: min(68vw, 274px);
+  height: min(50vw, 208px);
+  top: 58%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -1873,8 +1874,8 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 2.15rem;
-  --shelf-y: 6.15rem;
+  --shelf-thickness: 2.4rem;
+  --shelf-y: 6.05rem;
 }
 
 .jar-list--visual li {
@@ -1886,17 +1887,14 @@ body {
 .jar-list--visual li:nth-child(odd)::after {
   content: "";
   position: absolute;
-  left: -2%;
+  left: 2%;
   top: var(--shelf-y);
-  width: calc(204% + var(--shelf-gap));
+  width: calc(186% + var(--shelf-gap));
   height: var(--shelf-thickness);
   border-radius: 0.08rem;
-  background-image: url("../icons/wood.svg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 100% 100%;
+  background: #5b2219;
   box-shadow: none;
-  transform: perspective(420px) rotateX(6deg);
+  transform: perspective(420px) rotateX(9deg);
   transform-origin: center top;
   z-index: 0;
   pointer-events: none;
@@ -1964,7 +1962,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 5.7rem;
+    --shelf-y: 5.15rem;
   }
 
   .jar-card__art .jar-raster--list {
