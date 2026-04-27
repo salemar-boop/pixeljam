@@ -1480,14 +1480,14 @@ body[data-page="home"] .main {
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin-top: 0.48rem;
+  margin-top: 1.42rem;
   transform: none;
   flex-shrink: 0;
 }
 
 .home-stack__art .jar-raster--hero {
-  width: min(138vw, 42rem);
-  max-height: min(76vh, 47rem);
+  width: min(145vw, 46rem);
+  max-height: min(82vh, 52rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1496,7 +1496,7 @@ body[data-page="home"] .main {
 .home-stack__art .jar-raster--hero .jar-raster__img {
   width: 100%;
   height: auto;
-  max-height: min(76vh, 47rem);
+  max-height: min(82vh, 52rem);
   object-fit: contain;
   object-position: center center;
   filter: none;
@@ -1744,13 +1744,13 @@ body[data-page="jar"] .screen-title {
 .jar-preview-wrap--screen .jar-raster {
   width: min(92vw, 392px);
   margin: 0 auto;
-  transform: translateY(0.5rem);
+  transform: translateY(0.95rem);
 }
 
 .jar-preview-wrap--screen .jar-photo-well {
   width: min(68vw, 274px);
   height: min(50vw, 208px);
-  top: 58%;
+  top: 55.8%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
