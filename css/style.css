@@ -1742,16 +1742,20 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-preview-wrap--screen .jar-raster {
-  width: min(92vw, 398px);
+  width: min(86vw, 356px);
   margin: 0 auto;
 }
 
 .jar-preview-wrap--screen .jar-photo-well {
-  width: min(58vw, 224px);
-  height: min(42vw, 164px);
+  width: min(64vw, 252px);
+  height: min(46vw, 188px);
   top: 56%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.jar-preview-wrap--screen .jar-raster__img {
+  filter: none;
 }
 
 .jar-actions--below {
@@ -1793,8 +1797,8 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-photo-note {
-  width: min(26vw, 98px);
-  height: min(26vw, 98px);
+  width: min(31vw, 118px);
+  height: min(31vw, 118px);
   border-radius: 6px;
   border: 1px solid #f4efe4;
   box-shadow: 0 3px 10px rgba(16, 18, 34, 0.32);
@@ -1869,8 +1873,8 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 3.1rem;
-  --shelf-y: 6.2rem;
+  --shelf-thickness: 3.85rem;
+  --shelf-y: 5.9rem;
 }
 
 .jar-list--visual li {
@@ -1882,16 +1886,16 @@ body {
 .jar-list--visual li:nth-child(odd)::after {
   content: "";
   position: absolute;
-  left: 0.08rem;
+  left: 0;
   top: var(--shelf-y);
-  width: calc(200% + var(--shelf-gap) - 0.16rem);
+  width: calc(200% + var(--shelf-gap));
   height: var(--shelf-thickness);
   border-radius: 0;
   background-image: url("../icons/wood.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
-  box-shadow: 0 2px 6px rgba(74, 34, 24, 0.22);
+  box-shadow: none;
   z-index: 0;
   pointer-events: none;
 }
@@ -1958,7 +1962,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 5.1rem;
+    --shelf-y: 4.8rem;
   }
 
   .jar-card__art .jar-raster--list {
