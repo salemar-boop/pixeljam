@@ -1890,11 +1890,8 @@ body {
   top: var(--shelf-y);
   width: calc(220% + var(--shelf-gap));
   height: var(--shelf-thickness);
-  border-radius: 0;
-  background-image: url("../icons/wood.svg");
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 100% 100%;
+  border-radius: 0.08rem;
+  background: #5b2219;
   box-shadow: none;
   transform: perspective(420px) rotateX(9deg);
   transform-origin: center top;
