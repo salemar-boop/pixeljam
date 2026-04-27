@@ -1740,7 +1740,7 @@ body[data-page="jar"] .screen-title {
 }
 
 .jar-preview-wrap--screen .jar-raster {
-  width: min(80vw, 336px);
+  width: min(92vw, 398px);
   margin: 0 auto;
 }
 
@@ -1867,8 +1867,8 @@ body {
   justify-items: start;
   justify-content: start;
   --shelf-gap: 0.56rem;
-  --shelf-thickness: 2.55rem;
-  --shelf-y: 6.56rem;
+  --shelf-thickness: 3.1rem;
+  --shelf-y: 6.2rem;
 }
 
 .jar-list--visual li {
@@ -1885,7 +1885,7 @@ body {
   width: calc(200% + var(--shelf-gap) - 0.16rem);
   height: var(--shelf-thickness);
   border-radius: 0;
-  background-image: url("../assets/shelf-art.png");
+  background-image: url("../icons/wood.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
@@ -1956,7 +1956,7 @@ body {
 
 @media (min-width: 520px) {
   .jar-list--visual {
-    --shelf-y: 5.45rem;
+    --shelf-y: 5.1rem;
   }
 
   .jar-card__art .jar-raster--list {
@@ -2156,7 +2156,7 @@ body::after {
 }
 
 .icon-nav__link[data-nav="jars"] {
-  background-image: url("../icons/jars.svg") !important;
+  background-image: url("../icons/jarss.svg") !important;
   background-size: 100% auto !important;
 }
 

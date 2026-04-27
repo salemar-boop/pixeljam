@@ -263,9 +263,9 @@
   }
 
   /** Detail jar artwork (inside jar view). */
-  var JAM_JAR_UI_SRC = "icons/plain%20jar.svg";
+  var JAM_JAR_UI_SRC = "icons/empty%20jar.svg";
   var JAR_LIST_UI_SRC = "assets/jar-list-ui.png";
-  var HOME_HERO_JAR_SRC = "icons/jat%20title.svg";
+  var HOME_HERO_JAR_SRC = "icons/homepage%20jar.svg";
 
   function homeHeroJarHtml() {
     return (
