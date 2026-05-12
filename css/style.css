@@ -1135,6 +1135,17 @@ body::after {
   }
 }
 
+/* Jar detail: toasts sit above bottom nav + action buttons */
+body[data-page="jar"] .toast {
+  bottom: calc(9.25rem + env(safe-area-inset-bottom, 0px));
+}
+
+.empty-state--jar-empty {
+  text-align: center;
+  margin: 0.35rem 0 0.75rem;
+  padding: 0 0.5rem;
+}
+
 @media (min-width: 400px) {
   html {
     font-size: 20px;

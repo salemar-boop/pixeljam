@@ -440,6 +440,9 @@
     html += '<div class="jar-photo-well" id="jar-photo-well">';
     html += "</div>";
     html += "</div>";
+    if (!jar.photos.length) {
+      html += '<p class="empty-state empty-state--jar-empty">No photos yet.</p>';
+    }
     html += '<div class="jar-actions jar-actions--below">';
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-clear-jar" aria-label="Clear jar" data-burst="spark" data-burst-count="8" data-burst-distance="16"><img class="jar-action-icon" src="assets/jar-btn-clear.png" alt="" loading="lazy" decoding="async" /></button>';
@@ -450,7 +453,6 @@
     html +=
       '<button type="button" class="btn jar-action-btn" id="btn-add-jar" aria-label="Add photo" data-burst="plus" data-burst-count="12"><img class="jar-action-icon" src="assets/jar-btn-add.png" alt="" loading="lazy" decoding="async" /></button>';
     html += "</div>";
-    if (!jar.photos.length) html += '<p class="empty-state">No photos yet.</p>';
 
     mainEl.innerHTML = html;
 
