@@ -1525,7 +1525,9 @@ body[data-page="home"] .main {
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin-top: 1.42rem;
+  /* Sit lower on the screen so the jar reads as centered in the viewport, not bundled with the prompt row */
+  margin-top: clamp(3.25rem, 16vh, 8.75rem);
+  margin-bottom: clamp(0.85rem, 3.5vh, 2.25rem);
   transform: none;
   flex-shrink: 0;
 }
@@ -1550,7 +1552,7 @@ body[data-page="home"] .main {
 .home-stack__content {
   width: 100%;
   max-width: 23rem;
-  margin: auto auto 1.2rem;
+  margin: 0 auto 1.2rem;
   padding: 0.2rem 0.5rem 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
